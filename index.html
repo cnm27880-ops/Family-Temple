@@ -8,8 +8,8 @@
   <meta http-equiv="Content-Security-Policy"
         content="default-src 'self';
                  script-src 'self';
-                 style-src 'self' https://fonts.googleapis.com 'unsafe-inline';
-                 font-src 'self' https://fonts.gstatic.com;
+                 style-src 'self' https://fonts.googleapis.com https://unpkg.com 'unsafe-inline';
+                 font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net https://unpkg.com;
                  img-src 'self' data:;
                  connect-src 'self';
                  frame-src 'none';
@@ -32,7 +32,11 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@300;400;700&family=Liu+Jian+Mao+Cao&family=Noto+Serif+TC:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@300;400;700&family=Noto+Serif+TC:wght@400;700;900&display=swap" rel="stylesheet">
+
+  <!-- 峄山碑篆体 (Seal Script) — for stamp/seal -->
+  <link rel="stylesheet" href="https://unpkg.com/@chinese-fonts/ysbzt@3.0.0/dist/%E5%B3%84%E5%B1%B1%E7%A2%91%E7%AF%86%E4%BD%93/result.css">
 
   <!-- Stylesheet -->
   <link rel="stylesheet" href="css/styles.css">
@@ -73,8 +77,8 @@
         <svg viewBox="0 0 70 70" fill="none">
           <rect x="5" y="5" width="60" height="60" rx="4" stroke="#C4362A" stroke-width="3"/>
           <rect x="10" y="10" width="50" height="50" rx="2" stroke="#C4362A" stroke-width="1" opacity=".5"/>
-          <text x="35" y="33" text-anchor="middle" font-family="LXGW WenKai TC,serif" font-size="18" font-weight="700" fill="#C4362A">無</text>
-          <text x="35" y="53" text-anchor="middle" font-family="LXGW WenKai TC,serif" font-size="18" font-weight="700" fill="#C4362A">極</text>
+          <text x="35" y="33" text-anchor="middle" font-family="峄山碑篆体,LXGW WenKai TC,serif" font-size="18" font-weight="700" fill="#C4362A">无</text>
+          <text x="35" y="53" text-anchor="middle" font-family="峄山碑篆体,LXGW WenKai TC,serif" font-size="18" font-weight="700" fill="#C4362A">极</text>
         </svg>
       </span>
     </h1>

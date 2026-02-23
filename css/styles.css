@@ -2,6 +2,18 @@
    天虛宮 — Main Stylesheet
    ============================================ */
 
+/* ---------- External Fonts ---------- */
+
+/* 正風毛筆 (MasaFont) — TC calligraphy / 行書 */
+@font-face {
+  font-family: 'MasaFont';
+  src: url('https://cdn.jsdelivr.net/gh/max32002/masafont@2.1/webfont/MasaFont-Regular.woff2') format('woff2'),
+       url('https://cdn.jsdelivr.net/gh/max32002/masafont@2.1/webfont/MasaFont-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* ---------- Design Tokens ---------- */
 :root {
   /* Colors — Vermillion */
@@ -45,7 +57,7 @@
   --space-xl: 6rem;
 
   /* Typography */
-  --font-calligraphy: 'Liu Jian Mao Cao', cursive;
+  --font-calligraphy: 'MasaFont', 'LXGW WenKai TC', cursive;
   --font-display: 'LXGW WenKai TC', serif;
   --font-body: 'Noto Serif TC', 'LXGW WenKai TC', serif;
 
@@ -504,7 +516,7 @@ body > * {
 .hero-subtitle-top {
   font-family: var(--font-display);
   font-size: .9rem;
-  font-weight: 400;
+  font-weight: 700;
   color: var(--gold);
   letter-spacing: .5em;
   margin-bottom: var(--space-sm);
@@ -570,7 +582,7 @@ body > * {
 .hero-motto {
   font-family: var(--font-display);
   font-size: clamp(1rem, 2.5vw, 1.3rem);
-  font-weight: 400;
+  font-weight: 700;
   color: var(--gold);
   letter-spacing: .35em;
   opacity: 0;
@@ -580,7 +592,7 @@ body > * {
 .hero-desc {
   font-family: var(--font-display);
   font-size: 1rem;
-  font-weight: 400;
+  font-weight: 700;
   color: rgba(242, 235, 221, .6);
   max-width: 480px;
   margin: var(--space-md) auto 0;
@@ -689,7 +701,7 @@ body > * {
 .section-label {
   font-family: var(--font-display);
   font-size: .8rem;
-  font-weight: 400;
+  font-weight: 700;
   color: var(--celadon-dim);
   letter-spacing: .4em;
 }
@@ -742,7 +754,7 @@ body > * {
   color: var(--text-secondary);
   margin-top: .8rem;
   font-family: var(--font-display);
-  font-weight: 400;
+  font-weight: 700;
   font-size: .95rem;
   letter-spacing: .1em;
 }
@@ -822,7 +834,7 @@ body > * {
   color: var(--text-secondary);
   margin-bottom: var(--space-sm);
   line-height: 2.2;
-  font-weight: 400;
+  font-weight: 700;
 }
 
 .about-stats {
@@ -943,7 +955,7 @@ body > * {
   font-size: .9rem;
   color: rgba(242, 235, 221, .5);
   line-height: 2;
-  font-weight: 400;
+  font-weight: 700;
 }
 
 /* ---------- Features Section ---------- */
@@ -1023,7 +1035,7 @@ body > * {
   font-size: .9rem;
   color: var(--text-secondary);
   line-height: 1.9;
-  font-weight: 400;
+  font-weight: 700;
   position: relative;
   z-index: 1;
 }
@@ -1131,7 +1143,7 @@ body > * {
 
 .visit-guide p {
   font-family: var(--font-display);
-  font-weight: 400;
+  font-weight: 700;
   color: var(--text-secondary);
   line-height: 2.2;
   margin-top: .5rem;
@@ -1162,7 +1174,7 @@ body > * {
 .footer-brand p {
   font-family: var(--font-display);
   font-size: .9rem;
-  font-weight: 400;
+  font-weight: 700;
   color: rgba(242, 235, 221, .4);
   line-height: 2;
   max-width: 300px;
@@ -1188,7 +1200,7 @@ body > * {
 .footer-links a {
   font-family: var(--font-display);
   font-size: .9rem;
-  font-weight: 400;
+  font-weight: 700;
   color: rgba(242, 235, 221, .4);
   transition: color .3s;
 }
@@ -1203,7 +1215,7 @@ body > * {
   border-top: 1px solid rgba(212, 168, 67, .08);
   font-family: var(--font-display);
   font-size: .8rem;
-  font-weight: 400;
+  font-weight: 700;
   color: rgba(242, 235, 221, .2);
 }
 
