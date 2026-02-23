@@ -1,0 +1,1382 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>福安宮 — 祈福納祥・庇佑平安</title>
+  <meta name="description" content="福安宮官方網站 — 歷史悠久的在地信仰中心，提供線上擲筊、求籤、點燈登記等服務。">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================
+       CSS Variables — Temple Color System
+       ============================================ */
+    :root {
+      /* Core palette */
+      --vermillion: #C4362A;
+      --vermillion-deep: #8B1A1A;
+      --vermillion-light: #E85D4A;
+      --gold: #D4A843;
+      --gold-bright: #F0C75E;
+      --gold-dim: #A07D2E;
+      --ink-black: #1A1A1A;
+      --ink-dark: #2C2C2C;
+      --ink-medium: #4A4A4A;
+      --parchment: #F5F0E8;
+      --parchment-light: #FAF7F2;
+      --parchment-warm: #EDE5D5;
+      --incense-smoke: rgba(200, 180, 150, 0.15);
+
+      /* Semantic */
+      --text-primary: var(--ink-black);
+      --text-secondary: var(--ink-medium);
+      --text-on-dark: var(--parchment);
+      --text-accent: var(--vermillion);
+      --bg-primary: var(--parchment-light);
+      --bg-section: var(--parchment);
+      --border-gold: var(--gold);
+
+      /* Spacing */
+      --space-xs: 0.5rem;
+      --space-sm: 1rem;
+      --space-md: 2rem;
+      --space-lg: 4rem;
+      --space-xl: 6rem;
+      --space-2xl: 8rem;
+
+      /* Typography */
+      --font-display: 'Noto Serif TC', serif;
+      --font-body: 'Noto Sans TC', sans-serif;
+
+      /* Transitions */
+      --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    /* ============================================
+       Reset & Base
+       ============================================ */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--text-primary);
+      background: var(--bg-primary);
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    /* ============================================
+       Utility Classes
+       ============================================ */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--space-md);
+    }
+
+    .section-padding {
+      padding: var(--space-xl) 0;
+    }
+
+    .text-center { text-align: center; }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+    }
+
+    /* ============================================
+       Decorative Elements
+       ============================================ */
+    .ornament {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin: var(--space-md) 0;
+    }
+
+    .ornament::before,
+    .ornament::after {
+      content: '';
+      height: 1px;
+      width: 60px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+
+    .ornament-icon {
+      color: var(--gold);
+      font-size: 1.2rem;
+    }
+
+    .gold-divider {
+      width: 80px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: var(--space-sm) auto;
+    }
+
+    /* ============================================
+       Navigation
+       ============================================ */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 1rem 0;
+      transition: all 0.4s var(--ease-smooth);
+      background: transparent;
+    }
+
+    .nav.scrolled {
+      background: rgba(26, 26, 26, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 0.6rem 0;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--space-md);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--gold-bright);
+      letter-spacing: 0.1em;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--parchment);
+      letter-spacing: 0.05em;
+      position: relative;
+      padding: 0.3rem 0;
+      transition: color 0.3s;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--gold);
+      transition: width 0.3s var(--ease-smooth);
+    }
+
+    .nav-links a:hover {
+      color: var(--gold-bright);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* Mobile menu toggle */
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 5px;
+    }
+
+    .nav-toggle span {
+      display: block;
+      width: 28px;
+      height: 2px;
+      background: var(--gold-bright);
+      transition: all 0.3s;
+    }
+
+    .nav-toggle.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+    .nav-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+    .nav-toggle.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    /* ============================================
+       Hero Section
+       ============================================ */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+      background: var(--ink-black);
+    }
+
+    /* Background layers */
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(196, 54, 42, 0.15) 0%, transparent 60%),
+        radial-gradient(ellipse at 50% 100%, rgba(212, 168, 67, 0.1) 0%, transparent 50%),
+        linear-gradient(180deg, #1A1A1A 0%, #2C1810 50%, #1A1A1A 100%);
+    }
+
+    /* Animated incense smoke particles */
+    .smoke-container {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .smoke-particle {
+      position: absolute;
+      bottom: -20px;
+      width: 2px;
+      background: linear-gradient(to top, rgba(200, 180, 150, 0.3), transparent);
+      animation: smoke-rise linear infinite;
+      opacity: 0;
+    }
+
+    @keyframes smoke-rise {
+      0% {
+        opacity: 0;
+        transform: translateY(0) translateX(0) scaleX(1);
+      }
+      10% {
+        opacity: 0.6;
+      }
+      50% {
+        opacity: 0.3;
+        transform: translateY(-40vh) translateX(20px) scaleX(2);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-80vh) translateX(-10px) scaleX(3);
+      }
+    }
+
+    /* Floating golden dust */
+    .dust-container {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .dust {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: var(--gold);
+      border-radius: 50%;
+      animation: dust-float linear infinite;
+      opacity: 0;
+    }
+
+    @keyframes dust-float {
+      0% { opacity: 0; transform: translateY(0); }
+      20% { opacity: 0.8; }
+      80% { opacity: 0.3; }
+      100% { opacity: 0; transform: translateY(-100vh); }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: var(--space-md);
+    }
+
+    .hero-subtitle-top {
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-weight: 300;
+      color: var(--gold);
+      letter-spacing: 0.4em;
+      margin-bottom: var(--space-sm);
+      opacity: 0;
+      animation: fadeInUp 1s var(--ease-smooth) 0.3s forwards;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 900;
+      color: var(--parchment);
+      line-height: 1.2;
+      margin-bottom: var(--space-xs);
+      opacity: 0;
+      animation: fadeInUp 1s var(--ease-smooth) 0.6s forwards;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    }
+
+    .hero-title .gold-char {
+      color: var(--gold-bright);
+      text-shadow: 0 0 40px rgba(212, 168, 67, 0.4);
+    }
+
+    .hero-motto {
+      font-family: var(--font-display);
+      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+      color: var(--gold);
+      letter-spacing: 0.3em;
+      margin-top: var(--space-sm);
+      opacity: 0;
+      animation: fadeInUp 1s var(--ease-smooth) 0.9s forwards;
+    }
+
+    .hero-desc {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      font-weight: 300;
+      color: rgba(245, 240, 232, 0.7);
+      max-width: 500px;
+      margin: var(--space-md) auto 0;
+      line-height: 2;
+      opacity: 0;
+      animation: fadeInUp 1s var(--ease-smooth) 1.2s forwards;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      gap: var(--space-sm);
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: var(--space-lg);
+      opacity: 0;
+      animation: fadeInUp 1s var(--ease-smooth) 1.5s forwards;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.9rem 2.2rem;
+      border-radius: 4px;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      transition: all 0.3s var(--ease-smooth);
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--vermillion);
+      color: var(--parchment);
+      box-shadow: 0 4px 15px rgba(196, 54, 42, 0.3);
+    }
+
+    .btn-primary:hover {
+      background: var(--vermillion-light);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(196, 54, 42, 0.4);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--gold);
+      border: 1px solid var(--gold);
+    }
+
+    .btn-outline:hover {
+      background: rgba(212, 168, 67, 0.1);
+      transform: translateY(-2px);
+    }
+
+    /* Scroll indicator */
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      opacity: 0;
+      animation: fadeInUp 1s var(--ease-smooth) 2s forwards;
+    }
+
+    .scroll-hint-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: rgba(212, 168, 67, 0.6);
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+    }
+
+    .scroll-arrow {
+      width: 20px;
+      height: 20px;
+      border-right: 1.5px solid var(--gold-dim);
+      border-bottom: 1.5px solid var(--gold-dim);
+      transform: rotate(45deg);
+      animation: scroll-bounce 2s infinite;
+    }
+
+    @keyframes scroll-bounce {
+      0%, 100% { transform: rotate(45deg) translateY(0); opacity: 0.6; }
+      50% { transform: rotate(45deg) translateY(6px); opacity: 1; }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ============================================
+       Section Headers
+       ============================================ */
+    .section-header {
+      text-align: center;
+      margin-bottom: var(--space-lg);
+    }
+
+    .section-label {
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--gold-dim);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 900;
+      color: var(--text-primary);
+      margin-top: 0.5rem;
+    }
+
+    .section-title.on-dark {
+      color: var(--parchment);
+    }
+
+    /* ============================================
+       About / History Section
+       ============================================ */
+    .about {
+      background: var(--bg-primary);
+      position: relative;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-lg);
+      align-items: center;
+    }
+
+    .about-image-wrapper {
+      position: relative;
+      aspect-ratio: 4/5;
+      overflow: hidden;
+      border-radius: 4px;
+    }
+
+    .about-image-placeholder {
+      width: 100%;
+      height: 100%;
+      background:
+        linear-gradient(135deg, var(--vermillion-deep) 0%, var(--ink-dark) 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+      font-family: var(--font-display);
+      gap: 1rem;
+    }
+
+    .about-image-placeholder .placeholder-icon {
+      font-size: 4rem;
+      opacity: 0.6;
+    }
+
+    .about-image-placeholder .placeholder-text {
+      font-size: 0.85rem;
+      opacity: 0.5;
+      letter-spacing: 0.1em;
+    }
+
+    .about-image-frame {
+      position: absolute;
+      inset: 12px;
+      border: 1px solid rgba(212, 168, 67, 0.3);
+      border-radius: 2px;
+      pointer-events: none;
+    }
+
+    .about-text h3 {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--vermillion-deep);
+      margin-bottom: var(--space-sm);
+    }
+
+    .about-text p {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      margin-bottom: var(--space-sm);
+      line-height: 2;
+    }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-sm);
+      margin-top: var(--space-md);
+      padding-top: var(--space-md);
+      border-top: 1px solid rgba(212, 168, 67, 0.2);
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--vermillion);
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      letter-spacing: 0.05em;
+    }
+
+    /* ============================================
+       Deities Section
+       ============================================ */
+    .deities {
+      background: var(--ink-black);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .deities::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(196, 54, 42, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 50%, rgba(212, 168, 67, 0.06) 0%, transparent 50%);
+    }
+
+    .deities-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--space-md);
+      position: relative;
+      z-index: 1;
+    }
+
+    .deity-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(212, 168, 67, 0.15);
+      border-radius: 4px;
+      padding: var(--space-md);
+      text-align: center;
+      transition: all 0.4s var(--ease-smooth);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .deity-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+
+    .deity-card:hover {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(212, 168, 67, 0.3);
+      transform: translateY(-4px);
+    }
+
+    .deity-card:hover::before {
+      opacity: 1;
+    }
+
+    .deity-icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto var(--space-sm);
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--vermillion-deep), var(--vermillion));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      box-shadow: 0 4px 20px rgba(196, 54, 42, 0.3);
+    }
+
+    .deity-name {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--gold-bright);
+      margin-bottom: 0.3rem;
+    }
+
+    .deity-title {
+      font-size: 0.85rem;
+      color: var(--gold-dim);
+      letter-spacing: 0.1em;
+      margin-bottom: var(--space-sm);
+    }
+
+    .deity-desc {
+      font-size: 0.9rem;
+      color: rgba(245, 240, 232, 0.6);
+      line-height: 1.8;
+    }
+
+    /* ============================================
+       Interactive Features Preview
+       ============================================ */
+    .features {
+      background: var(--bg-section);
+      position: relative;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: var(--space-md);
+    }
+
+    .feature-card {
+      background: var(--parchment-light);
+      border-radius: 8px;
+      padding: var(--space-md);
+      text-align: center;
+      transition: all 0.4s var(--ease-smooth);
+      border: 1px solid transparent;
+      cursor: pointer;
+    }
+
+    .feature-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-4px);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+    }
+
+    .feature-emoji {
+      font-size: 3rem;
+      margin-bottom: var(--space-sm);
+      display: block;
+      transition: transform 0.4s var(--ease-bounce);
+    }
+
+    .feature-card:hover .feature-emoji {
+      transform: scale(1.15) rotate(-5deg);
+    }
+
+    .feature-name {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .feature-desc {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    .feature-tag {
+      display: inline-block;
+      margin-top: var(--space-sm);
+      padding: 0.3rem 0.8rem;
+      background: rgba(196, 54, 42, 0.08);
+      color: var(--vermillion);
+      font-size: 0.75rem;
+      font-weight: 500;
+      border-radius: 20px;
+      letter-spacing: 0.05em;
+    }
+
+    /* ============================================
+       Info / Visit Section
+       ============================================ */
+    .visit {
+      background: var(--bg-primary);
+    }
+
+    .visit-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-lg);
+    }
+
+    .visit-info h3 {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--vermillion-deep);
+      margin-bottom: var(--space-sm);
+    }
+
+    .info-item {
+      display: flex;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-sm);
+      align-items: flex-start;
+    }
+
+    .info-icon {
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      background: rgba(196, 54, 42, 0.08);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      color: var(--vermillion);
+    }
+
+    .info-content {
+      flex: 1;
+    }
+
+    .info-label {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      letter-spacing: 0.05em;
+      margin-bottom: 0.2rem;
+    }
+
+    .info-value {
+      font-size: 1rem;
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    .map-placeholder {
+      width: 100%;
+      height: 100%;
+      min-height: 350px;
+      background: var(--parchment-warm);
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      border: 1px solid rgba(212, 168, 67, 0.2);
+    }
+
+    .map-placeholder .map-icon {
+      font-size: 3rem;
+      margin-bottom: var(--space-sm);
+      opacity: 0.5;
+    }
+
+    /* ============================================
+       Footer
+       ============================================ */
+    .footer {
+      background: var(--ink-black);
+      color: var(--parchment);
+      padding: var(--space-lg) 0 var(--space-md);
+    }
+
+    .footer-inner {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: var(--space-lg);
+      margin-bottom: var(--space-lg);
+    }
+
+    .footer-brand .footer-logo {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--gold-bright);
+      letter-spacing: 0.1em;
+      margin-bottom: var(--space-sm);
+    }
+
+    .footer-brand p {
+      font-size: 0.9rem;
+      color: rgba(245, 240, 232, 0.5);
+      line-height: 1.8;
+      max-width: 300px;
+    }
+
+    .footer-section h4 {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: var(--space-sm);
+      letter-spacing: 0.1em;
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-links a {
+      font-size: 0.9rem;
+      color: rgba(245, 240, 232, 0.5);
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: var(--gold-bright);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: var(--space-md);
+      border-top: 1px solid rgba(212, 168, 67, 0.1);
+      font-size: 0.8rem;
+      color: rgba(245, 240, 232, 0.3);
+    }
+
+    /* ============================================
+       Scroll Animations
+       ============================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s var(--ease-smooth);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ============================================
+       Responsive
+       ============================================ */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: rgba(26, 26, 26, 0.98);
+        flex-direction: column;
+        padding: var(--space-md);
+        gap: var(--space-sm);
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .nav-toggle {
+        display: flex;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .about-image-wrapper {
+        aspect-ratio: 16/10;
+      }
+
+      .visit-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-inner {
+        grid-template-columns: 1fr;
+        gap: var(--space-md);
+      }
+
+      .about-stats {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .hero-cta-group {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ==================== Navigation ==================== -->
+  <nav class="nav" id="navbar">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">☰ 福安宮</a>
+      <button class="nav-toggle" id="navToggle" aria-label="開啟選單">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about">廟宇介紹</a></li>
+        <li><a href="#deities">神明介紹</a></li>
+        <li><a href="#features">線上祈福</a></li>
+        <li><a href="#visit">參拜資訊</a></li>
+        <li><a href="#" class="btn btn-primary" style="padding: 0.5rem 1.2rem; font-size: 0.85rem;">線上點燈</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ==================== Hero Section ==================== -->
+  <section class="hero" id="hero">
+    <div class="hero-bg"></div>
+
+    <!-- Smoke particles (generated by JS) -->
+    <div class="smoke-container" id="smokeContainer"></div>
+
+    <!-- Golden dust particles -->
+    <div class="dust-container" id="dustContainer"></div>
+
+    <div class="hero-content">
+      <p class="hero-subtitle-top">— 祈福納祥 · 庇佑平安 —</p>
+      <h1 class="hero-title">
+        <span class="gold-char">福</span><span class="gold-char">安</span>宮
+      </h1>
+      <div class="ornament">
+        <span class="ornament-icon">✦</span>
+      </div>
+      <p class="hero-motto">香火鼎盛 · 神恩浩蕩</p>
+      <p class="hero-desc">
+        歷經百年歲月洗禮，守護一方水土，<br>
+        以虔誠之心，迎接每一位有緣人。
+      </p>
+      <div class="hero-cta-group">
+        <a href="#features" class="btn btn-primary">✦ 線上祈福</a>
+        <a href="#about" class="btn btn-outline">探索廟宇故事</a>
+      </div>
+    </div>
+
+    <div class="scroll-hint">
+      <div class="scroll-hint-inner">
+        <span>向下探索</span>
+        <div class="scroll-arrow"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== About Section ==================== -->
+  <section class="about section-padding" id="about">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">History</span>
+        <h2 class="section-title">廟宇沿革</h2>
+        <div class="gold-divider"></div>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-image-wrapper reveal">
+          <div class="about-image-placeholder">
+            <span class="placeholder-icon">🏛️</span>
+            <span class="placeholder-text">廟宇主視覺照片</span>
+          </div>
+          <div class="about-image-frame"></div>
+        </div>
+
+        <div class="about-text reveal reveal-delay-2">
+          <h3>百年香火，守護一方</h3>
+          <p>
+            【請在此填入廟宇的創建故事】——例如：福安宮始建於清朝年間，
+            由先民自大陸恭迎香火渡海來台，落腳於此地後建廟奉祀，
+            至今已有超過百年的歷史。
+          </p>
+          <p>
+            【請在此填入廟宇的發展歷程】——例如：歷經多次修繕擴建，
+            從最初的小祠堂發展為今日的規模，始終是在地居民最重要的信仰中心，
+            見證了這片土地的繁榮與變遷。
+          </p>
+
+          <div class="about-stats">
+            <div class="stat-item">
+              <div class="stat-number">100+</div>
+              <div class="stat-label">年歷史</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">3</div>
+              <div class="stat-label">主祀神明</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">10+</div>
+              <div class="stat-label">年度慶典</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== Deities Section ==================== -->
+  <section class="deities section-padding" id="deities">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label" style="color: rgba(212,168,67,0.6);">Deities</span>
+        <h2 class="section-title on-dark">神明介紹</h2>
+        <div class="gold-divider"></div>
+      </div>
+
+      <div class="deities-grid">
+        <!-- Deity Card 1 -->
+        <div class="deity-card reveal reveal-delay-1">
+          <div class="deity-icon">🙏</div>
+          <h3 class="deity-name">【主祀神明名稱】</h3>
+          <p class="deity-title">主祀</p>
+          <p class="deity-desc">
+            【請填入神明介紹】——例如：掌管何種事務、信眾通常祈求什麼、
+            神明的由來典故等。
+          </p>
+        </div>
+
+        <!-- Deity Card 2 -->
+        <div class="deity-card reveal reveal-delay-2">
+          <div class="deity-icon">🙏</div>
+          <h3 class="deity-name">【陪祀神明名稱】</h3>
+          <p class="deity-title">陪祀</p>
+          <p class="deity-desc">
+            【請填入神明介紹】——例如：掌管何種事務、信眾通常祈求什麼、
+            神明的由來典故等。
+          </p>
+        </div>
+
+        <!-- Deity Card 3 -->
+        <div class="deity-card reveal reveal-delay-3">
+          <div class="deity-icon">🙏</div>
+          <h3 class="deity-name">【陪祀神明名稱】</h3>
+          <p class="deity-title">陪祀</p>
+          <p class="deity-desc">
+            【請填入神明介紹】——例如：掌管何種事務、信眾通常祈求什麼、
+            神明的由來典故等。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== Interactive Features ==================== -->
+  <section class="features section-padding" id="features">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Online Services</span>
+        <h2 class="section-title">線上祈福</h2>
+        <div class="gold-divider"></div>
+        <p style="color: var(--text-secondary); margin-top: 0.5rem; font-size: 0.95rem;">
+          無論身在何處，都能感受神明庇佑
+        </p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card reveal reveal-delay-1">
+          <span class="feature-emoji">🥢</span>
+          <h3 class="feature-name">線上擲筊</h3>
+          <p class="feature-desc">
+            虔心默念您的問題，<br>
+            擲出聖筊，聆聽神明的指引。
+          </p>
+          <span class="feature-tag">含動畫互動</span>
+        </div>
+
+        <div class="feature-card reveal reveal-delay-2">
+          <span class="feature-emoji">🎋</span>
+          <h3 class="feature-name">線上求籤</h3>
+          <p class="feature-desc">
+            搖動籤筒，抽取您的籤詩，<br>
+            附完整籤詩解釋與指引。
+          </p>
+          <span class="feature-tag">籤詩解籤</span>
+        </div>
+
+        <div class="feature-card reveal reveal-delay-3">
+          <span class="feature-emoji">🏮</span>
+          <h3 class="feature-name">線上點燈</h3>
+          <p class="feature-desc">
+            光明燈、太歲燈線上登記，<br>
+            為您與家人祈求平安順遂。
+          </p>
+          <span class="feature-tag">線上登記</span>
+        </div>
+
+        <div class="feature-card reveal reveal-delay-4">
+          <span class="feature-emoji">🪷</span>
+          <h3 class="feature-name">祈福牆</h3>
+          <p class="feature-desc">
+            寫下您的心願，<br>
+            與眾人的祝福一同飄向天際。
+          </p>
+          <span class="feature-tag">許願留言</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== Visit Info ==================== -->
+  <section class="visit section-padding" id="visit">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Visit</span>
+        <h2 class="section-title">參拜資訊</h2>
+        <div class="gold-divider"></div>
+      </div>
+
+      <div class="visit-grid">
+        <div class="visit-info reveal">
+          <h3>交通與開放資訊</h3>
+
+          <div class="info-item">
+            <div class="info-icon">📍</div>
+            <div class="info-content">
+              <div class="info-label">廟宇地址</div>
+              <div class="info-value">【請填入廟宇地址】</div>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="info-icon">🕐</div>
+            <div class="info-content">
+              <div class="info-label">開放時間</div>
+              <div class="info-value">每日 06:00 — 21:00（全年無休）</div>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="info-icon">📞</div>
+            <div class="info-content">
+              <div class="info-label">聯絡電話</div>
+              <div class="info-value">【請填入電話號碼】</div>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="info-icon">🅿️</div>
+            <div class="info-content">
+              <div class="info-label">停車資訊</div>
+              <div class="info-value">【請填入停車場資訊】</div>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="info-icon">💬</div>
+            <div class="info-content">
+              <div class="info-label">LINE 官方帳號</div>
+              <div class="info-value">【請填入 LINE ID 或連結】</div>
+            </div>
+          </div>
+
+          <div style="margin-top: var(--space-md);">
+            <h3>參拜小指南</h3>
+            <p style="color: var(--text-secondary); line-height: 2; margin-top: 0.5rem;">
+              【請填入參拜禮儀說明】——例如：入廟先拜天公爐、
+              再依序至正殿參拜主神、左右殿陪祀神明等。
+              也可加上穿著建議、供品須知等。
+            </p>
+          </div>
+        </div>
+
+        <div class="reveal reveal-delay-2">
+          <div class="map-placeholder">
+            <span class="map-icon">🗺️</span>
+            <p>Google Map 將嵌入此處</p>
+            <p style="font-size: 0.8rem; margin-top: 0.5rem; opacity: 0.5;">
+              填入地址後即可啟用
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== Footer ==================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <div class="footer-logo">☰ 福安宮</div>
+          <p>
+            歷經百年歲月，守護一方水土。<br>
+            歡迎蒞臨參拜，共沐神恩。
+          </p>
+        </div>
+
+        <div class="footer-section">
+          <h4>快速連結</h4>
+          <ul class="footer-links">
+            <li><a href="#about">廟宇沿革</a></li>
+            <li><a href="#deities">神明介紹</a></li>
+            <li><a href="#features">線上祈福</a></li>
+            <li><a href="#visit">參拜資訊</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h4>線上服務</h4>
+          <ul class="footer-links">
+            <li><a href="#">線上擲筊</a></li>
+            <li><a href="#">線上求籤</a></li>
+            <li><a href="#">線上點燈</a></li>
+            <li><a href="#">祈福牆</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 福安宮 All Rights Reserved ｜ 網站設計維護：【你的名字或工作室】</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== JavaScript ==================== -->
+  <script>
+    // ---- Navigation Scroll Effect ----
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // ---- Mobile Menu Toggle ----
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    navToggle.addEventListener('click', () => {
+      navToggle.classList.toggle('active');
+      navLinks.classList.toggle('active');
+    });
+
+    // Close menu when clicking a link
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navToggle.classList.remove('active');
+        navLinks.classList.remove('active');
+      });
+    });
+
+    // ---- Generate Smoke Particles ----
+    const smokeContainer = document.getElementById('smokeContainer');
+    for (let i = 0; i < 12; i++) {
+      const particle = document.createElement('div');
+      particle.classList.add('smoke-particle');
+      particle.style.left = `${40 + Math.random() * 20}%`;
+      particle.style.height = `${60 + Math.random() * 100}px`;
+      particle.style.animationDuration = `${6 + Math.random() * 6}s`;
+      particle.style.animationDelay = `${Math.random() * 8}s`;
+      smokeContainer.appendChild(particle);
+    }
+
+    // ---- Generate Dust Particles ----
+    const dustContainer = document.getElementById('dustContainer');
+    for (let i = 0; i < 20; i++) {
+      const dust = document.createElement('div');
+      dust.classList.add('dust');
+      dust.style.left = `${Math.random() * 100}%`;
+      dust.style.top = `${Math.random() * 100}%`;
+      dust.style.width = `${1 + Math.random() * 3}px`;
+      dust.style.height = dust.style.width;
+      dust.style.animationDuration = `${8 + Math.random() * 12}s`;
+      dust.style.animationDelay = `${Math.random() * 10}s`;
+      dustContainer.appendChild(dust);
+    }
+
+    // ---- Scroll Reveal Animation ----
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, {
+      threshold: 0.15,
+      rootMargin: '0px 0px -50px 0px'
+    });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    // ---- Smooth scroll for anchor links ----
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
