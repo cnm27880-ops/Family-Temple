@@ -1,0 +1,631 @@
+/* ============================================
+   天虛宮 — 擲筊功能頁面樣式
+   ============================================ */
+
+/* ---------- App Layout ---------- */
+.jiaobei-app {
+  min-height: 100vh;
+  padding-top: 70px; /* nav height */
+  background: var(--ink-black);
+  position: relative;
+}
+
+.jiaobei-stage {
+  min-height: calc(100vh - 70px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.jiaobei-stage[hidden] {
+  display: none;
+}
+
+.stage-content {
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: var(--space-md);
+}
+
+.stage-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* ---------- Stage 1: Choose Method ---------- */
+.stage-title {
+  font-family: var(--font-calligraphy);
+  font-size: clamp(2.5rem, 6vw, 3.5rem);
+  color: var(--gold-bright);
+  letter-spacing: 0.15em;
+  margin-bottom: var(--space-xs);
+  text-shadow: 0 4px 20px rgba(0, 0, 0, .4);
+}
+
+.stage-subtitle {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: rgba(242, 235, 221, .5);
+  letter-spacing: .1em;
+  margin-bottom: var(--space-lg);
+}
+
+.method-cards {
+  display: flex;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.method-card {
+  width: 260px;
+  padding: var(--space-md) var(--space-sm);
+  background: rgba(245, 237, 216, .06);
+  border: 2px solid var(--gold-dim);
+  cursor: pointer;
+  transition: all .4s var(--ease-smooth);
+  position: relative;
+  font-family: var(--font-display);
+  text-align: center;
+}
+
+.method-card::before {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border: 1px solid rgba(160, 125, 46, .3);
+  pointer-events: none;
+  transition: border-color .4s;
+}
+
+.method-card:hover {
+  background: rgba(245, 237, 216, .1);
+  border-color: var(--gold-bright);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, .3);
+}
+
+.method-card:hover::before {
+  border-color: rgba(245, 208, 128, .4);
+}
+
+.method-icon {
+  font-size: 2.8rem;
+  display: block;
+  margin-bottom: var(--space-sm);
+}
+
+.method-name {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--gold-bright);
+  letter-spacing: .1em;
+  margin-bottom: .4rem;
+}
+
+.method-desc {
+  font-size: .9rem;
+  font-weight: 700;
+  color: rgba(242, 235, 221, .45);
+  line-height: 1.8;
+}
+
+/* ---------- Stage 2a: Countdown ---------- */
+.countdown-hint {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: rgba(242, 235, 221, .6);
+  letter-spacing: .08em;
+  margin-bottom: var(--space-lg);
+  line-height: 1.8;
+}
+
+.countdown-circle {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  border: 2px solid var(--gold-dim);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: breathe 3s ease-in-out infinite;
+  position: relative;
+}
+
+.countdown-circle::before {
+  content: '';
+  position: absolute;
+  inset: -12px;
+  border-radius: 50%;
+  border: 1px solid rgba(160, 125, 46, .15);
+  animation: breathe 3s ease-in-out infinite;
+  animation-delay: .3s;
+}
+
+.countdown-number {
+  font-family: var(--font-calligraphy);
+  font-size: 3.5rem;
+  color: var(--gold-bright);
+  text-shadow: 0 0 20px rgba(232, 192, 104, .3);
+}
+
+@keyframes breathe {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.08); }
+}
+
+/* ---------- Stage 2b: Write Wish ---------- */
+.wish-paper {
+  width: 100%;
+  max-width: 520px;
+  position: relative;
+  transition: transform .6s var(--ease-smooth);
+  transform-origin: top center;
+}
+
+.wish-paper.collapsing {
+  transform: scaleY(0);
+}
+
+.wish-textarea {
+  width: 100%;
+  min-height: 200px;
+  padding: var(--space-md);
+  background: #F5E6C0;
+  border: 2px solid var(--vermillion);
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--ink-dark);
+  line-height: 2;
+  resize: vertical;
+  outline: none;
+  transition: border-color .3s, box-shadow .3s;
+}
+
+.wish-textarea::placeholder {
+  color: rgba(44, 26, 14, .35);
+  font-weight: 400;
+}
+
+.wish-textarea:focus {
+  border-color: var(--vermillion-deep);
+  box-shadow: 0 0 0 3px rgba(184, 65, 46, .15);
+}
+
+.wish-counter {
+  position: absolute;
+  bottom: 12px;
+  right: 14px;
+  font-family: var(--font-display);
+  font-size: .8rem;
+  font-weight: 700;
+  color: rgba(44, 26, 14, .4);
+  pointer-events: none;
+}
+
+.wish-submit-btn {
+  margin-top: var(--space-md);
+}
+
+/* ---------- Stage 3: Throw Jiaobei ---------- */
+.altar-scene {
+  position: relative;
+  width: 100%;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-lg);
+  /* Wood grain background */
+  background:
+    repeating-linear-gradient(
+      90deg,
+      #2A1A0A 0px,
+      #2A1A0A 2px,
+      #1C1208 3px,
+      #221509 6px,
+      #2A1A0A 8px
+    );
+  border-radius: 4px;
+  padding: var(--space-lg) var(--space-md);
+  overflow: hidden;
+}
+
+/* Candle glow */
+.candle-glow {
+  position: absolute;
+  width: 200px;
+  height: 300px;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: .6;
+  animation: candle-flicker 4s ease-in-out infinite;
+}
+
+.candle-glow--left {
+  left: -40px;
+  top: 20%;
+  background: radial-gradient(ellipse, rgba(255, 160, 50, .15) 0%, rgba(255, 120, 30, .05) 40%, transparent 70%);
+  animation-delay: 0s;
+}
+
+.candle-glow--right {
+  right: -40px;
+  top: 25%;
+  background: radial-gradient(ellipse, rgba(255, 160, 50, .12) 0%, rgba(255, 120, 30, .04) 40%, transparent 70%);
+  animation-delay: 1.5s;
+}
+
+@keyframes candle-flicker {
+  0%, 100% { opacity: .5; transform: scale(1); }
+  30%      { opacity: .7; transform: scale(1.05); }
+  60%      { opacity: .4; transform: scale(.97); }
+}
+
+/* Jiao Cups */
+.jiao-cups-wrapper {
+  display: flex;
+  gap: var(--space-lg);
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+}
+
+.jiao-cup {
+  width: 80px;
+  height: 160px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform .6s ease;
+}
+
+.cup-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.jiao-cup .face-front,
+.jiao-cup .face-back {
+  backface-visibility: hidden;
+}
+
+.jiao-cup .face-back {
+  transform: rotateY(180deg);
+}
+
+.jiao-cup.face-yin .face-front {
+  visibility: hidden;
+}
+
+.jiao-cup.face-yin .face-back {
+  visibility: visible;
+  transform: rotateY(0deg);
+}
+
+.jiao-cup.face-yang .face-front {
+  visibility: visible;
+}
+
+.jiao-cup.face-yang .face-back {
+  visibility: hidden;
+}
+
+/* Default: show yang (front), hide yin (back) */
+.jiao-cup .face-back {
+  visibility: hidden;
+}
+
+/* Throwing animation */
+.jiao-cup.throwing {
+  animation: throw-cup 1.5s var(--ease-smooth) forwards;
+}
+
+.jiao-cup.throwing-delay {
+  animation: throw-cup 1.5s var(--ease-smooth) .15s forwards;
+}
+
+.jiao-cup.landed {
+  animation: land-bounce .3s var(--ease-bounce) forwards;
+}
+
+@keyframes throw-cup {
+  0%   { transform: translateY(0) rotate(0deg); opacity: 1; }
+  30%  { transform: translateY(-180px) rotate(200deg); opacity: 1; }
+  70%  { transform: translateY(-80px) rotate(400deg); opacity: 1; }
+  85%  { transform: translateY(-20px) rotate(500deg); opacity: 1; }
+  100% { transform: translateY(0) rotate(540deg); opacity: 1; }
+}
+
+@keyframes land-bounce {
+  0%   { transform: translateY(0); }
+  40%  { transform: translateY(-12px); }
+  70%  { transform: translateY(-4px); }
+  100% { transform: translateY(0); }
+}
+
+.throw-btn {
+  position: relative;
+  z-index: 2;
+  color: var(--gold);
+  border-color: var(--gold);
+}
+
+.throw-btn::before {
+  border-color: var(--gold);
+  opacity: .3;
+}
+
+.throw-btn::after {
+  background: var(--vermillion);
+}
+
+.throw-btn:hover {
+  color: var(--parchment);
+  border-color: var(--vermillion);
+}
+
+.throw-btn:disabled {
+  opacity: .5;
+  pointer-events: none;
+}
+
+/* ---------- Stage 4: Result ---------- */
+.result-area {
+  position: relative;
+  padding: var(--space-lg) var(--space-md);
+  margin-bottom: var(--space-md);
+  min-width: 300px;
+}
+
+.result-glow {
+  position: absolute;
+  inset: -40px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  transition: background .6s;
+}
+
+.result-title {
+  font-family: var(--font-calligraphy);
+  font-size: 3rem;
+  letter-spacing: .15em;
+  position: relative;
+  z-index: 1;
+  margin-bottom: var(--space-sm);
+  text-shadow: 0 4px 20px rgba(0, 0, 0, .3);
+}
+
+.result-desc {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: rgba(242, 235, 221, .6);
+  line-height: 2;
+  position: relative;
+  z-index: 1;
+  max-width: 400px;
+}
+
+/* Result type colors */
+.result-area.result-sheng .result-glow {
+  background: radial-gradient(ellipse, rgba(232, 192, 104, .25) 0%, transparent 70%);
+}
+.result-area.result-sheng .result-title {
+  color: var(--gold-bright);
+}
+
+.result-area.result-xiao .result-glow {
+  background: radial-gradient(ellipse, rgba(220, 150, 80, .2) 0%, transparent 70%);
+}
+.result-area.result-xiao .result-title {
+  color: #E8A040;
+}
+
+.result-area.result-yin .result-glow {
+  background: radial-gradient(ellipse, rgba(127, 181, 176, .2) 0%, transparent 70%);
+}
+.result-area.result-yin .result-title {
+  color: var(--celadon);
+}
+
+/* Result actions */
+.result-actions {
+  display: flex;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.result-btn {
+  font-size: .9rem;
+  padding: .8rem 1.5rem;
+  color: var(--gold);
+  border-color: var(--gold);
+}
+
+.result-btn::before {
+  border-color: var(--gold);
+  opacity: .3;
+}
+
+.result-btn::after {
+  background: var(--vermillion);
+}
+
+.result-btn:hover {
+  color: var(--parchment);
+  border-color: var(--vermillion);
+}
+
+.result-btn:disabled {
+  opacity: .35;
+  pointer-events: none;
+}
+
+.result-btn[data-tooltip] {
+  position: relative;
+}
+
+.result-btn[data-tooltip]:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(30, 26, 46, .95);
+  color: var(--parchment);
+  font-size: .75rem;
+  font-weight: 400;
+  padding: .4rem .8rem;
+  white-space: nowrap;
+  border: 1px solid rgba(160, 125, 46, .2);
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* Override: disabled tooltip needs special handling since pointer-events:none blocks hover */
+.result-btn:disabled[data-tooltip] {
+  pointer-events: auto;
+  cursor: not-allowed;
+}
+
+.result-btn:disabled[data-tooltip]::after {
+  background: var(--vermillion);
+  transform: scale(0);
+}
+
+/* ---------- Confirm Modal ---------- */
+.confirm-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.confirm-modal[hidden] {
+  display: none;
+}
+
+.confirm-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, .6);
+  backdrop-filter: blur(4px);
+}
+
+.confirm-modal-box {
+  position: relative;
+  background: var(--sandalwood);
+  border: 2px solid var(--gold-dim);
+  padding: var(--space-md) var(--space-lg);
+  text-align: center;
+  max-width: 400px;
+}
+
+.confirm-modal-box::before {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border: 1px solid rgba(160, 125, 46, .2);
+  pointer-events: none;
+}
+
+.confirm-modal-text {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--parchment);
+  line-height: 1.8;
+  margin-bottom: var(--space-md);
+}
+
+.confirm-modal-actions {
+  display: flex;
+  gap: var(--space-sm);
+  justify-content: center;
+}
+
+/* ---------- Save Toast ---------- */
+.save-toast {
+  position: fixed;
+  bottom: var(--space-lg);
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: rgba(44, 26, 14, .95);
+  border: 1px solid var(--gold-dim);
+  color: var(--gold-bright);
+  font-family: var(--font-display);
+  font-size: .95rem;
+  font-weight: 700;
+  padding: .8rem 2rem;
+  letter-spacing: .1em;
+  z-index: 2001;
+  opacity: 0;
+  transition: opacity .4s, transform .4s var(--ease-smooth);
+}
+
+.save-toast[hidden] {
+  display: none;
+}
+
+.save-toast.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 768px) {
+  .jiaobei-app {
+    padding-top: 60px;
+  }
+
+  .jiaobei-stage {
+    min-height: calc(100vh - 60px);
+  }
+
+  .method-cards {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .method-card {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .jiao-cups-wrapper {
+    gap: var(--space-md);
+  }
+
+  .jiao-cup {
+    width: 60px;
+    height: 120px;
+  }
+
+  .result-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .result-btn {
+    width: 100%;
+    max-width: 260px;
+  }
+
+  .confirm-modal-box {
+    margin: 0 var(--space-sm);
+    padding: var(--space-md);
+  }
+}

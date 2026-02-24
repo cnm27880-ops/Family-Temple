@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Security: Content Security Policy -->
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self';
+                 script-src 'self';
+                 style-src 'self' https://fonts.googleapis.com https://unpkg.com 'unsafe-inline';
+                 font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net https://unpkg.com;
+                 img-src 'self' data:;
+                 connect-src 'self';
+                 frame-src 'none';
+                 object-src 'none';
+                 base-uri 'self';
+                 form-action 'self'">
+
+  <!-- Security: Prevent MIME-type sniffing -->
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+
+  <!-- Security: Referrer Policy -->
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
+  <!-- Security: Permissions Policy -->
+  <meta http-equiv="Permissions-Policy"
+        content="camera=(), microphone=(), geolocation=(), payment=(), usb=()">
+
+  <title>線上擲筊 — 天虛宮</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@300;400;700&family=Noto+Serif+TC:wght@400;700;900&display=swap" rel="stylesheet">
+
+  <!-- Seal Script -->
+  <link rel="stylesheet" href="https://unpkg.com/@chinese-fonts/ysbzt@3.0.0/dist/%E5%B3%84%E5%B1%B1%E7%A2%91%E7%AF%86%E4%BD%93/result.css">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/jiaobei.css">
+</head>
+<body>
+
+<!-- ========== Navigation ========== -->
+<nav class="nav scrolled" id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">天虛宮</a>
+    <button class="nav-toggle" id="navToggle" aria-label="開啟選單">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html#about">廟宇介紹</a></li>
+      <li><a href="index.html#deities">神明介紹</a></li>
+      <li><a href="index.html#features">線上祈福</a></li>
+      <li><a href="index.html#visit">參拜資訊</a></li>
+      <li><a href="#" class="btn-seal btn-seal--compact">線上點燈</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ========== Jiaobei App ========== -->
+<main class="jiaobei-app">
+
+  <!-- Stage 1: Choose Communication Method -->
+  <section class="jiaobei-stage" data-stage="1">
+    <div class="stage-content stage-center">
+      <h1 class="stage-title">稟告神明</h1>
+      <p class="stage-subtitle">在擲筊之前，請先向神明表明來意</p>
+      <div class="method-cards">
+        <button class="method-card" data-method="silent">
+          <span class="method-icon">🤫</span>
+          <h3 class="method-name">默念祈願</h3>
+          <p class="method-desc">於心中默念姓名、生辰與所求之事</p>
+        </button>
+        <button class="method-card" data-method="write">
+          <span class="method-icon">📝</span>
+          <h3 class="method-name">書寫心願</h3>
+          <p class="method-desc">將心中所求化為文字，稟告神明</p>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stage 2a: Silent Countdown -->
+  <section class="jiaobei-stage" data-stage="2a" hidden>
+    <div class="stage-content stage-center">
+      <p class="countdown-hint">請於心中默念您的姓名、生辰與所求之事</p>
+      <div class="countdown-circle">
+        <span class="countdown-number" id="countdownNumber">10</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stage 2b: Write Wish -->
+  <section class="jiaobei-stage" data-stage="2b" hidden>
+    <div class="stage-content stage-center">
+      <div class="wish-paper" id="wishPaper">
+        <textarea
+          class="wish-textarea"
+          id="wishTextarea"
+          maxlength="100"
+          placeholder="願以此言，稟告神明……"
+        ></textarea>
+        <div class="wish-counter"><span id="wishCount">0</span> / 100</div>
+      </div>
+      <button class="btn-seal wish-submit-btn" id="wishSubmitBtn">稟告神明</button>
+    </div>
+  </section>
+
+  <!-- Stage 3: Throw Jiaobei -->
+  <section class="jiaobei-stage" data-stage="3" hidden>
+    <div class="stage-content stage-center">
+      <div class="altar-scene">
+        <!-- Left candle glow -->
+        <div class="candle-glow candle-glow--left"></div>
+        <!-- Right candle glow -->
+        <div class="candle-glow candle-glow--right"></div>
+
+        <div class="jiao-cups-wrapper">
+          <!-- Cup 1 -->
+          <div class="jiao-cup" id="cup1">
+            <svg class="cup-svg" viewBox="0 0 80 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Yang face (flat/light) -->
+              <g class="face-front">
+                <path d="M40 10 C65 10, 75 40, 75 80 C75 120, 65 150, 40 150 C15 150, 5 120, 5 80 C5 40, 15 10, 40 10Z" fill="#D4A85C" stroke="#A07D2E" stroke-width="1.5"/>
+                <path d="M40 20 C55 20, 63 45, 63 80 C63 115, 55 140, 40 140" fill="#E8C878" opacity="0.4"/>
+                <ellipse cx="40" cy="80" rx="22" ry="50" fill="none" stroke="#C49A4A" stroke-width="0.5" opacity="0.3"/>
+              </g>
+              <!-- Yin face (curved/dark) -->
+              <g class="face-back">
+                <path d="M40 10 C65 10, 75 40, 75 80 C75 120, 65 150, 40 150 C15 150, 5 120, 5 80 C5 40, 15 10, 40 10Z" fill="#3D2A14" stroke="#2A1A0A" stroke-width="1.5"/>
+                <path d="M40 15 C60 15, 70 42, 70 80 C70 118, 60 145, 40 145 C20 145, 10 118, 10 80 C10 42, 20 15, 40 15Z" fill="none" stroke="#5C3D1E" stroke-width="0.8" opacity="0.5"/>
+                <path d="M25 50 C30 48, 50 48, 55 50" stroke="#5C3D1E" stroke-width="0.5" opacity="0.3" fill="none"/>
+                <path d="M25 110 C30 112, 50 112, 55 110" stroke="#5C3D1E" stroke-width="0.5" opacity="0.3" fill="none"/>
+              </g>
+            </svg>
+          </div>
+          <!-- Cup 2 -->
+          <div class="jiao-cup" id="cup2">
+            <svg class="cup-svg" viewBox="0 0 80 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Yang face (flat/light) -->
+              <g class="face-front">
+                <path d="M40 10 C65 10, 75 40, 75 80 C75 120, 65 150, 40 150 C15 150, 5 120, 5 80 C5 40, 15 10, 40 10Z" fill="#D4A85C" stroke="#A07D2E" stroke-width="1.5"/>
+                <path d="M40 20 C55 20, 63 45, 63 80 C63 115, 55 140, 40 140" fill="#E8C878" opacity="0.4"/>
+                <ellipse cx="40" cy="80" rx="22" ry="50" fill="none" stroke="#C49A4A" stroke-width="0.5" opacity="0.3"/>
+              </g>
+              <!-- Yin face (curved/dark) -->
+              <g class="face-back">
+                <path d="M40 10 C65 10, 75 40, 75 80 C75 120, 65 150, 40 150 C15 150, 5 120, 5 80 C5 40, 15 10, 40 10Z" fill="#3D2A14" stroke="#2A1A0A" stroke-width="1.5"/>
+                <path d="M40 15 C60 15, 70 42, 70 80 C70 118, 60 145, 40 145 C20 145, 10 118, 10 80 C10 42, 20 15, 40 15Z" fill="none" stroke="#5C3D1E" stroke-width="0.8" opacity="0.5"/>
+                <path d="M25 50 C30 48, 50 48, 55 50" stroke="#5C3D1E" stroke-width="0.5" opacity="0.3" fill="none"/>
+                <path d="M25 110 C30 112, 50 112, 55 110" stroke="#5C3D1E" stroke-width="0.5" opacity="0.3" fill="none"/>
+              </g>
+            </svg>
+          </div>
+        </div>
+
+        <button class="btn-seal throw-btn" id="throwBtn">🙏 擲筊問神</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stage 4: Result -->
+  <section class="jiaobei-stage" data-stage="4" hidden>
+    <div class="stage-content stage-center">
+      <div class="result-area" id="resultArea">
+        <div class="result-glow" id="resultGlow"></div>
+        <h2 class="result-title" id="resultTitle"></h2>
+        <p class="result-desc" id="resultDesc"></p>
+      </div>
+      <div class="result-actions">
+        <button class="btn-seal result-btn" id="retryBtn">再擲一次</button>
+        <button class="btn-seal result-btn" id="saveBtn">儲存至祈福牆</button>
+        <button class="btn-seal result-btn" id="shareBtn">分享結果</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ========== Footer ========== -->
+<footer class="footer">
+  <div class="lattice-pattern lattice-pattern--faint"></div>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">天虛宮</div>
+        <p>歷經百年歲月，守護一方水土。<br>歡迎蒞臨參拜，共沐神恩。</p>
+      </div>
+      <div class="footer-section">
+        <h4>快速連結</h4>
+        <ul class="footer-links">
+          <li><a href="index.html#about">廟宇沿革</a></li>
+          <li><a href="index.html#deities">神明介紹</a></li>
+          <li><a href="index.html#features">線上祈福</a></li>
+          <li><a href="index.html#visit">參拜資訊</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>線上服務</h4>
+        <ul class="footer-links">
+          <li><a href="jiaobei.html">線上擲筊</a></li>
+          <li><a href="#">線上求籤</a></li>
+          <li><a href="#">線上點燈</a></li>
+          <li><a href="#">祈福牆</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 天虛宮 All Rights Reserved</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Confirm Modal -->
+<div class="confirm-modal" id="confirmModal" hidden>
+  <div class="confirm-modal-backdrop"></div>
+  <div class="confirm-modal-box">
+    <p class="confirm-modal-text">您的心願將公開顯示於祈福牆，確認儲存？</p>
+    <div class="confirm-modal-actions">
+      <button class="btn-seal btn-seal--compact" id="confirmYes">確認</button>
+      <button class="btn-seal btn-seal--compact" id="confirmNo">取消</button>
+    </div>
+  </div>
+</div>
+
+<!-- Save Toast -->
+<div class="save-toast" id="saveToast" hidden>已儲存 ✓</div>
+
+<script src="js/jiaobei.js" defer></script>
+</body>
+</html>
