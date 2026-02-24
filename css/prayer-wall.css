@@ -1,0 +1,543 @@
+/* ============================================
+   天虛宮 — 祈福牆頁面樣式
+   ============================================ */
+
+/* ---------- Hero ---------- */
+.pw-hero {
+  height: 40vh;
+  min-height: 300px;
+  background: var(--ink-black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.pw-hero-content {
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  padding: var(--space-md);
+}
+
+.pw-hero-title {
+  font-family: var(--font-calligraphy);
+  font-size: clamp(2.5rem, 6vw, 3.5rem);
+  color: var(--gold-bright);
+  letter-spacing: .15em;
+  margin-bottom: var(--space-xs);
+  text-shadow: 0 4px 20px rgba(0, 0, 0, .4);
+}
+
+.pw-hero-subtitle {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  color: rgba(242, 235, 221, .5);
+  letter-spacing: .1em;
+  margin-bottom: var(--space-md);
+}
+
+.pw-hero-btn {
+  display: inline-block;
+}
+
+/* ---------- Write Section ---------- */
+.pw-write {
+  background: var(--parchment);
+  padding: var(--space-xl) 0;
+}
+
+.pw-form-wrapper {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.pw-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.pw-field {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.pw-label {
+  font-family: var(--font-display);
+  font-size: .9rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  letter-spacing: .08em;
+}
+
+.pw-input,
+.pw-textarea {
+  width: 100%;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  background: var(--parchment-light);
+  border: 1px solid rgba(196, 54, 42, .2);
+  color: var(--text-primary);
+  padding: .8rem 1rem;
+  outline: none;
+  transition: border-color .3s, box-shadow .3s;
+}
+
+.pw-input:focus,
+.pw-textarea:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(232, 192, 104, .1);
+}
+
+.pw-input.error,
+.pw-textarea.error {
+  border-color: var(--vermillion);
+  box-shadow: 0 0 0 3px rgba(184, 65, 46, .1);
+}
+
+.pw-textarea {
+  min-height: 140px;
+  resize: vertical;
+  line-height: 2;
+}
+
+.pw-textarea-wrap {
+  position: relative;
+}
+
+.pw-char-count {
+  position: absolute;
+  bottom: 10px;
+  right: 12px;
+  font-family: var(--font-display);
+  font-size: .8rem;
+  color: var(--text-secondary);
+  pointer-events: none;
+  transition: color .3s;
+}
+
+.pw-char-count.near-limit {
+  color: var(--vermillion);
+}
+
+/* ---------- Radio Cards (符紙卡片風格) ---------- */
+.pw-radio-cards {
+  display: flex;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.pw-radio-card {
+  flex: 1;
+  min-width: 180px;
+  cursor: pointer;
+}
+
+.pw-radio-card input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.pw-radio-card-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: var(--space-sm) var(--space-xs);
+  background: rgba(245, 237, 216, .4);
+  border: 2px solid var(--gold-dim);
+  transition: all .4s var(--ease-smooth);
+  position: relative;
+}
+
+.pw-radio-card-inner::before {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border: 1px solid rgba(160, 125, 46, .2);
+  pointer-events: none;
+  transition: border-color .4s;
+}
+
+.pw-radio-card input[type="radio"]:checked + .pw-radio-card-inner {
+  border-color: var(--gold-bright);
+  background: rgba(245, 208, 128, .12);
+  box-shadow: 0 4px 20px rgba(232, 192, 104, .1);
+}
+
+.pw-radio-card input[type="radio"]:checked + .pw-radio-card-inner::before {
+  border-color: rgba(245, 208, 128, .35);
+}
+
+.pw-radio-card:hover .pw-radio-card-inner {
+  border-color: var(--gold);
+  transform: translateY(-2px);
+}
+
+.pw-radio-icon {
+  font-size: 1.8rem;
+  margin-bottom: .3rem;
+}
+
+.pw-radio-name {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--gold-dim);
+  letter-spacing: .08em;
+  margin-bottom: .2rem;
+}
+
+.pw-radio-card input[type="radio"]:checked + .pw-radio-card-inner .pw-radio-name {
+  color: var(--gold-bright);
+}
+
+.pw-radio-desc {
+  font-family: var(--font-display);
+  font-size: .8rem;
+  color: var(--text-secondary);
+}
+
+/* ---------- Error / Success ---------- */
+.pw-error {
+  font-family: var(--font-display);
+  font-size: .9rem;
+  color: var(--vermillion);
+  text-align: center;
+  margin: 0;
+}
+
+.pw-error[hidden] {
+  display: none;
+}
+
+.pw-success {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--gold-dim);
+  text-align: center;
+  margin: 0;
+  opacity: 0;
+  transition: opacity .4s;
+}
+
+.pw-success[hidden] {
+  display: none;
+}
+
+.pw-success.visible {
+  opacity: 1;
+}
+
+.pw-submit-btn {
+  align-self: center;
+}
+
+.pw-submit-btn:disabled {
+  opacity: .4;
+  pointer-events: none;
+}
+
+/* ---------- Wall Section ---------- */
+.pw-wall {
+  background: var(--bg-primary);
+  padding: var(--space-xl) 0 var(--space-xl);
+}
+
+/* Filter Bar */
+.pw-filters {
+  display: flex;
+  gap: .5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: var(--space-lg);
+}
+
+.filter-btn {
+  transition: all .3s var(--ease-smooth);
+}
+
+.filter-btn.active {
+  background: var(--vermillion);
+  color: var(--parchment);
+  border-color: var(--vermillion-deep);
+}
+
+.filter-btn.active::before {
+  border-color: transparent;
+}
+
+.filter-btn.active:hover {
+  background: var(--vermillion-deep);
+}
+
+/* ---------- Cards Grid ---------- */
+.pw-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-md);
+}
+
+/* ---------- Prayer Card ---------- */
+.prayer-card {
+  background: var(--rice-paper);
+  border: 1px solid rgba(212, 168, 67, .15);
+  position: relative;
+  padding: 1.2rem 1.2rem 1.2rem 1.6rem;
+  transition: all .4s var(--ease-smooth);
+}
+
+.prayer-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, .08);
+}
+
+/* Left color bar */
+.card-side-bar {
+  width: 4px;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+[data-type="聖筊"] .card-side-bar { background: var(--gold); }
+[data-type="笑筊"] .card-side-bar { background: #E8A040; }
+[data-type="陰筊"] .card-side-bar { background: var(--celadon); }
+[data-type="純祈願"] .card-side-bar { background: var(--vermillion); }
+
+/* Card body */
+.card-body {
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .5rem;
+}
+
+.card-name {
+  font-family: var(--font-display);
+  font-size: .9rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.card-tag {
+  font-family: var(--font-display);
+  font-size: .75rem;
+  padding: .2rem .7rem;
+  border: 1px solid currentColor;
+  white-space: nowrap;
+}
+
+[data-type="聖筊"] .card-tag { color: var(--gold-dim); }
+[data-type="笑筊"] .card-tag { color: #E8A040; }
+[data-type="陰筊"] .card-tag { color: var(--celadon); }
+[data-type="純祈願"] .card-tag { color: var(--vermillion); }
+
+.card-content {
+  font-family: var(--font-body);
+  font-size: .9rem;
+  color: var(--text-primary);
+  line-height: 1.8;
+  word-break: break-word;
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .5rem;
+  margin-top: .3rem;
+}
+
+.card-time {
+  font-family: var(--font-display);
+  font-size: .75rem;
+  color: var(--text-secondary);
+}
+
+.card-reply-btn {
+  font-family: var(--font-display);
+  font-size: .8rem;
+  color: var(--gold-dim);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: .2rem .4rem;
+  transition: color .3s;
+}
+
+.card-reply-btn:hover {
+  color: var(--gold-bright);
+}
+
+/* ---------- Reply Section ---------- */
+.card-replies {
+  border-top: 1px solid rgba(212, 168, 67, .15);
+  margin-top: 1rem;
+  padding-top: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .5s var(--ease-smooth), padding-top .5s var(--ease-smooth);
+}
+
+.card-replies.expanded {
+  max-height: 600px;
+  padding-top: 1rem;
+}
+
+.reply-list {
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+  margin-bottom: .8rem;
+}
+
+.reply-item {
+  font-family: var(--font-body);
+  font-size: .85rem;
+  color: var(--text-primary);
+  line-height: 1.6;
+  padding-left: .8rem;
+  border-left: 2px solid rgba(212, 168, 67, .2);
+}
+
+.reply-item .reply-author {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: .8rem;
+  color: var(--gold-dim);
+  margin-right: .3rem;
+}
+
+.reply-input-area {
+  display: flex;
+  gap: .5rem;
+  align-items: center;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.reply-input-area input {
+  flex: 1;
+  min-width: 0;
+  font-family: var(--font-display);
+  font-size: .85rem;
+  background: var(--parchment-light);
+  border: 1px solid rgba(196, 54, 42, .2);
+  color: var(--text-primary);
+  padding: .5rem .7rem;
+  outline: none;
+  transition: border-color .3s;
+}
+
+.reply-input-area input:focus {
+  border-color: var(--gold);
+}
+
+.reply-input-area input.error {
+  border-color: var(--vermillion);
+}
+
+.reply-count {
+  font-family: var(--font-display);
+  font-size: .75rem;
+  color: var(--text-secondary);
+  position: absolute;
+  right: 80px;
+  bottom: -16px;
+  transition: color .3s;
+}
+
+.reply-count.near-limit {
+  color: var(--vermillion);
+}
+
+.reply-submit {
+  flex-shrink: 0;
+}
+
+.reply-error {
+  width: 100%;
+  font-family: var(--font-display);
+  font-size: .8rem;
+  color: var(--vermillion);
+  margin-top: .3rem;
+}
+
+/* ---------- Empty State ---------- */
+.pw-empty {
+  text-align: center;
+  padding: var(--space-lg);
+  grid-column: 1 / -1;
+}
+
+.pw-empty-icon {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: var(--space-sm);
+}
+
+.pw-empty-text {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  color: var(--text-secondary);
+}
+
+/* ---------- RWD ---------- */
+@media (max-width: 768px) {
+  .pw-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .pw-form-wrapper {
+    padding: 0 var(--space-xs);
+  }
+
+  .pw-radio-cards {
+    flex-direction: column;
+  }
+
+  .pw-radio-card {
+    min-width: 0;
+  }
+
+  .pw-filters {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    justify-content: flex-start;
+    -webkit-overflow-scrolling: touch;
+    gap: .4rem;
+    padding-bottom: .5rem;
+  }
+
+  .pw-filters::-webkit-scrollbar {
+    height: 3px;
+  }
+
+  .pw-filters::-webkit-scrollbar-thumb {
+    background: var(--gold-dim);
+    border-radius: 2px;
+  }
+
+  .filter-btn {
+    flex-shrink: 0;
+  }
+
+  .reply-count {
+    position: static;
+    width: 100%;
+    text-align: right;
+  }
+}
