@@ -996,9 +996,12 @@ body > * {
 }
 
 .feature-card {
+  display: block;
   background: var(--rice-paper);
   padding: var(--space-md);
   text-align: center;
+  text-decoration: none;
+  color: inherit;
   transition: all .5s var(--ease-smooth);
   border: 1px solid rgba(212, 168, 67, .1);
   position: relative;

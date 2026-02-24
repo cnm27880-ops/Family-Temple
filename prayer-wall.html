@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Security: Content Security Policy -->
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self';
+                 script-src 'self';
+                 style-src 'self' https://fonts.googleapis.com https://unpkg.com 'unsafe-inline';
+                 font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net https://unpkg.com;
+                 img-src 'self' data:;
+                 connect-src 'self';
+                 frame-src 'none';
+                 object-src 'none';
+                 base-uri 'self';
+                 form-action 'self'">
+
+  <!-- Security: Prevent MIME-type sniffing -->
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+
+  <!-- Security: Referrer Policy -->
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
+  <!-- Security: Permissions Policy -->
+  <meta http-equiv="Permissions-Policy"
+        content="camera=(), microphone=(), geolocation=(), payment=(), usb=()">
+
+  <title>祈福牆 — 天虛宮</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@300;400;700&family=Noto+Serif+TC:wght@400;700;900&display=swap" rel="stylesheet">
+
+  <!-- Seal Script -->
+  <link rel="stylesheet" href="https://unpkg.com/@chinese-fonts/ysbzt@3.0.0/dist/%E5%B3%84%E5%B1%B1%E7%A2%91%E7%AF%86%E4%BD%93/result.css">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/prayer-wall.css">
+</head>
+<body>
+
+<!-- ========== Navigation ========== -->
+<nav class="nav" id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">天虛宮</a>
+    <button class="nav-toggle" id="navToggle" aria-label="開啟選單">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html#about">廟宇介紹</a></li>
+      <li><a href="index.html#deities">神明介紹</a></li>
+      <li><a href="index.html#features">線上祈福</a></li>
+      <li><a href="index.html#visit">參拜資訊</a></li>
+      <li><a href="#">線上點燈</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ========== Hero ========== -->
+<section class="pw-hero">
+  <div class="lattice-pattern"></div>
+  <div class="pw-hero-content">
+    <h1 class="pw-hero-title">祈福牆</h1>
+    <p class="pw-hero-subtitle">願每一份心意，都能上達天聽</p>
+    <a href="#write-section" class="btn-seal pw-hero-btn">✦ 寫下心願</a>
+  </div>
+</section>
+
+<!-- ========== Write Section ========== -->
+<section class="pw-write" id="write-section">
+  <div class="container">
+    <div class="section-header ink-reveal">
+      <span class="section-label">W R I T E</span>
+      <h2 class="section-title">留下您的心願</h2>
+      <div class="section-title-ornament"><span class="dot"></span></div>
+    </div>
+
+    <div class="pw-form-wrapper ink-reveal">
+      <div class="pw-form" id="prayerForm">
+        <!-- Nickname -->
+        <div class="pw-field">
+          <label class="pw-label" for="nickInput">暱稱</label>
+          <input type="text" class="pw-input" id="nickInput"
+                 placeholder="虔誠信眾（可自填暱稱，最多10字）" maxlength="10">
+        </div>
+
+        <!-- Wish Content -->
+        <div class="pw-field">
+          <label class="pw-label" for="wishInput">心願內容</label>
+          <div class="pw-textarea-wrap">
+            <textarea class="pw-textarea" id="wishInput"
+                      placeholder="願以此言，祈求神明庇佑……" maxlength="150"></textarea>
+            <span class="pw-char-count"><span id="wishCharCount">0</span> / 150</span>
+          </div>
+        </div>
+
+        <!-- Visibility Option -->
+        <div class="pw-field">
+          <label class="pw-label">公開選項</label>
+          <div class="pw-radio-cards">
+            <label class="pw-radio-card">
+              <input type="radio" name="visibility" value="public" checked>
+              <span class="pw-radio-card-inner">
+                <span class="pw-radio-icon">🌏</span>
+                <span class="pw-radio-name">公開顯示</span>
+                <span class="pw-radio-desc">所有訪客可見</span>
+              </span>
+            </label>
+            <label class="pw-radio-card">
+              <input type="radio" name="visibility" value="private">
+              <span class="pw-radio-card-inner">
+                <span class="pw-radio-icon">🔒</span>
+                <span class="pw-radio-name">僅廟方可見</span>
+                <span class="pw-radio-desc">只有廟方後台可看到</span>
+              </span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Error Message -->
+        <p class="pw-error" id="formError" hidden></p>
+
+        <!-- Submit -->
+        <button class="btn-seal pw-submit-btn" id="submitBtn">🙏 稟告神明</button>
+
+        <!-- Success Toast -->
+        <p class="pw-success" id="formSuccess" hidden></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== Wall Section ========== -->
+<section class="pw-wall" id="wall-section">
+  <div class="container">
+    <div class="section-header ink-reveal">
+      <span class="section-label">P R A Y E R &ensp; W A L L</span>
+      <h2 class="section-title">眾人心願</h2>
+      <div class="section-title-ornament"><span class="dot"></span></div>
+    </div>
+
+    <!-- Filter Bar -->
+    <div class="pw-filters ink-reveal" id="filterBar">
+      <button class="btn-seal btn-seal--compact filter-btn active" data-filter="全部">全部</button>
+      <button class="btn-seal btn-seal--compact filter-btn" data-filter="聖筊">聖筊</button>
+      <button class="btn-seal btn-seal--compact filter-btn" data-filter="笑筊">笑筊</button>
+      <button class="btn-seal btn-seal--compact filter-btn" data-filter="陰筊">陰筊</button>
+      <button class="btn-seal btn-seal--compact filter-btn" data-filter="純祈願">純祈願</button>
+    </div>
+
+    <!-- Cards Container -->
+    <div class="pw-cards" id="cardsContainer"></div>
+  </div>
+</section>
+
+<!-- ========== Footer ========== -->
+<footer class="footer">
+  <div class="lattice-pattern lattice-pattern--faint"></div>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">天虛宮</div>
+        <p>歷經百年歲月，守護一方水土。<br>歡迎蒞臨參拜，共沐神恩。</p>
+      </div>
+      <div class="footer-section">
+        <h4>快速連結</h4>
+        <ul class="footer-links">
+          <li><a href="index.html#about">廟宇沿革</a></li>
+          <li><a href="index.html#deities">神明介紹</a></li>
+          <li><a href="index.html#features">線上祈福</a></li>
+          <li><a href="index.html#visit">參拜資訊</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>線上服務</h4>
+        <ul class="footer-links">
+          <li><a href="jiaobei.html">線上擲筊</a></li>
+          <li><a href="#">線上求籤</a></li>
+          <li><a href="#">線上點燈</a></li>
+          <li><a href="prayer-wall.html">祈福牆</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 天虛宮 All Rights Reserved</p>
+    </div>
+  </div>
+</footer>
+
+<script src="js/prayer-wall.js" defer></script>
+</body>
+</html>
