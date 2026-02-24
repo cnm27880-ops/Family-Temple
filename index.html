@@ -3,171 +3,64 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>福安宮 — 祈福納祥・庇佑平安</title>
+
+  <!-- Security: Content Security Policy -->
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self';
+                 script-src 'self';
+                 style-src 'self' https://fonts.googleapis.com https://unpkg.com 'unsafe-inline';
+                 font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net https://unpkg.com;
+                 img-src 'self' data:;
+                 connect-src 'self';
+                 frame-src 'none';
+                 object-src 'none';
+                 base-uri 'self';
+                 form-action 'self'">
+
+  <!-- Security: Prevent MIME-type sniffing -->
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+
+  <!-- Security: Referrer Policy -->
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
+  <!-- Security: Permissions Policy — disable unused browser features -->
+  <meta http-equiv="Permissions-Policy"
+        content="camera=(), microphone=(), geolocation=(), payment=(), usb=()">
+
+  <title>天虛宮 — 祈福納祥・庇佑平安</title>
+
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@300;400;700&family=Noto+Serif+TC:wght@400;700;900&family=Zhi+Mang+Xing&display=swap" rel="stylesheet">
-  <style>
-:root{--vermillion:#C4362A;--vermillion-deep:#8B1A1A;--vermillion-light:#E85D4A;--gold:#D4A843;--gold-bright:#F0C75E;--gold-dim:#A07D2E;--ink-black:#1C1812;--ink-dark:#2A2520;--ink-medium:#5C554A;--celadon:#7FB5B0;--celadon-dim:#5A8E89;--lotus-pink:#ECC5C0;--bronze:#8B7355;--parchment:#F2EBDD;--parchment-light:#F8F4EC;--parchment-warm:#EDE3CF;--rice-paper:#FAF7F0;--text-primary:var(--ink-black);--text-secondary:var(--ink-medium);--text-on-dark:var(--parchment);--bg-primary:var(--rice-paper);--space-xs:.5rem;--space-sm:1rem;--space-md:2rem;--space-lg:4rem;--space-xl:6rem;--font-calligraphy:'Zhi Mang Xing',cursive;--font-display:'LXGW WenKai TC',serif;--font-body:'Noto Serif TC','LXGW WenKai TC',serif;--ease-smooth:cubic-bezier(.25,.46,.45,.94);--ease-bounce:cubic-bezier(.34,1.56,.64,1)}
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth;font-size:16px}
-body{font-family:var(--font-body);color:var(--text-primary);background:var(--bg-primary);line-height:1.8;overflow-x:hidden}
-@media(pointer:fine){body{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='32' viewBox='0 0 24 32'%3E%3Cline x1='12' y1='8' x2='12' y2='30' stroke='%238B7355' stroke-width='2' stroke-linecap='round'/%3E%3Ccircle cx='12' cy='6' r='3' fill='%23E85D4A' opacity='.8'/%3E%3Ccircle cx='12' cy='4' r='2' fill='%23F0C75E' opacity='.6'/%3E%3C/svg%3E") 12 30,auto}a,button{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Ccircle cx='14' cy='14' r='12' fill='none' stroke='%23C4362A' stroke-width='2'/%3E%3Ccircle cx='14' cy='14' r='4' fill='%23C4362A'/%3E%3C/svg%3E") 14 14,pointer}}
-a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
-body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E")}
-body>*{position:relative;z-index:1}
-.lattice-pattern{position:absolute;inset:0;pointer-events:none;overflow:hidden;opacity:.04;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cpath d='M0 0h60v60H0zM5 5v50h50V5zm5 5h40v40H10zm5 5v30h30V15zm5 5h20v20H20z' fill='none' stroke='%23A07D2E' stroke-width='.5'/%3E%3C/svg%3E");background-size:60px 60px}
-.swastika-pattern{position:absolute;inset:0;pointer-events:none;overflow:hidden;opacity:.03;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cpath d='M20 0v15h-15v5h15v15h5v-15h15v-5h-15v-15z' fill='none' stroke='%23D4A843' stroke-width='.4'/%3E%3Cpath d='M0 0h15v5h-10v10h-5zM25 0h15v15h-5v-10h-10zM0 25h5v10h10v5h-15zM25 35h10v-10h5v15h-15z' fill='none' stroke='%23D4A843' stroke-width='.4'/%3E%3C/svg%3E");background-size:40px 40px}
-.ink-reveal{opacity:0;filter:blur(8px);transform:translateY(30px) scale(.98);transition:all 1.2s var(--ease-smooth)}
-.ink-reveal.visible{opacity:1;filter:blur(0);transform:translateY(0) scale(1)}
-.ink-reveal-left{opacity:0;filter:blur(6px);transform:translateX(-60px);transition:all 1s var(--ease-smooth)}
-.ink-reveal-right{opacity:0;filter:blur(6px);transform:translateX(60px);transition:all 1s var(--ease-smooth)}
-.ink-reveal-left.visible,.ink-reveal-right.visible{opacity:1;filter:blur(0);transform:translateX(0)}
-.ink-delay-1{transition-delay:.15s}.ink-delay-2{transition-delay:.3s}.ink-delay-3{transition-delay:.45s}.ink-delay-4{transition-delay:.6s}
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@300;400;700&family=Noto+Serif+TC:wght@400;700;900&display=swap" rel="stylesheet">
 
-/* Seal stamp button */
-.btn-seal{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;padding:1rem 2.5rem;font-family:var(--font-display);font-size:1rem;font-weight:700;letter-spacing:.15em;border:2px solid var(--vermillion);color:var(--vermillion);background:transparent;position:relative;transition:all .15s;cursor:pointer;overflow:hidden}
-.btn-seal::before{content:'';position:absolute;inset:3px;border:1px solid var(--vermillion);opacity:.4;transition:opacity .3s}
-.btn-seal::after{content:'';position:absolute;inset:0;background:var(--vermillion);transform:scale(0);transition:transform .4s var(--ease-smooth);z-index:-1}
-.btn-seal:hover::after{transform:scale(1)}.btn-seal:hover{color:var(--parchment);border-color:var(--vermillion-deep)}
-.btn-seal:active{transform:scale(.95) rotate(-1deg);box-shadow:2px 2px 0 var(--vermillion-deep),inset 0 0 20px rgba(139,26,26,.3)}
-@keyframes stamp-press{0%{transform:scale(1.3) rotate(-3deg);opacity:0}40%{transform:scale(.95) rotate(1deg);opacity:1}60%{transform:scale(1.02) rotate(-.5deg)}100%{transform:scale(1) rotate(0);opacity:1}}
-.btn-seal.stamped{animation:stamp-press .5s var(--ease-smooth) forwards}
-.btn-gold{display:inline-flex;align-items:center;gap:.5rem;padding:.9rem 2.2rem;font-family:var(--font-display);font-size:1rem;font-weight:400;letter-spacing:.15em;border:1px solid rgba(212,168,67,.5);color:var(--gold);background:transparent;transition:all .3s var(--ease-smooth);cursor:pointer}
-.btn-gold:hover{background:rgba(212,168,67,.1);border-color:var(--gold-bright);transform:translateY(-2px)}
+  <!-- 峄山碑篆体 (Seal Script) — for stamp/seal -->
+  <link rel="stylesheet" href="https://unpkg.com/@chinese-fonts/ysbzt@3.0.0/dist/%E5%B3%84%E5%B1%B1%E7%A2%91%E7%AF%86%E4%BD%93/result.css">
 
-/* Navigation with brush stroke hover */
-.nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:1rem 0;transition:all .4s var(--ease-smooth);background:transparent}
-.nav.scrolled{background:rgba(28,24,18,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);padding:.6rem 0;box-shadow:0 2px 30px rgba(0,0,0,.4)}
-.nav-inner{max-width:1200px;margin:0 auto;padding:0 var(--space-md);display:flex;align-items:center;justify-content:space-between}
-.nav-logo{font-family:var(--font-calligraphy);font-size:1.8rem;color:var(--gold-bright);text-shadow:0 2px 8px rgba(0,0,0,.3)}
-.nav-links{display:flex;gap:2rem;list-style:none;align-items:center}
-.nav-links a{font-family:var(--font-display);font-size:.95rem;font-weight:400;color:var(--parchment);letter-spacing:.08em;position:relative;padding:.3rem 0;transition:color .3s}
-.nav-links a::after{content:'';position:absolute;bottom:-2px;left:-5%;width:110%;height:8px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 8'%3E%3Cpath d='M2 5Q20 2 40 4T80 3T118 5' stroke='%23D4A843' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center;background-size:100% 100%;transform:scaleX(0);transform-origin:center;transition:transform .4s var(--ease-smooth);opacity:.8}
-.nav-links a:hover{color:var(--gold-bright)}.nav-links a:hover::after{transform:scaleX(1)}
-.nav-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:5px}
-.nav-toggle span{display:block;width:28px;height:2px;background:var(--gold-bright);transition:all .3s}
-.nav-toggle.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}.nav-toggle.active span:nth-child(2){opacity:0}.nav-toggle.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
-
-/* Hero */
-.hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;background:var(--ink-black)}
-.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 20%,rgba(196,54,42,.12) 0%,transparent 55%),radial-gradient(ellipse at 30% 80%,rgba(127,181,176,.06) 0%,transparent 40%),radial-gradient(ellipse at 70% 70%,rgba(212,168,67,.08) 0%,transparent 40%),linear-gradient(180deg,#1C1812,#2A1F18 40%,#1C1812)}
-.hero-scroll-frame{position:absolute;inset:30px;border:1px solid rgba(212,168,67,.15);pointer-events:none}
-.hero-scroll-frame::before,.hero-scroll-frame::after{content:'';position:absolute;width:20px;height:20px;border-color:var(--gold);border-style:solid}
-.hero-scroll-frame::before{top:-1px;left:-1px;border-width:2px 0 0 2px}.hero-scroll-frame::after{bottom:-1px;right:-1px;border-width:0 2px 2px 0}
-.corner-tr,.corner-bl{position:absolute;width:20px;height:20px;pointer-events:none}
-.corner-tr{top:29px;right:29px;border-top:2px solid var(--gold);border-right:2px solid var(--gold)}
-.corner-bl{bottom:29px;left:29px;border-bottom:2px solid var(--gold);border-left:2px solid var(--gold)}
-.smoke-container,.dust-container{position:absolute;inset:0;pointer-events:none;overflow:hidden}
-.smoke-particle{position:absolute;bottom:-20px;width:2px;background:linear-gradient(to top,rgba(200,180,150,.3),transparent);animation:smoke-rise linear infinite;opacity:0}
-@keyframes smoke-rise{0%{opacity:0;transform:translateY(0) scaleX(1)}10%{opacity:.5}50%{opacity:.2;transform:translateY(-40vh) translateX(20px) scaleX(2.5)}100%{opacity:0;transform:translateY(-80vh) translateX(-15px) scaleX(4)}}
-.dust{position:absolute;background:var(--gold);border-radius:50%;animation:dust-float linear infinite;opacity:0}
-@keyframes dust-float{0%{opacity:0;transform:translateY(0)}20%{opacity:.7}80%{opacity:.2}100%{opacity:0;transform:translateY(-100vh)}}
-.hero .lattice-pattern{opacity:.025}
-.hero-content{position:relative;z-index:2;padding:var(--space-md)}
-.hero-subtitle-top{font-family:var(--font-display);font-size:.9rem;font-weight:300;color:var(--gold);letter-spacing:.5em;margin-bottom:var(--space-sm);opacity:0;animation:ink-appear 1.2s var(--ease-smooth) .3s forwards}
-.hero-title{font-family:var(--font-calligraphy);font-size:clamp(4rem,12vw,8rem);color:var(--parchment);line-height:1.1;opacity:0;animation:ink-appear 1.2s var(--ease-smooth) .6s forwards;text-shadow:0 4px 30px rgba(0,0,0,.5);position:relative}
-.hero-title .gold-char{color:var(--gold-bright);text-shadow:0 0 60px rgba(240,199,94,.3),0 4px 30px rgba(0,0,0,.5)}
-.hero-seal{position:absolute;top:-10px;right:-60px;width:70px;height:70px;opacity:0;animation:stamp-press .6s var(--ease-smooth) 1.8s forwards}
-.hero-seal svg{width:100%;height:100%}
-.hero-ornament{display:flex;align-items:center;justify-content:center;gap:1.5rem;margin:var(--space-sm) 0;opacity:0;animation:ink-appear 1s var(--ease-smooth) .9s forwards}
-.hero-ornament::before,.hero-ornament::after{content:'';height:1px;width:80px;background:linear-gradient(90deg,transparent,var(--gold-dim),transparent)}
-.hero-ornament-icon{color:var(--celadon);font-size:1.5rem;opacity:.6}
-.hero-motto{font-family:var(--font-display);font-size:clamp(1rem,2.5vw,1.3rem);font-weight:400;color:var(--gold);letter-spacing:.35em;opacity:0;animation:ink-appear 1s var(--ease-smooth) 1s forwards}
-.hero-desc{font-family:var(--font-display);font-size:1rem;font-weight:300;color:rgba(242,235,221,.6);max-width:480px;margin:var(--space-md) auto 0;line-height:2.2;opacity:0;animation:ink-appear 1s var(--ease-smooth) 1.3s forwards}
-.hero-cta-group{display:flex;gap:var(--space-sm);justify-content:center;flex-wrap:wrap;margin-top:var(--space-lg);opacity:0;animation:ink-appear 1s var(--ease-smooth) 1.6s forwards}
-.hero-cta-group .btn-seal{color:var(--gold);border-color:var(--gold)}.hero-cta-group .btn-seal::before{border-color:var(--gold);opacity:.3}.hero-cta-group .btn-seal::after{background:var(--vermillion)}.hero-cta-group .btn-seal:hover{color:var(--parchment);border-color:var(--vermillion)}
-@keyframes ink-appear{from{opacity:0;transform:translateY(25px);filter:blur(4px)}to{opacity:1;transform:translateY(0);filter:blur(0)}}
-.scroll-hint{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);z-index:2;opacity:0;animation:ink-appear 1s var(--ease-smooth) 2.2s forwards}
-.scroll-hint-inner{display:flex;flex-direction:column;align-items:center;gap:.5rem;color:rgba(212,168,67,.5);font-family:var(--font-display);font-size:.75rem;letter-spacing:.3em}
-.scroll-arrow{width:18px;height:18px;border-right:1px solid var(--gold-dim);border-bottom:1px solid var(--gold-dim);transform:rotate(45deg);animation:scroll-bounce 2.5s infinite}
-@keyframes scroll-bounce{0%,100%{transform:rotate(45deg) translateY(0);opacity:.4}50%{transform:rotate(45deg) translateY(8px);opacity:.8}}
-
-/* Ink cloud dividers */
-.ink-cloud-divider{width:100%;height:120px;position:relative;margin:-1px 0;z-index:2}
-.ink-cloud-divider svg{display:block;width:100%;height:100%}
-
-/* Sections */
-.container{max-width:1200px;margin:0 auto;padding:0 var(--space-md)}
-.section-header{text-align:center;margin-bottom:var(--space-lg)}
-.section-label{font-family:var(--font-display);font-size:.8rem;font-weight:300;color:var(--celadon-dim);letter-spacing:.4em}
-.section-title{font-family:var(--font-display);font-size:clamp(2rem,5vw,2.8rem);font-weight:700;color:var(--text-primary);margin-top:.5rem;letter-spacing:.1em}
-.section-title.on-dark{color:var(--parchment)}
-.section-title-ornament{display:flex;align-items:center;justify-content:center;gap:1rem;margin-top:.8rem}
-.section-title-ornament::before,.section-title-ornament::after{content:'';width:50px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
-.section-title-ornament .dot{width:6px;height:6px;background:var(--gold);transform:rotate(45deg)}
-.about{background:var(--bg-primary);position:relative;padding:var(--space-xl) 0}
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-lg);align-items:center}
-.about-image-wrapper{position:relative;aspect-ratio:4/5;overflow:hidden}
-.about-image-placeholder{width:100%;height:100%;background:linear-gradient(135deg,var(--vermillion-deep),#3D2019);display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--gold);font-family:var(--font-display);gap:1rem}
-.about-image-placeholder .placeholder-icon{font-size:4rem;opacity:.5}
-.about-image-placeholder .placeholder-text{font-size:.85rem;opacity:.4;letter-spacing:.1em}
-.image-frame{position:absolute;inset:0;pointer-events:none}.image-frame .corner{position:absolute;width:30px;height:30px}
-.image-frame .corner-tl{top:10px;left:10px;border-top:2px solid var(--gold);border-left:2px solid var(--gold)}
-.image-frame .corner-tr{top:10px;right:10px;border-top:2px solid var(--gold);border-right:2px solid var(--gold)}
-.image-frame .corner-bl{bottom:10px;left:10px;border-bottom:2px solid var(--gold);border-left:2px solid var(--gold)}
-.image-frame .corner-br{bottom:10px;right:10px;border-bottom:2px solid var(--gold);border-right:2px solid var(--gold)}
-.about-text h3{font-family:var(--font-display);font-size:1.6rem;font-weight:700;color:var(--vermillion-deep);margin-bottom:var(--space-sm);letter-spacing:.05em}
-.about-text p{font-size:1rem;color:var(--text-secondary);margin-bottom:var(--space-sm);line-height:2.2}
-.about-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-sm);margin-top:var(--space-md);padding-top:var(--space-md);border-top:1px solid rgba(212,168,67,.2)}
-.stat-item{text-align:center}
-.stat-number{font-family:var(--font-calligraphy);font-size:2.5rem;color:var(--vermillion)}
-.stat-label{font-family:var(--font-display);font-size:.85rem;color:var(--text-secondary);letter-spacing:.05em}
-.deities{background:var(--ink-black);position:relative;overflow:hidden;padding:var(--space-xl) 0}
-.deities::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 20% 40%,rgba(127,181,176,.06) 0%,transparent 50%),radial-gradient(ellipse at 80% 60%,rgba(196,54,42,.06) 0%,transparent 50%)}
-.deities-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:var(--space-md);position:relative;z-index:1}
-.deity-card{background:rgba(255,255,255,.02);border:1px solid rgba(212,168,67,.1);padding:var(--space-md);text-align:center;transition:all .5s var(--ease-smooth);position:relative}
-.deity-card::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:40px;height:2px;background:var(--gold);transition:width .5s var(--ease-smooth)}
-.deity-card:hover{background:rgba(255,255,255,.04);border-color:rgba(212,168,67,.25);transform:translateY(-6px)}.deity-card:hover::before{width:100%}
-.deity-icon{width:90px;height:90px;margin:0 auto var(--space-sm);border-radius:50%;background:linear-gradient(135deg,var(--vermillion-deep),#4A1A1A);display:flex;align-items:center;justify-content:center;font-size:2.2rem;box-shadow:0 8px 30px rgba(196,54,42,.25),inset 0 -2px 6px rgba(0,0,0,.3);border:1px solid rgba(212,168,67,.15)}
-.deity-name{font-family:var(--font-display);font-size:1.4rem;font-weight:700;color:var(--gold-bright);margin-bottom:.2rem;letter-spacing:.08em}
-.deity-title-label{font-family:var(--font-display);font-size:.8rem;color:var(--celadon);letter-spacing:.2em;margin-bottom:var(--space-sm)}
-.deity-desc{font-family:var(--font-display);font-size:.9rem;color:rgba(242,235,221,.5);line-height:2;font-weight:300}
-.features{background:var(--parchment);position:relative;padding:var(--space-xl) 0;overflow:hidden}
-.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--space-md)}
-.feature-card{background:var(--rice-paper);padding:var(--space-md);text-align:center;transition:all .5s var(--ease-smooth);border:1px solid rgba(212,168,67,.1);position:relative;overflow:hidden}
-.feature-card::before{content:'';position:absolute;top:50%;left:50%;width:0;height:0;background:radial-gradient(circle,rgba(196,54,42,.05) 0%,transparent 70%);border-radius:50%;transform:translate(-50%,-50%);transition:all .6s var(--ease-smooth)}
-.feature-card:hover::before{width:300px;height:300px}
-.feature-card:hover{border-color:var(--gold);transform:translateY(-6px);box-shadow:0 15px 50px rgba(0,0,0,.06)}
-.feature-emoji{font-size:3rem;margin-bottom:var(--space-sm);display:block;transition:transform .5s var(--ease-bounce);position:relative;z-index:1}
-.feature-card:hover .feature-emoji{transform:scale(1.2) rotate(-8deg)}
-.feature-name{font-family:var(--font-display);font-size:1.2rem;font-weight:700;color:var(--text-primary);margin-bottom:.5rem;letter-spacing:.08em;position:relative;z-index:1}
-.feature-desc{font-family:var(--font-display);font-size:.9rem;color:var(--text-secondary);line-height:1.9;font-weight:300;position:relative;z-index:1}
-.feature-tag{display:inline-block;margin-top:var(--space-sm);padding:.3rem 1rem;color:var(--vermillion);font-family:var(--font-display);font-size:.75rem;border:1px solid var(--vermillion);letter-spacing:.08em;position:relative;z-index:1;background:transparent}
-.visit{background:var(--bg-primary);padding:var(--space-xl) 0}
-.visit-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-lg)}
-.visit-info h3{font-family:var(--font-display);font-size:1.3rem;font-weight:700;color:var(--vermillion-deep);margin-bottom:var(--space-sm)}
-.info-item{display:flex;gap:var(--space-sm);margin-bottom:1.2rem;align-items:flex-start}
-.info-icon{flex-shrink:0;width:42px;height:42px;background:rgba(196,54,42,.06);border:1px solid rgba(196,54,42,.1);display:flex;align-items:center;justify-content:center;font-size:1.1rem}
-.info-content{flex:1}.info-label{font-family:var(--font-display);font-size:.8rem;color:var(--text-secondary);letter-spacing:.08em}
-.info-value{font-family:var(--font-display);font-size:1rem;color:var(--text-primary);font-weight:700}
-.map-placeholder{width:100%;height:100%;min-height:350px;background:var(--parchment-warm);display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--text-secondary);font-family:var(--font-display);border:1px solid rgba(212,168,67,.15)}
-.map-placeholder .map-icon{font-size:3rem;margin-bottom:var(--space-sm);opacity:.4}
-.visit-guide{margin-top:var(--space-md)}.visit-guide p{font-family:var(--font-display);font-weight:300;color:var(--text-secondary);line-height:2.2;margin-top:.5rem}
-.footer{background:var(--ink-black);color:var(--parchment);padding:var(--space-lg) 0 var(--space-md);position:relative}
-.footer-inner{display:grid;grid-template-columns:2fr 1fr 1fr;gap:var(--space-lg);margin-bottom:var(--space-lg)}
-.footer-brand .footer-logo{font-family:var(--font-calligraphy);font-size:2rem;color:var(--gold-bright);margin-bottom:var(--space-sm)}
-.footer-brand p{font-family:var(--font-display);font-size:.9rem;font-weight:300;color:rgba(242,235,221,.4);line-height:2;max-width:300px}
-.footer-section h4{font-family:var(--font-display);font-size:1rem;font-weight:700;color:var(--gold);margin-bottom:var(--space-sm);letter-spacing:.15em}
-.footer-links{list-style:none}.footer-links li{margin-bottom:.5rem}
-.footer-links a{font-family:var(--font-display);font-size:.9rem;font-weight:300;color:rgba(242,235,221,.4);transition:color .3s}.footer-links a:hover{color:var(--gold-bright)}
-.footer-bottom{text-align:center;padding-top:var(--space-md);border-top:1px solid rgba(212,168,67,.08);font-family:var(--font-display);font-size:.8rem;font-weight:300;color:rgba(242,235,221,.2)}
-@media(max-width:768px){.nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:rgba(28,24,18,.98);flex-direction:column;padding:var(--space-md);gap:var(--space-sm)}.nav-links.active{display:flex}.nav-toggle{display:flex}.hero-scroll-frame{inset:15px}.corner-tr{top:14px;right:14px}.corner-bl{bottom:14px;left:14px}.hero-seal{display:none}.about-grid,.visit-grid{grid-template-columns:1fr}.about-image-wrapper{aspect-ratio:16/10}.footer-inner{grid-template-columns:1fr;gap:var(--space-md)}.hero-cta-group{flex-direction:column;align-items:center}}
-  </style>
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-<nav class="nav" id="navbar"><div class="nav-inner">
-  <a href="#" class="nav-logo">福安宮</a>
-  <button class="nav-toggle" id="navToggle" aria-label="開啟選單"><span></span><span></span><span></span></button>
-  <ul class="nav-links" id="navLinks">
-    <li><a href="#about">廟宇介紹</a></li>
-    <li><a href="#deities">神明介紹</a></li>
-    <li><a href="#features">線上祈福</a></li>
-    <li><a href="#visit">參拜資訊</a></li>
-    <li><a href="#" class="btn-seal" style="padding:.5rem 1.2rem;font-size:.85rem;border-width:1px">線上點燈</a></li>
-  </ul>
-</div></nav>
 
+<!-- ========== Navigation ========== -->
+<nav class="nav" id="navbar">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">天虛宮</a>
+    <button class="nav-toggle" id="navToggle" aria-label="開啟選單">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">廟宇介紹</a></li>
+      <li><a href="#deities">神明介紹</a></li>
+      <li><a href="#features">線上祈福</a></li>
+      <li><a href="#visit">參拜資訊</a></li>
+      <li><a href="#" class="btn-seal btn-seal--compact">線上點燈</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ========== Hero ========== -->
 <section class="hero" id="hero">
   <div class="hero-bg"></div>
   <div class="lattice-pattern"></div>
@@ -179,8 +72,15 @@ body>*{position:relative;z-index:1}
   <div class="hero-content">
     <p class="hero-subtitle-top">— 祈 福 納 祥 —</p>
     <h1 class="hero-title">
-      <span class="gold-char">福</span><span class="gold-char">安</span>宮
-      <span class="hero-seal"><svg viewBox="0 0 70 70" fill="none"><rect x="5" y="5" width="60" height="60" rx="4" stroke="#C4362A" stroke-width="3"/><rect x="10" y="10" width="50" height="50" rx="2" stroke="#C4362A" stroke-width="1" opacity=".5"/><text x="35" y="42" text-anchor="middle" font-family="LXGW WenKai TC,serif" font-size="22" font-weight="700" fill="#C4362A">福</text></svg></span>
+      <span class="gold-char">天</span><span class="gold-char">虛</span>宮
+      <span class="hero-seal">
+        <svg viewBox="0 0 70 70" fill="none">
+          <rect x="5" y="5" width="60" height="60" rx="4" stroke="#C4362A" stroke-width="3"/>
+          <rect x="10" y="10" width="50" height="50" rx="2" stroke="#C4362A" stroke-width="1" opacity=".5"/>
+          <text x="35" y="33" text-anchor="middle" font-family="峄山碑篆体,LXGW WenKai TC,serif" font-size="18" font-weight="700" fill="#C4362A">无</text>
+          <text x="35" y="53" text-anchor="middle" font-family="峄山碑篆体,LXGW WenKai TC,serif" font-size="18" font-weight="700" fill="#C4362A">极</text>
+        </svg>
+      </span>
     </h1>
     <div class="hero-ornament"><span class="hero-ornament-icon">☯</span></div>
     <p class="hero-motto">香 火 鼎 盛 · 神 恩 浩 蕩</p>
@@ -190,11 +90,24 @@ body>*{position:relative;z-index:1}
       <a href="#about" class="btn-gold">探索廟宇故事</a>
     </div>
   </div>
-  <div class="scroll-hint"><div class="scroll-hint-inner"><span>展開捲軸</span><div class="scroll-arrow"></div></div></div>
+  <div class="scroll-hint">
+    <div class="scroll-hint-inner">
+      <span>展開捲軸</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </div>
 </section>
 
-<div class="ink-cloud-divider"><svg viewBox="0 0 1440 120" preserveAspectRatio="none"><defs><filter id="ib1"><feGaussianBlur in="SourceGraphic" stdDeviation="2"/></filter></defs><path d="M0,0L1440,0L1440,40Q1200,120 960,60Q720,0 480,80Q240,120 0,50Z" fill="#1C1812"/><path d="M0,20Q200,80 400,40Q600,0 800,50Q1000,100 1200,30Q1400,10 1440,40L1440,0L0,0Z" fill="#1C1812" filter="url(#ib1)" opacity=".5"/></svg></div>
+<!-- Divider -->
+<div class="ink-cloud-divider">
+  <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+    <defs><filter id="ib1"><feGaussianBlur in="SourceGraphic" stdDeviation="2"/></filter></defs>
+    <path d="M0,0L1440,0L1440,40Q1200,120 960,60Q720,0 480,80Q240,120 0,50Z" fill="#1C1812"/>
+    <path d="M0,20Q200,80 400,40Q600,0 800,50Q1000,100 1200,30Q1400,10 1440,40L1440,0L0,0Z" fill="#1C1812" filter="url(#ib1)" opacity=".5"/>
+  </svg>
+</div>
 
+<!-- ========== About ========== -->
 <section class="about" id="about">
   <div class="swastika-pattern"></div>
   <div class="container">
@@ -205,12 +118,20 @@ body>*{position:relative;z-index:1}
     </div>
     <div class="about-grid">
       <div class="about-image-wrapper ink-reveal-left">
-        <div class="about-image-placeholder"><span class="placeholder-icon">🏛️</span><span class="placeholder-text">廟宇主視覺照片</span></div>
-        <div class="image-frame"><div class="corner corner-tl"></div><div class="corner corner-tr"></div><div class="corner corner-bl"></div><div class="corner corner-br"></div></div>
+        <div class="about-image-placeholder">
+          <span class="placeholder-icon">🏛️</span>
+          <span class="placeholder-text">廟宇主視覺照片</span>
+        </div>
+        <div class="image-frame">
+          <div class="corner corner-tl"></div>
+          <div class="corner corner-tr"></div>
+          <div class="corner corner-bl"></div>
+          <div class="corner corner-br"></div>
+        </div>
       </div>
       <div class="about-text ink-reveal-right">
         <h3>百年香火，守護一方</h3>
-        <p>【請在此填入廟宇的創建故事】——例如：福安宮始建於清朝年間，由先民自大陸恭迎香火渡海來台，落腳於此地後建廟奉祀，至今已有超過百年的歷史。</p>
+        <p>【請在此填入廟宇的創建故事】——例如：天虛宮始建於清朝年間，由先民自大陸恭迎香火渡海來台，落腳於此地後建廟奉祀，至今已有超過百年的歷史。</p>
         <p>【請在此填入廟宇的發展歷程】——例如：歷經多次修繕擴建，從最初的小祠堂發展為今日的規模，始終是在地居民最重要的信仰中心，見證了這片土地的繁榮與變遷。</p>
         <div class="about-stats">
           <div class="stat-item"><div class="stat-number">100+</div><div class="stat-label">年歷史</div></div>
@@ -222,26 +143,57 @@ body>*{position:relative;z-index:1}
   </div>
 </section>
 
-<div class="ink-cloud-divider"><svg viewBox="0 0 1440 120" preserveAspectRatio="none"><defs><filter id="ib2"><feGaussianBlur in="SourceGraphic" stdDeviation="2"/></filter></defs><rect width="1440" height="120" fill="#1C1812"/><path d="M0,120L1440,120L1440,80Q1200,0 960,60Q720,120 480,40Q240,0 0,70Z" fill="#F8F4EC"/><path d="M0,100Q200,40 400,80Q600,120 800,70Q1000,20 1200,90Q1400,110 1440,80L1440,120L0,120Z" fill="#F8F4EC" filter="url(#ib2)" opacity=".5"/></svg></div>
+<!-- Divider -->
+<div class="ink-cloud-divider">
+  <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+    <defs><filter id="ib2"><feGaussianBlur in="SourceGraphic" stdDeviation="2"/></filter></defs>
+    <rect width="1440" height="120" fill="#1C1812"/>
+    <path d="M0,120L1440,120L1440,80Q1200,0 960,60Q720,120 480,40Q240,0 0,70Z" fill="#F8F4EC"/>
+    <path d="M0,100Q200,40 400,80Q600,120 800,70Q1000,20 1200,90Q1400,110 1440,80L1440,120L0,120Z" fill="#F8F4EC" filter="url(#ib2)" opacity=".5"/>
+  </svg>
+</div>
 
+<!-- ========== Deities ========== -->
 <section class="deities" id="deities">
   <div class="lattice-pattern"></div>
   <div class="container">
     <div class="section-header ink-reveal">
-      <span class="section-label" style="color:rgba(127,181,176,.6)">D E I T I E S</span>
+      <span class="section-label section-label--deity">D E I T I E S</span>
       <h2 class="section-title on-dark">神明介紹</h2>
-      <div class="section-title-ornament"><span class="dot" style="background:var(--celadon)"></span></div>
+      <div class="section-title-ornament"><span class="dot dot--celadon"></span></div>
     </div>
     <div class="deities-grid">
-      <div class="deity-card ink-reveal ink-delay-1"><div class="deity-icon">🙏</div><h3 class="deity-name">【主祀神明名稱】</h3><p class="deity-title-label">主 祀</p><p class="deity-desc">【請填入神明介紹】——例如：掌管何種事務、信眾通常祈求什麼、神明的由來典故等。</p></div>
-      <div class="deity-card ink-reveal ink-delay-2"><div class="deity-icon">🙏</div><h3 class="deity-name">【陪祀神明名稱】</h3><p class="deity-title-label">陪 祀</p><p class="deity-desc">【請填入神明介紹】——例如：掌管何種事務、信眾通常祈求什麼、神明的由來典故等。</p></div>
-      <div class="deity-card ink-reveal ink-delay-3"><div class="deity-icon">🙏</div><h3 class="deity-name">【陪祀神明名稱】</h3><p class="deity-title-label">陪 祀</p><p class="deity-desc">【請填入神明介紹】——例如：掌管何種事務、信眾通常祈求什麼、神明的由來典故等。</p></div>
+      <div class="deity-card ink-reveal ink-delay-1">
+        <div class="deity-icon">🙏</div>
+        <h3 class="deity-name">【主祀神明名稱】</h3>
+        <p class="deity-title-label">主 祀</p>
+        <p class="deity-desc">【請填入神明介紹】——例如：掌管何種事務、信眾通常祈求什麼、神明的由來典故等。</p>
+      </div>
+      <div class="deity-card ink-reveal ink-delay-2">
+        <div class="deity-icon">🙏</div>
+        <h3 class="deity-name">【陪祀神明名稱】</h3>
+        <p class="deity-title-label">陪 祀</p>
+        <p class="deity-desc">【請填入神明介紹】——例如：掌管何種事務、信眾通常祈求什麼、神明的由來典故等。</p>
+      </div>
+      <div class="deity-card ink-reveal ink-delay-3">
+        <div class="deity-icon">🙏</div>
+        <h3 class="deity-name">【陪祀神明名稱】</h3>
+        <p class="deity-title-label">陪 祀</p>
+        <p class="deity-desc">【請填入神明介紹】——例如：掌管何種事務、信眾通常祈求什麼、神明的由來典故等。</p>
+      </div>
     </div>
   </div>
 </section>
 
-<div class="ink-cloud-divider"><svg viewBox="0 0 1440 120" preserveAspectRatio="none"><path d="M0,0L1440,0L1440,50Q1100,120 800,40Q500,0 200,80Q100,100 0,60Z" fill="#1C1812"/><path d="M0,30Q360,100 720,30Q1080,0 1440,50L1440,0L0,0Z" fill="#1C1812" opacity=".4" filter="url(#ib1)"/></svg></div>
+<!-- Divider -->
+<div class="ink-cloud-divider">
+  <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+    <path d="M0,0L1440,0L1440,50Q1100,120 800,40Q500,0 200,80Q100,100 0,60Z" fill="#1C1812"/>
+    <path d="M0,30Q360,100 720,30Q1080,0 1440,50L1440,0L0,0Z" fill="#1C1812" opacity=".4" filter="url(#ib1)"/>
+  </svg>
+</div>
 
+<!-- ========== Features ========== -->
 <section class="features" id="features">
   <div class="swastika-pattern"></div>
   <div class="container">
@@ -249,17 +201,38 @@ body>*{position:relative;z-index:1}
       <span class="section-label">O N L I N E &ensp; S E R V I C E S</span>
       <h2 class="section-title">線上祈福</h2>
       <div class="section-title-ornament"><span class="dot"></span></div>
-      <p style="color:var(--text-secondary);margin-top:.8rem;font-family:var(--font-display);font-weight:300;font-size:.95rem;letter-spacing:.1em">無論身在何處，都能感受神明庇佑</p>
+      <p class="section-subtitle">無論身在何處，都能感受神明庇佑</p>
     </div>
     <div class="features-grid">
-      <div class="feature-card ink-reveal ink-delay-1"><span class="feature-emoji">🥢</span><h3 class="feature-name">線上擲筊</h3><p class="feature-desc">虔心默念您的問題，<br>擲出聖筊，聆聽神明的指引。</p><span class="feature-tag">互動動畫</span></div>
-      <div class="feature-card ink-reveal ink-delay-2"><span class="feature-emoji">🎋</span><h3 class="feature-name">線上求籤</h3><p class="feature-desc">搖動籤筒，抽取您的籤詩，<br>附完整籤詩解釋與指引。</p><span class="feature-tag">籤詩解籤</span></div>
-      <div class="feature-card ink-reveal ink-delay-3"><span class="feature-emoji">🏮</span><h3 class="feature-name">線上點燈</h3><p class="feature-desc">光明燈、太歲燈線上登記，<br>為您與家人祈求平安順遂。</p><span class="feature-tag">線上登記</span></div>
-      <div class="feature-card ink-reveal ink-delay-4"><span class="feature-emoji">🪷</span><h3 class="feature-name">祈福牆</h3><p class="feature-desc">寫下您的心願，<br>與眾人的祝福一同飄向天際。</p><span class="feature-tag">許願留言</span></div>
+      <div class="feature-card ink-reveal ink-delay-1">
+        <span class="feature-emoji">🥢</span>
+        <h3 class="feature-name">線上擲筊</h3>
+        <p class="feature-desc">虔心默念您的問題，<br>擲出聖筊，聆聽神明的指引。</p>
+        <span class="feature-tag">互動動畫</span>
+      </div>
+      <div class="feature-card ink-reveal ink-delay-2">
+        <span class="feature-emoji">🎋</span>
+        <h3 class="feature-name">線上求籤</h3>
+        <p class="feature-desc">搖動籤筒，抽取您的籤詩，<br>附完整籤詩解釋與指引。</p>
+        <span class="feature-tag">籤詩解籤</span>
+      </div>
+      <div class="feature-card ink-reveal ink-delay-3">
+        <span class="feature-emoji">🏮</span>
+        <h3 class="feature-name">線上點燈</h3>
+        <p class="feature-desc">光明燈、太歲燈線上登記，<br>為您與家人祈求平安順遂。</p>
+        <span class="feature-tag">線上登記</span>
+      </div>
+      <div class="feature-card ink-reveal ink-delay-4">
+        <span class="feature-emoji">🪷</span>
+        <h3 class="feature-name">祈福牆</h3>
+        <p class="feature-desc">寫下您的心願，<br>與眾人的祝福一同飄向天際。</p>
+        <span class="feature-tag">許願留言</span>
+      </div>
     </div>
   </div>
 </section>
 
+<!-- ========== Visit ========== -->
 <section class="visit" id="visit">
   <div class="container">
     <div class="section-header ink-reveal">
@@ -270,56 +243,77 @@ body>*{position:relative;z-index:1}
     <div class="visit-grid">
       <div class="visit-info ink-reveal-left">
         <h3>交通與開放資訊</h3>
-        <div class="info-item"><div class="info-icon">📍</div><div class="info-content"><div class="info-label">廟宇地址</div><div class="info-value">【請填入廟宇地址】</div></div></div>
-        <div class="info-item"><div class="info-icon">🕐</div><div class="info-content"><div class="info-label">開放時間</div><div class="info-value">每日 06:00 — 21:00（全年無休）</div></div></div>
-        <div class="info-item"><div class="info-icon">📞</div><div class="info-content"><div class="info-label">聯絡電話</div><div class="info-value">【請填入電話號碼】</div></div></div>
-        <div class="info-item"><div class="info-icon">🅿️</div><div class="info-content"><div class="info-label">停車資訊</div><div class="info-value">【請填入停車場資訊】</div></div></div>
-        <div class="info-item"><div class="info-icon">💬</div><div class="info-content"><div class="info-label">LINE 官方帳號</div><div class="info-value">【請填入 LINE ID】</div></div></div>
-        <div class="visit-guide"><h3>參拜小指南</h3><p>【請填入參拜禮儀說明】——例如：入廟先拜天公爐、再依序至正殿參拜主神、左右殿陪祀神明等。</p></div>
+        <div class="info-item">
+          <div class="info-icon">📍</div>
+          <div class="info-content"><div class="info-label">廟宇地址</div><div class="info-value">【請填入廟宇地址】</div></div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">🕐</div>
+          <div class="info-content"><div class="info-label">開放時間</div><div class="info-value">每日 06:00 — 21:00（全年無休）</div></div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">📞</div>
+          <div class="info-content"><div class="info-label">聯絡電話</div><div class="info-value">【請填入電話號碼】</div></div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">🅿️</div>
+          <div class="info-content"><div class="info-label">停車資訊</div><div class="info-value">【請填入停車場資訊】</div></div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">💬</div>
+          <div class="info-content"><div class="info-label">LINE 官方帳號</div><div class="info-value">【請填入 LINE ID】</div></div>
+        </div>
+        <div class="visit-guide">
+          <h3>參拜小指南</h3>
+          <p>【請填入參拜禮儀說明】——例如：入廟先拜天公爐、再依序至正殿參拜主神、左右殿陪祀神明等。</p>
+        </div>
       </div>
-      <div class="ink-reveal-right"><div class="map-placeholder"><span class="map-icon">🗺️</span><p>Google Map 將嵌入此處</p><p style="font-size:.8rem;margin-top:.5rem;opacity:.4">填入地址後即可啟用</p></div></div>
+      <div class="ink-reveal-right">
+        <div class="map-placeholder">
+          <span class="map-icon">🗺️</span>
+          <p>Google Map 將嵌入此處</p>
+          <p class="map-note">填入地址後即可啟用</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
+<!-- ========== Footer ========== -->
 <footer class="footer">
-  <div class="lattice-pattern" style="opacity:.015"></div>
+  <div class="lattice-pattern lattice-pattern--faint"></div>
   <div class="container">
     <div class="footer-inner">
-      <div class="footer-brand"><div class="footer-logo">福安宮</div><p>歷經百年歲月，守護一方水土。<br>歡迎蒞臨參拜，共沐神恩。</p></div>
-      <div class="footer-section"><h4>快速連結</h4><ul class="footer-links"><li><a href="#about">廟宇沿革</a></li><li><a href="#deities">神明介紹</a></li><li><a href="#features">線上祈福</a></li><li><a href="#visit">參拜資訊</a></li></ul></div>
-      <div class="footer-section"><h4>線上服務</h4><ul class="footer-links"><li><a href="#">線上擲筊</a></li><li><a href="#">線上求籤</a></li><li><a href="#">線上點燈</a></li><li><a href="#">祈福牆</a></li></ul></div>
+      <div class="footer-brand">
+        <div class="footer-logo">天虛宮</div>
+        <p>歷經百年歲月，守護一方水土。<br>歡迎蒞臨參拜，共沐神恩。</p>
+      </div>
+      <div class="footer-section">
+        <h4>快速連結</h4>
+        <ul class="footer-links">
+          <li><a href="#about">廟宇沿革</a></li>
+          <li><a href="#deities">神明介紹</a></li>
+          <li><a href="#features">線上祈福</a></li>
+          <li><a href="#visit">參拜資訊</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>線上服務</h4>
+        <ul class="footer-links">
+          <li><a href="#">線上擲筊</a></li>
+          <li><a href="#">線上求籤</a></li>
+          <li><a href="#">線上點燈</a></li>
+          <li><a href="#">祈福牆</a></li>
+        </ul>
+      </div>
     </div>
-    <div class="footer-bottom"><p>&copy; 2026 福安宮 All Rights Reserved</p></div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 天虛宮 All Rights Reserved</p>
+    </div>
   </div>
 </footer>
 
-<script>
-// Navigation
-const navbar=document.getElementById('navbar');
-window.addEventListener('scroll',()=>navbar.classList.toggle('scrolled',window.scrollY>50));
-const navToggle=document.getElementById('navToggle'),navLinks=document.getElementById('navLinks');
-navToggle.addEventListener('click',()=>{navToggle.classList.toggle('active');navLinks.classList.toggle('active')});
-navLinks.querySelectorAll('a').forEach(l=>l.addEventListener('click',()=>{navToggle.classList.remove('active');navLinks.classList.remove('active')}));
-
-// Smoke particles
-const smokeC=document.getElementById('smokeContainer');
-for(let i=0;i<10;i++){const p=document.createElement('div');p.classList.add('smoke-particle');p.style.left=42+Math.random()*16+'%';p.style.height=50+Math.random()*80+'px';p.style.animationDuration=7+Math.random()*7+'s';p.style.animationDelay=Math.random()*10+'s';smokeC.appendChild(p)}
-
-// Golden dust
-const dustC=document.getElementById('dustContainer');
-for(let i=0;i<15;i++){const d=document.createElement('div');d.classList.add('dust');d.style.left=Math.random()*100+'%';d.style.top=Math.random()*100+'%';const s=1+Math.random()*2.5+'px';d.style.width=s;d.style.height=s;d.style.animationDuration=10+Math.random()*15+'s';d.style.animationDelay=Math.random()*12+'s';dustC.appendChild(d)}
-
-// Ink wash scroll reveal
-const inkEls=document.querySelectorAll('.ink-reveal,.ink-reveal-left,.ink-reveal-right');
-const inkObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:.12,rootMargin:'0px 0px -40px 0px'});
-inkEls.forEach(el=>inkObs.observe(el));
-
-// Stamp button effect
-document.querySelectorAll('.btn-seal').forEach(btn=>{btn.addEventListener('click',function(){this.classList.remove('stamped');void this.offsetWidth;this.classList.add('stamped')})});
-
-// Smooth scroll
-document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',function(e){e.preventDefault();const t=document.querySelector(this.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'})})});
-</script>
+<!-- JavaScript (defer: loads after HTML parsing) -->
+<script src="js/main.js" defer></script>
 </body>
 </html>
