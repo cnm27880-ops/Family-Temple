@@ -147,9 +147,18 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /* ---------- Stage 3: Throw Jiaobei ---------- */
+
+  /** Switch between yang (flat) and yin (curved) face via display */
+  function showFace(cupEl, isYang) {
+    cupEl.querySelector('.face-yang').style.display = isYang ? 'block' : 'none';
+    cupEl.querySelector('.face-yin').style.display = isYang ? 'none' : 'block';
+  }
+
   function resetCups() {
-    cup1.className = 'jiao-cup';
-    cup2.className = 'jiao-cup';
+    cup1.classList.remove('throwing', 'landed');
+    cup2.classList.remove('throwing', 'landed');
+    showFace(cup1, true);
+    showFace(cup2, true);
     throwBtn.disabled = false;
   }
 
@@ -157,9 +166,11 @@ document.addEventListener('DOMContentLoaded', function () {
     // 1. Disable button
     throwBtn.disabled = true;
 
-    // 2. Reset cup classes
-    cup1.className = 'jiao-cup';
-    cup2.className = 'jiao-cup';
+    // 2. Reset cup animation classes
+    cup1.classList.remove('throwing', 'landed');
+    cup2.classList.remove('throwing', 'landed');
+    showFace(cup1, true);
+    showFace(cup2, true);
 
     // Force reflow
     void cup1.offsetWidth;
@@ -171,12 +182,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // 4. Start throw animation
     cup1.classList.add('throwing');
-    cup2.classList.add('throwing-delay');
+    cup2.classList.add('throwing');
 
     // 5. After animation, show result face
     setTimeout(function () {
-      cup1.className = 'jiao-cup landed ' + (cup1Yang ? 'face-yang' : 'face-yin');
-      cup2.className = 'jiao-cup landed ' + (cup2Yang ? 'face-yang' : 'face-yin');
+      cup1.classList.remove('throwing');
+      cup2.classList.remove('throwing');
+      cup1.classList.add('landed');
+      cup2.classList.add('landed');
+
+      showFace(cup1, cup1Yang);
+      showFace(cup2, cup2Yang);
 
       // 6. Determine result
       if (cup1Yang !== cup2Yang) {
