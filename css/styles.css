@@ -528,32 +528,33 @@ body > * {
   animation: ink-appear 1.2s var(--ease-smooth) .3s forwards;
 }
 
-.hero-title {
-  font-family: var(--font-calligraphy);
-  font-size: clamp(4rem, 12vw, 8rem);
-  color: var(--parchment);
-  line-height: 1.1;
-  letter-spacing: 0.3em;
-  opacity: 0;
-  animation: ink-appear 1.2s var(--ease-smooth) .6s forwards;
-  text-shadow: 0 4px 30px rgba(0, 0, 0, .5);
+.hero-title-group {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 0.5rem;
 }
 
-.hero-title .gold-char {
+.hero-title {
+  font-family: var(--font-calligraphy);
+  font-size: clamp(3.5rem, 10vw, 7rem);
   color: var(--gold-bright);
-  text-shadow: 0 0 60px rgba(240, 199, 94, .3), 0 4px 30px rgba(0, 0, 0, .5);
+  line-height: 1.1;
+  letter-spacing: 0.25em;
+  white-space: nowrap;
+  opacity: 0;
+  animation: ink-appear 1.2s var(--ease-smooth) .6s forwards;
+  text-shadow: 0 4px 30px rgba(0, 0, 0, .5);
 }
 
 .hero-seal {
+  position: static;
   display: block;
-  margin: 0 auto 1rem;
-  width: 60px;
-  height: 60px;
+  width: 56px;
+  height: 56px;
+  margin: 0 auto;
   opacity: 0;
-  animation: stamp-press .6s var(--ease-smooth) 1.8s forwards;
+  animation: ink-appear 0.6s var(--ease-smooth) 1.8s forwards;
 }
 
 .hero-seal svg {
@@ -562,19 +563,19 @@ body > * {
 }
 
 .hero-title-sub {
-  font-family: var(--font-display);
-  font-size: clamp(1.5rem, 4vw, 2.8rem);
-  font-weight: 300;
-  color: var(--parchment);
-  letter-spacing: 0.5em;
-  opacity: 0.85;
+  font-family: var(--font-calligraphy);
+  font-size: clamp(1.8rem, 4.5vw, 3rem);
+  color: #C9A84C;
+  letter-spacing: 0.4em;
+  white-space: nowrap;
+  opacity: 0.8;
 }
 
 .title-divider {
-  width: 120px;
+  width: 160px;
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--gold), transparent);
-  margin: 0.5rem auto;
+  background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+  margin: 0.3rem 0;
 }
 
 .hero-ornament {
@@ -1270,8 +1271,17 @@ body > * {
   .corner-tr { top: 14px; right: 14px; }
   .corner-bl { bottom: 14px; left: 14px; }
 
+  .hero-title {
+    font-size: clamp(2.8rem, 15vw, 4.5rem);
+  }
+
   .hero-title-sub {
-    letter-spacing: 0.3em;
+    font-size: clamp(1.4rem, 6vw, 2rem);
+    letter-spacing: 0.25em;
+  }
+
+  .hero-seal {
+    display: block;
   }
 
   .about-grid,
