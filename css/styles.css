@@ -17,18 +17,18 @@
 /* ---------- Design Tokens ---------- */
 :root {
   /* Colors — Vermillion */
-  --vermillion: #C4362A;
+  --vermillion: #B8412E;
   --vermillion-deep: #8B1A1A;
   --vermillion-light: #E85D4A;
 
   /* Colors — Gold */
-  --gold: #D4A843;
-  --gold-bright: #F0C75E;
+  --gold: #E8C068;
+  --gold-bright: #F5D080;
   --gold-dim: #A07D2E;
 
   /* Colors — Ink */
-  --ink-black: #1C1812;
-  --ink-dark: #2A2520;
+  --ink-black: #1E1A2E;
+  --ink-dark: #2C1A0E;
   --ink-medium: #5C554A;
 
   /* Colors — Accent */
@@ -38,16 +38,20 @@
   --bronze: #8B7355;
 
   /* Colors — Neutral */
-  --parchment: #F2EBDD;
+  --parchment: #F5EDD8;
   --parchment-light: #F8F4EC;
-  --parchment-warm: #EDE3CF;
-  --rice-paper: #FAF7F0;
+  --parchment-warm: #EDE0C4;
+  --rice-paper: #F5EDD8;
+
+  /* Colors — New */
+  --lotus-white: #F0E8E0;
+  --sandalwood: #2C1A0E;
 
   /* Semantic */
   --text-primary: var(--ink-black);
   --text-secondary: var(--ink-medium);
   --text-on-dark: var(--parchment);
-  --bg-primary: var(--rice-paper);
+  --bg-primary: #F5EDD8;
 
   /* Spacing */
   --space-xs: .5rem;
@@ -408,7 +412,7 @@ body > * {
     radial-gradient(ellipse at 50% 20%, rgba(196, 54, 42, .12) 0%, transparent 55%),
     radial-gradient(ellipse at 30% 80%, rgba(127, 181, 176, .06) 0%, transparent 40%),
     radial-gradient(ellipse at 70% 70%, rgba(212, 168, 67, .08) 0%, transparent 40%),
-    linear-gradient(180deg, #1C1812, #2A1F18 40%, #1C1812);
+    linear-gradient(180deg, #1E1A2E, #2C1A0E 40%, #1E1A2E);
 }
 
 .hero-scroll-frame {
@@ -529,10 +533,13 @@ body > * {
   font-size: clamp(4rem, 12vw, 8rem);
   color: var(--parchment);
   line-height: 1.1;
+  letter-spacing: 0.3em;
   opacity: 0;
   animation: ink-appear 1.2s var(--ease-smooth) .6s forwards;
   text-shadow: 0 4px 30px rgba(0, 0, 0, .5);
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .hero-title .gold-char {
@@ -541,11 +548,10 @@ body > * {
 }
 
 .hero-seal {
-  position: absolute;
-  top: -10px;
-  right: -60px;
-  width: 70px;
-  height: 70px;
+  display: block;
+  margin: 0 auto 1rem;
+  width: 60px;
+  height: 60px;
   opacity: 0;
   animation: stamp-press .6s var(--ease-smooth) 1.8s forwards;
 }
@@ -553,6 +559,22 @@ body > * {
 .hero-seal svg {
   width: 100%;
   height: 100%;
+}
+
+.hero-title-sub {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 4vw, 2.8rem);
+  font-weight: 300;
+  color: var(--parchment);
+  letter-spacing: 0.5em;
+  opacity: 0.85;
+}
+
+.title-divider {
+  width: 120px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  margin: 0.5rem auto;
 }
 
 .hero-ornament {
@@ -865,7 +887,7 @@ body > * {
 
 /* ---------- Deities Section ---------- */
 .deities {
-  background: var(--ink-black);
+  background: var(--sandalwood);
   position: relative;
   overflow: hidden;
   padding: var(--space-xl) 0;
@@ -960,7 +982,7 @@ body > * {
 
 /* ---------- Features Section ---------- */
 .features {
-  background: var(--parchment);
+  background: var(--lotus-white);
   position: relative;
   padding: var(--space-xl) 0;
   overflow: hidden;
@@ -1151,7 +1173,7 @@ body > * {
 
 /* ---------- Footer ---------- */
 .footer {
-  background: var(--ink-black);
+  background: var(--sandalwood);
   color: var(--parchment);
   padding: var(--space-lg) 0 var(--space-md);
   position: relative;
@@ -1248,8 +1270,8 @@ body > * {
   .corner-tr { top: 14px; right: 14px; }
   .corner-bl { bottom: 14px; left: 14px; }
 
-  .hero-seal {
-    display: none;
+  .hero-title-sub {
+    letter-spacing: 0.3em;
   }
 
   .about-grid,
