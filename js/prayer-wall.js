@@ -198,7 +198,7 @@ document.addEventListener('DOMContentLoaded', function () {
           '<p class="card-content">' + escapeHtml(data.content) + '</p>' +
           '<div class="card-footer">' +
             '<span class="card-time">' + formatDate(data.time) + '</span>' +
-            '<button class="card-reply-btn">' + replyCountText + '</button>' +
+            '<button class="card-reply-btn">💬 ' + replyCountText + '</button>' +
           '</div>' +
         '</div>' +
         '<div class="card-replies">' +
@@ -492,7 +492,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var replyBtnEl = card.querySelector('.card-reply-btn');
     if (replyBtnEl) {
       var count = card.querySelectorAll('.reply-item').length;
-      replyBtnEl.textContent = count + ' 則回應';
+      replyBtnEl.textContent = '💬 ' + count + ' 則回應';
     }
 
     // Clear input
