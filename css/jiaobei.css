@@ -270,86 +270,43 @@
   60%      { opacity: .4; transform: scale(.97); }
 }
 
-/* Jiao Cups */
-.jiao-cups-wrapper {
-  display: flex;
-  gap: var(--space-lg);
-  align-items: center;
-  justify-content: center;
+/* Bagua Icon */
+.bagua-icon {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
   position: relative;
   z-index: 2;
+  filter: drop-shadow(0 0 24px rgba(232, 192, 104, .35));
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
-.jiao-cup {
-  width: 80px;
-  height: 160px;
-  position: relative;
-  transform-style: preserve-3d;
-  transition: transform .6s ease;
+.bagua-icon[hidden] {
+  display: none;
 }
 
-.cup-svg {
-  width: 100%;
-  height: 100%;
+.bagua-icon.bagua-spin {
+  animation: bagua-spin 1.5s linear infinite;
 }
 
-.jiao-cup .face-front,
-.jiao-cup .face-back {
-  backface-visibility: hidden;
+@keyframes bagua-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
 }
 
-.jiao-cup .face-back {
-  transform: rotateY(180deg);
+/* Screen shake (applied to .altar-scene) */
+.altar-scene.shake-screen {
+  animation: shake-screen .12s linear infinite;
 }
 
-.jiao-cup.face-yin .face-front {
-  visibility: hidden;
-}
-
-.jiao-cup.face-yin .face-back {
-  visibility: visible;
-  transform: rotateY(0deg);
-}
-
-.jiao-cup.face-yang .face-front {
-  visibility: visible;
-}
-
-.jiao-cup.face-yang .face-back {
-  visibility: hidden;
-}
-
-/* Default: show yang (front), hide yin (back) */
-.jiao-cup .face-back {
-  visibility: hidden;
-}
-
-/* Throwing animation */
-.jiao-cup.throwing {
-  animation: throw-cup 1.5s var(--ease-smooth) forwards;
-}
-
-.jiao-cup.throwing-delay {
-  animation: throw-cup 1.5s var(--ease-smooth) .15s forwards;
-}
-
-.jiao-cup.landed {
-  animation: land-bounce .3s var(--ease-bounce) forwards;
-}
-
-@keyframes throw-cup {
-  0%   { transform: translateY(0) rotate(0deg); opacity: 1; }
-  30%  { transform: translateY(-180px) rotate(200deg); opacity: 1; }
-  70%  { transform: translateY(-80px) rotate(400deg); opacity: 1; }
-  85%  { transform: translateY(-20px) rotate(500deg); opacity: 1; }
-  100% { transform: translateY(0) rotate(540deg); opacity: 1; }
-}
-
-@keyframes land-bounce {
-  0%   { transform: translateY(0); }
-  40%  { transform: translateY(-12px); }
-  70%  { transform: translateY(-4px); }
-  100% { transform: translateY(0); }
+@keyframes shake-screen {
+  0%   { transform: translate(0, 0) rotate(0deg); }
+  20%  { transform: translate(-3px, 2px) rotate(-.4deg); }
+  40%  { transform: translate(3px, -2px) rotate(.4deg); }
+  60%  { transform: translate(-2px, -3px) rotate(-.3deg); }
+  80%  { transform: translate(2px, 3px) rotate(.3deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
 }
 
 .throw-btn {
@@ -393,6 +350,21 @@
   pointer-events: none;
   z-index: 0;
   transition: background .6s;
+}
+
+.result-image {
+  display: block;
+  width: 220px;
+  max-width: 80vw;
+  height: auto;
+  margin: 0 auto var(--space-sm);
+  position: relative;
+  z-index: 1;
+  filter: drop-shadow(0 8px 24px rgba(0, 0, 0, .35));
+}
+
+.result-image[hidden] {
+  display: none;
 }
 
 .result-title {
@@ -605,13 +577,9 @@
     max-width: 300px;
   }
 
-  .jiao-cups-wrapper {
-    gap: var(--space-md);
-  }
-
-  .jiao-cup {
-    width: 60px;
-    height: 120px;
+  .bagua-icon {
+    width: 150px;
+    height: 150px;
   }
 
   .result-actions {

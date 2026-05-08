@@ -119,44 +119,7 @@
         <!-- Right candle glow -->
         <div class="candle-glow candle-glow--right"></div>
 
-        <div class="jiao-cups-wrapper">
-          <!-- Cup 1 -->
-          <div class="jiao-cup" id="cup1">
-            <svg class="cup-svg" viewBox="0 0 80 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <!-- Yang face (flat/light) -->
-              <g class="face-front">
-                <path d="M40 10 C65 10, 75 40, 75 80 C75 120, 65 150, 40 150 C15 150, 5 120, 5 80 C5 40, 15 10, 40 10Z" fill="#D4A85C" stroke="#A07D2E" stroke-width="1.5"/>
-                <path d="M40 20 C55 20, 63 45, 63 80 C63 115, 55 140, 40 140" fill="#E8C878" opacity="0.4"/>
-                <ellipse cx="40" cy="80" rx="22" ry="50" fill="none" stroke="#C49A4A" stroke-width="0.5" opacity="0.3"/>
-              </g>
-              <!-- Yin face (curved/dark) -->
-              <g class="face-back">
-                <path d="M40 10 C65 10, 75 40, 75 80 C75 120, 65 150, 40 150 C15 150, 5 120, 5 80 C5 40, 15 10, 40 10Z" fill="#3D2A14" stroke="#2A1A0A" stroke-width="1.5"/>
-                <path d="M40 15 C60 15, 70 42, 70 80 C70 118, 60 145, 40 145 C20 145, 10 118, 10 80 C10 42, 20 15, 40 15Z" fill="none" stroke="#5C3D1E" stroke-width="0.8" opacity="0.5"/>
-                <path d="M25 50 C30 48, 50 48, 55 50" stroke="#5C3D1E" stroke-width="0.5" opacity="0.3" fill="none"/>
-                <path d="M25 110 C30 112, 50 112, 55 110" stroke="#5C3D1E" stroke-width="0.5" opacity="0.3" fill="none"/>
-              </g>
-            </svg>
-          </div>
-          <!-- Cup 2 -->
-          <div class="jiao-cup" id="cup2">
-            <svg class="cup-svg" viewBox="0 0 80 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <!-- Yang face (flat/light) -->
-              <g class="face-front">
-                <path d="M40 10 C65 10, 75 40, 75 80 C75 120, 65 150, 40 150 C15 150, 5 120, 5 80 C5 40, 15 10, 40 10Z" fill="#D4A85C" stroke="#A07D2E" stroke-width="1.5"/>
-                <path d="M40 20 C55 20, 63 45, 63 80 C63 115, 55 140, 40 140" fill="#E8C878" opacity="0.4"/>
-                <ellipse cx="40" cy="80" rx="22" ry="50" fill="none" stroke="#C49A4A" stroke-width="0.5" opacity="0.3"/>
-              </g>
-              <!-- Yin face (curved/dark) -->
-              <g class="face-back">
-                <path d="M40 10 C65 10, 75 40, 75 80 C75 120, 65 150, 40 150 C15 150, 5 120, 5 80 C5 40, 15 10, 40 10Z" fill="#3D2A14" stroke="#2A1A0A" stroke-width="1.5"/>
-                <path d="M40 15 C60 15, 70 42, 70 80 C70 118, 60 145, 40 145 C20 145, 10 118, 10 80 C10 42, 20 15, 40 15Z" fill="none" stroke="#5C3D1E" stroke-width="0.8" opacity="0.5"/>
-                <path d="M25 50 C30 48, 50 48, 55 50" stroke="#5C3D1E" stroke-width="0.5" opacity="0.3" fill="none"/>
-                <path d="M25 110 C30 112, 50 112, 55 110" stroke="#5C3D1E" stroke-width="0.5" opacity="0.3" fill="none"/>
-              </g>
-            </svg>
-          </div>
-        </div>
+        <img id="baguaImg" src="images/bagua.png" alt="太極八卦圖" class="bagua-icon" hidden>
 
         <button class="btn-seal throw-btn" id="throwBtn">🙏 擲筊問神</button>
       </div>
@@ -168,6 +131,7 @@
     <div class="stage-content stage-center">
       <div class="result-area" id="resultArea">
         <div class="result-glow" id="resultGlow"></div>
+        <img class="result-image" id="resultImage" src="" alt="" hidden>
         <h2 class="result-title" id="resultTitle"></h2>
         <p class="result-desc" id="resultDesc"></p>
       </div>

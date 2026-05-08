@@ -14,9 +14,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
   /* ---------- DOM References ---------- */
   var stages = document.querySelectorAll('.jiaobei-stage');
-  var cup1 = document.getElementById('cup1');
-  var cup2 = document.getElementById('cup2');
+  var altarScene = document.querySelector('.altar-scene');
+  var baguaImg = document.getElementById('baguaImg');
   var throwBtn = document.getElementById('throwBtn');
+  var resultImage = document.getElementById('resultImage');
   var countdownNumber = document.getElementById('countdownNumber');
   var wishTextarea = document.getElementById('wishTextarea');
   var wishCount = document.getElementById('wishCount');
@@ -87,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function () {
       startCountdown();
     }
     if (n === '3') {
-      resetCups();
+      resetAltar();
     }
   }
 
@@ -147,51 +148,48 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /* ---------- Stage 3: Throw Jiaobei ---------- */
-  function resetCups() {
-    cup1.className = 'jiao-cup';
-    cup2.className = 'jiao-cup';
-    throwBtn.disabled = false;
+  function resetAltar() {
+    if (baguaImg) {
+      baguaImg.classList.remove('bagua-spin');
+      baguaImg.hidden = true;
+    }
+    if (altarScene) {
+      altarScene.classList.remove('shake-screen');
+    }
+    if (throwBtn) {
+      throwBtn.disabled = false;
+      throwBtn.hidden = false;
+    }
   }
 
   function throwJiaobei() {
-    // 1. Disable button
+    // 1. Hide button
     throwBtn.disabled = true;
+    throwBtn.hidden = true;
 
-    // 2. Reset cup classes
-    cup1.className = 'jiao-cup';
-    cup2.className = 'jiao-cup';
+    // 2. Show bagua + start spin and screen shake
+    if (baguaImg) {
+      baguaImg.hidden = false;
+      // Force reflow so animation restarts cleanly
+      void baguaImg.offsetWidth;
+      baguaImg.classList.add('bagua-spin');
+    }
+    if (altarScene) {
+      altarScene.classList.add('shake-screen');
+    }
 
-    // Force reflow
-    void cup1.offsetWidth;
-    void cup2.offsetWidth;
-
-    // 3. Random result for each cup
-    var cup1Yang = Math.random() < 0.5;
-    var cup2Yang = Math.random() < 0.5;
-
-    // 4. Start throw animation
-    cup1.classList.add('throwing');
-    cup2.classList.add('throwing-delay');
-
-    // 5. After animation, show result face
+    // 3. After 1.5s, compute random result and switch to Stage 4
     setTimeout(function () {
-      cup1.className = 'jiao-cup landed ' + (cup1Yang ? 'face-yang' : 'face-yin');
-      cup2.className = 'jiao-cup landed ' + (cup2Yang ? 'face-yang' : 'face-yin');
-
-      // 6. Determine result
-      if (cup1Yang !== cup2Yang) {
-        lastResult = 'sheng';  // one yang one yin
-      } else if (cup1Yang && cup2Yang) {
-        lastResult = 'xiao';   // both yang
+      var rand = Math.random();
+      if (rand < 1 / 3) {
+        lastResult = 'sheng';
+      } else if (rand < 2 / 3) {
+        lastResult = 'xiao';
       } else {
-        lastResult = 'yin';    // both yin
+        lastResult = 'yin';
       }
-
-      // 7. Wait then show result
-      setTimeout(function () {
-        showResult(lastResult);
-      }, 500);
-    }, 1800);
+      showResult(lastResult);
+    }, 1500);
   }
 
   if (throwBtn) {
@@ -207,6 +205,13 @@ document.addEventListener('DOMContentLoaded', function () {
     resultArea.className = 'result-area ' + data.className;
     resultTitle.textContent = data.title;
     resultDesc.textContent = data.desc;
+
+    // Set result image
+    if (resultImage) {
+      resultImage.src = data.shareImage;
+      resultImage.alt = data.title;
+      resultImage.hidden = false;
+    }
 
     // Configure save button based on method
     if (currentMethod === 'silent' || !wishText) {
