@@ -71,10 +71,12 @@
       <p class="stage-subtitle">在擲筊之前，請先向神明表明來意</p>
       <div class="method-cards">
         <button class="method-card" data-method="silent">
+          <span class="method-icon">🤫</span>
           <h3 class="method-name">默念祈願</h3>
           <p class="method-desc">於心中默念姓名、生辰與所求之事</p>
         </button>
         <button class="method-card" data-method="write">
+          <span class="method-icon">📝</span>
           <h3 class="method-name">書寫心願</h3>
           <p class="method-desc">將心中所求化為文字，稟告神明</p>
         </button>
@@ -117,49 +119,43 @@
         <!-- Right candle glow -->
         <div class="candle-glow candle-glow--right"></div>
 
-        <div class="jiao-cups-container">
+        <div class="jiao-cups-wrapper">
           <!-- Cup 1 -->
-          <svg class="jiao-cup" id="cup1" width="140" height="80" viewBox="0 0 140 80">
-            <!-- 陽面（平面朝上，深紅色實心半月） -->
-            <g class="face-yang">
-              <path d="M10,40 Q30,8 70,8 Q110,8 130,40 Q110,72 70,72 Q30,72 10,40 Z"
-                    fill="#8B1A1A" stroke="#6B1010" stroke-width="1.5"/>
-              <!-- 中央微微隆起的光澤 -->
-              <path d="M30,40 Q50,20 70,18 Q90,20 110,40"
-                    fill="none" stroke="rgba(255,120,100,0.25)" stroke-width="3" stroke-linecap="round"/>
-            </g>
-            <!-- 陰面（弧面朝上，較淺紅色，中間有明顯弧度隆起） -->
-            <g class="face-yin" style="display:none">
-              <path d="M10,40 Q30,8 70,8 Q110,8 130,40 Q110,72 70,72 Q30,72 10,40 Z"
-                    fill="#A52020" stroke="#6B1010" stroke-width="1.5"/>
-              <!-- 弧面隆起的高光 -->
-              <ellipse cx="70" cy="38" rx="35" ry="14"
-                       fill="rgba(255,160,140,0.18)"/>
-              <path d="M45,38 Q70,28 95,38"
-                    fill="none" stroke="rgba(255,180,160,0.35)" stroke-width="4" stroke-linecap="round"/>
-            </g>
-          </svg>
+          <div class="jiao-cup" id="cup1">
+            <svg class="cup-svg" viewBox="0 0 80 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Yang face (flat/light) -->
+              <g class="face-front">
+                <path d="M40 10 C65 10, 75 40, 75 80 C75 120, 65 150, 40 150 C15 150, 5 120, 5 80 C5 40, 15 10, 40 10Z" fill="#D4A85C" stroke="#A07D2E" stroke-width="1.5"/>
+                <path d="M40 20 C55 20, 63 45, 63 80 C63 115, 55 140, 40 140" fill="#E8C878" opacity="0.4"/>
+                <ellipse cx="40" cy="80" rx="22" ry="50" fill="none" stroke="#C49A4A" stroke-width="0.5" opacity="0.3"/>
+              </g>
+              <!-- Yin face (curved/dark) -->
+              <g class="face-back">
+                <path d="M40 10 C65 10, 75 40, 75 80 C75 120, 65 150, 40 150 C15 150, 5 120, 5 80 C5 40, 15 10, 40 10Z" fill="#3D2A14" stroke="#2A1A0A" stroke-width="1.5"/>
+                <path d="M40 15 C60 15, 70 42, 70 80 C70 118, 60 145, 40 145 C20 145, 10 118, 10 80 C10 42, 20 15, 40 15Z" fill="none" stroke="#5C3D1E" stroke-width="0.8" opacity="0.5"/>
+                <path d="M25 50 C30 48, 50 48, 55 50" stroke="#5C3D1E" stroke-width="0.5" opacity="0.3" fill="none"/>
+                <path d="M25 110 C30 112, 50 112, 55 110" stroke="#5C3D1E" stroke-width="0.5" opacity="0.3" fill="none"/>
+              </g>
+            </svg>
+          </div>
           <!-- Cup 2 -->
-          <svg class="jiao-cup" id="cup2" width="140" height="80" viewBox="0 0 140 80">
-            <!-- 陽面（平面朝上，深紅色實心半月） -->
-            <g class="face-yang">
-              <path d="M10,40 Q30,8 70,8 Q110,8 130,40 Q110,72 70,72 Q30,72 10,40 Z"
-                    fill="#8B1A1A" stroke="#6B1010" stroke-width="1.5"/>
-              <!-- 中央微微隆起的光澤 -->
-              <path d="M30,40 Q50,20 70,18 Q90,20 110,40"
-                    fill="none" stroke="rgba(255,120,100,0.25)" stroke-width="3" stroke-linecap="round"/>
-            </g>
-            <!-- 陰面（弧面朝上，較淺紅色，中間有明顯弧度隆起） -->
-            <g class="face-yin" style="display:none">
-              <path d="M10,40 Q30,8 70,8 Q110,8 130,40 Q110,72 70,72 Q30,72 10,40 Z"
-                    fill="#A52020" stroke="#6B1010" stroke-width="1.5"/>
-              <!-- 弧面隆起的高光 -->
-              <ellipse cx="70" cy="38" rx="35" ry="14"
-                       fill="rgba(255,160,140,0.18)"/>
-              <path d="M45,38 Q70,28 95,38"
-                    fill="none" stroke="rgba(255,180,160,0.35)" stroke-width="4" stroke-linecap="round"/>
-            </g>
-          </svg>
+          <div class="jiao-cup" id="cup2">
+            <svg class="cup-svg" viewBox="0 0 80 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Yang face (flat/light) -->
+              <g class="face-front">
+                <path d="M40 10 C65 10, 75 40, 75 80 C75 120, 65 150, 40 150 C15 150, 5 120, 5 80 C5 40, 15 10, 40 10Z" fill="#D4A85C" stroke="#A07D2E" stroke-width="1.5"/>
+                <path d="M40 20 C55 20, 63 45, 63 80 C63 115, 55 140, 40 140" fill="#E8C878" opacity="0.4"/>
+                <ellipse cx="40" cy="80" rx="22" ry="50" fill="none" stroke="#C49A4A" stroke-width="0.5" opacity="0.3"/>
+              </g>
+              <!-- Yin face (curved/dark) -->
+              <g class="face-back">
+                <path d="M40 10 C65 10, 75 40, 75 80 C75 120, 65 150, 40 150 C15 150, 5 120, 5 80 C5 40, 15 10, 40 10Z" fill="#3D2A14" stroke="#2A1A0A" stroke-width="1.5"/>
+                <path d="M40 15 C60 15, 70 42, 70 80 C70 118, 60 145, 40 145 C20 145, 10 118, 10 80 C10 42, 20 15, 40 15Z" fill="none" stroke="#5C3D1E" stroke-width="0.8" opacity="0.5"/>
+                <path d="M25 50 C30 48, 50 48, 55 50" stroke="#5C3D1E" stroke-width="0.5" opacity="0.3" fill="none"/>
+                <path d="M25 110 C30 112, 50 112, 55 110" stroke="#5C3D1E" stroke-width="0.5" opacity="0.3" fill="none"/>
+              </g>
+            </svg>
+          </div>
         </div>
 
         <button class="btn-seal throw-btn" id="throwBtn">🙏 擲筊問神</button>

@@ -178,6 +178,11 @@
   transform: translateY(-2px);
 }
 
+.pw-radio-icon {
+  font-size: 1.8rem;
+  margin-bottom: .3rem;
+}
+
 .pw-radio-name {
   font-family: var(--font-display);
   font-size: 1rem;
