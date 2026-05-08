@@ -93,12 +93,6 @@
   border-color: rgba(245, 208, 128, .4);
 }
 
-.method-icon {
-  font-size: 2.8rem;
-  display: block;
-  margin-bottom: var(--space-sm);
-}
-
 .method-name {
   font-family: var(--font-display);
   font-size: 1.2rem;
@@ -271,78 +265,54 @@
 }
 
 /* Jiao Cups */
-.jiao-cups-wrapper {
+.jiao-cups-container {
   display: flex;
-  gap: var(--space-lg);
+  gap: 2rem;
   align-items: center;
   justify-content: center;
+  margin: 3rem auto;
   position: relative;
   z-index: 2;
 }
 
 .jiao-cup {
-  width: 80px;
-  height: 160px;
   position: relative;
   transform-style: preserve-3d;
   transition: transform .6s ease;
 }
 
-.cup-svg {
-  width: 100%;
-  height: 100%;
-}
-
-.jiao-cup .face-front,
-.jiao-cup .face-back {
-  backface-visibility: hidden;
-}
-
-.jiao-cup .face-back {
-  transform: rotateY(180deg);
-}
-
-.jiao-cup.face-yin .face-front {
-  visibility: hidden;
-}
-
-.jiao-cup.face-yin .face-back {
-  visibility: visible;
-  transform: rotateY(0deg);
-}
-
-.jiao-cup.face-yang .face-front {
-  visibility: visible;
-}
-
-.jiao-cup.face-yang .face-back {
-  visibility: hidden;
-}
-
-/* Default: show yang (front), hide yin (back) */
-.jiao-cup .face-back {
-  visibility: hidden;
+/* 第二個筊杯預設旋轉180度，模擬兩個方向相對放置 */
+.jiao-cup:nth-child(2) {
+  transform: rotate(180deg);
 }
 
 /* Throwing animation */
-.jiao-cup.throwing {
-  animation: throw-cup 1.5s var(--ease-smooth) forwards;
+@keyframes throw-cup {
+  0%   { transform: translateY(0) rotateX(0deg) rotateZ(0deg); }
+  25%  { transform: translateY(-120px) rotateX(180deg) rotateZ(15deg); }
+  60%  { transform: translateY(-60px) rotateX(360deg) rotateZ(-10deg); }
+  85%  { transform: translateY(-15px) rotateX(480deg) rotateZ(5deg); }
+  100% { transform: translateY(0) rotateX(540deg) rotateZ(0deg); }
 }
 
-.jiao-cup.throwing-delay {
-  animation: throw-cup 1.5s var(--ease-smooth) .15s forwards;
+/* 第二顆筊杯的動畫加一點水平位移，模擬散開 */
+@keyframes throw-cup-2 {
+  0%   { transform: rotate(180deg) translateY(0) rotateX(0deg); }
+  25%  { transform: rotate(175deg) translateY(-100px) rotateX(200deg); }
+  60%  { transform: rotate(185deg) translateY(-50px) rotateX(380deg); }
+  100% { transform: rotate(180deg) translateY(0) rotateX(540deg); }
+}
+
+.jiao-cup:nth-child(1).throwing {
+  animation: throw-cup 1.6s var(--ease-smooth) forwards;
+}
+
+.jiao-cup:nth-child(2).throwing {
+  animation: throw-cup-2 1.6s var(--ease-smooth) 0.15s forwards;
 }
 
 .jiao-cup.landed {
   animation: land-bounce .3s var(--ease-bounce) forwards;
-}
-
-@keyframes throw-cup {
-  0%   { transform: translateY(0) rotate(0deg); opacity: 1; }
-  30%  { transform: translateY(-180px) rotate(200deg); opacity: 1; }
-  70%  { transform: translateY(-80px) rotate(400deg); opacity: 1; }
-  85%  { transform: translateY(-20px) rotate(500deg); opacity: 1; }
-  100% { transform: translateY(0) rotate(540deg); opacity: 1; }
 }
 
 @keyframes land-bounce {
@@ -605,13 +575,13 @@
     max-width: 300px;
   }
 
-  .jiao-cups-wrapper {
-    gap: var(--space-md);
+  .jiao-cups-container {
+    gap: 1rem;
   }
 
   .jiao-cup {
-    width: 60px;
-    height: 120px;
+    width: 110px;
+    height: 64px;
   }
 
   .result-actions {
