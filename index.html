@@ -132,14 +132,10 @@
         </div>
       </div>
       <div class="about-text ink-reveal-right">
-        <h3>百年香火，守護一方</h3>
-        <p>【請在此填入廟宇的創建故事】——例如：天虛宮始建於清朝年間，由先民自大陸恭迎香火渡海來台，落腳於此地後建廟奉祀，至今已有超過百年的歷史。</p>
-        <p>【請在此填入廟宇的發展歷程】——例如：歷經多次修繕擴建，從最初的小祠堂發展為今日的規模，始終是在地居民最重要的信仰中心，見證了這片土地的繁榮與變遷。</p>
-        <div class="about-stats">
-          <div class="stat-item"><div class="stat-number">100+</div><div class="stat-label">年歷史</div></div>
-          <div class="stat-item"><div class="stat-number">3</div><div class="stat-label">主祀神明</div></div>
-          <div class="stat-item"><div class="stat-number">10+</div><div class="stat-label">年度慶典</div></div>
-        </div>
+        <!-- 內容由 content.json 注入，請至該檔編輯文字 -->
+        <h3 id="aboutHeading"></h3>
+        <div id="aboutParagraphs"></div>
+        <div class="about-stats" id="aboutStats"></div>
       </div>
     </div>
   </div>
@@ -164,26 +160,8 @@
       <h2 class="section-title on-dark">神明介紹</h2>
       <div class="section-title-ornament"><span class="dot dot--celadon"></span></div>
     </div>
-    <div class="deities-grid">
-      <div class="deity-card ink-reveal ink-delay-1">
-        <div class="deity-icon">🙏</div>
-        <h3 class="deity-name">【主祀神明名稱】</h3>
-        <p class="deity-title-label">主 祀</p>
-        <p class="deity-desc">【請填入神明介紹】——例如：掌管何種事務、信眾通常祈求什麼、神明的由來典故等。</p>
-      </div>
-      <div class="deity-card ink-reveal ink-delay-2">
-        <div class="deity-icon">🙏</div>
-        <h3 class="deity-name">【陪祀神明名稱】</h3>
-        <p class="deity-title-label">陪 祀</p>
-        <p class="deity-desc">【請填入神明介紹】——例如：掌管何種事務、信眾通常祈求什麼、神明的由來典故等。</p>
-      </div>
-      <div class="deity-card ink-reveal ink-delay-3">
-        <div class="deity-icon">🙏</div>
-        <h3 class="deity-name">【陪祀神明名稱】</h3>
-        <p class="deity-title-label">陪 祀</p>
-        <p class="deity-desc">【請填入神明介紹】——例如：掌管何種事務、信眾通常祈求什麼、神明的由來典故等。</p>
-      </div>
-    </div>
+    <!-- 神明卡片由 content.json 注入，請至該檔編輯 -->
+    <div class="deities-grid" id="deitiesGrid"></div>
   </div>
 </section>
 
@@ -245,29 +223,11 @@
     <div class="visit-grid">
       <div class="visit-info ink-reveal-left">
         <h3>交通與開放資訊</h3>
-        <div class="info-item">
-          <div class="info-icon">📍</div>
-          <div class="info-content"><div class="info-label">廟宇地址</div><div class="info-value">【請填入廟宇地址】</div></div>
-        </div>
-        <div class="info-item">
-          <div class="info-icon">🕐</div>
-          <div class="info-content"><div class="info-label">開放時間</div><div class="info-value">每日 06:00 — 21:00（全年無休）</div></div>
-        </div>
-        <div class="info-item">
-          <div class="info-icon">📞</div>
-          <div class="info-content"><div class="info-label">聯絡電話</div><div class="info-value">【請填入電話號碼】</div></div>
-        </div>
-        <div class="info-item">
-          <div class="info-icon">🅿️</div>
-          <div class="info-content"><div class="info-label">停車資訊</div><div class="info-value">【請填入停車場資訊】</div></div>
-        </div>
-        <div class="info-item">
-          <div class="info-icon">💬</div>
-          <div class="info-content"><div class="info-label">LINE 官方帳號</div><div class="info-value">【請填入 LINE ID】</div></div>
-        </div>
+        <!-- 資訊列與參拜指南由 content.json 注入，請至該檔編輯 -->
+        <div id="visitInfoList"></div>
         <div class="visit-guide">
           <h3>參拜小指南</h3>
-          <p>【請填入參拜禮儀說明】——例如：入廟先拜天公爐、再依序至正殿參拜主神、左右殿陪祀神明等。</p>
+          <p id="visitGuide"></p>
         </div>
       </div>
       <div class="ink-reveal-right">
