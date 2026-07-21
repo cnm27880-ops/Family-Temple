@@ -1477,3 +1477,93 @@ body > * {
 .stat-item .stat-number {
   text-shadow: 0 2px 10px rgba(184, 65, 46, .15);
 }
+
+/* ============================================
+   莊嚴質感強化（Solemn refinement）
+   厚重明體標題、沉穩陳年宣紙配色、古樸金褐。
+   ============================================ */
+
+/* ---- 標題改用厚重明體，貼近廟宇匾額 ---- */
+.nav-logo,
+.hero-title,
+.hero-title-sub,
+.section-title,
+.about-text h3,
+.deity-name,
+.feature-name,
+.footer-brand .footer-logo {
+  font-family: 'Noto Serif TC', 'LXGW WenKai TC', serif;
+}
+
+.hero-title {
+  font-weight: 900;
+  letter-spacing: .3em;
+}
+.hero-title-sub {
+  font-weight: 700;
+  letter-spacing: .5em;
+}
+
+.section-title {
+  font-weight: 900;
+  letter-spacing: .16em;
+  color: #5A1512;                 /* 深硃紅，牌匾漆色 */
+}
+.section-title.on-dark {
+  color: var(--parchment);
+  text-shadow: 0 2px 22px rgba(0, 0, 0, .45);
+}
+
+.nav-logo,
+.footer-brand .footer-logo {
+  font-weight: 900;
+  letter-spacing: .18em;
+}
+
+.about-text h3 {
+  font-weight: 900;
+  color: #5A1512;
+  letter-spacing: .08em;
+}
+
+.deity-name { font-weight: 900; letter-spacing: .1em; }
+.feature-name { font-weight: 900; letter-spacing: .12em; }
+
+/* 區塊小標由青瓷改為古樸金褐，更沉穩 */
+.section-label { color: var(--gold-dim); }
+.section-label--deity { color: rgba(232, 192, 104, .5); }
+
+/* ---- 沉穩配色：光區改為較深的陳年宣紙色 ---- */
+.about {
+  background: linear-gradient(180deg, #EFE4C6 0%, #E7DABA 100%);
+}
+.features {
+  background: radial-gradient(120% 80% at 50% 0%, #ECE0C0 0%, #E4D6B2 65%);
+}
+.visit {
+  background: linear-gradient(180deg, #E9DCBC 0%, #E0D0A8 100%);
+}
+
+/* 卡片底色隨之沉穩，維持對比與立體 */
+.feature-card {
+  background: linear-gradient(165deg, #F7F0DC 0%, #EFE6CB 100%);
+  border-top-color: var(--gold-dim);
+}
+
+/* ---- 功能卡圖示：改為正式細金環，取代柔光暈 ---- */
+.feature-emoji {
+  background: radial-gradient(circle at 50% 45%, rgba(160, 125, 46, .12), transparent 68%);
+  border: 1px solid rgba(160, 125, 46, .38);
+  box-shadow: inset 0 0 12px rgba(160, 125, 46, .12);
+}
+
+/* 分隔線更古樸 */
+.about-stats { border-color: rgba(90, 21, 18, .15); }
+
+/* 子頁標題（祈福牆 / 擲筊結果）同步採用厚重明體 */
+.pw-hero-title,
+.result-title {
+  font-family: 'Noto Serif TC', 'LXGW WenKai TC', serif;
+  font-weight: 900;
+  letter-spacing: .2em;
+}
