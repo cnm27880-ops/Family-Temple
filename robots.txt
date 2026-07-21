@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://cnm27880-ops.github.io/Family-Temple/sitemap.xml

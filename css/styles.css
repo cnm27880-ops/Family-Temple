@@ -1357,3 +1357,19 @@ body > * {
     align-items: center;
   }
 }
+
+/* ============================================
+   減少動態偏好（無障礙）
+   使用者若在系統開啟「減少動態效果」，
+   停用煙霧、金塵、水墨顯現、八卦旋轉等動畫。
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

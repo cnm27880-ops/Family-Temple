@@ -142,41 +142,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var cardsContainer = document.getElementById('cardsContainer');
   var filterBar = document.getElementById('filterBar');
 
-  /* ========== Navigation ========== */
-  var navbar = document.getElementById('navbar');
-  if (navbar) {
-    window.addEventListener('scroll', function () {
-      navbar.classList.toggle('scrolled', window.scrollY > 50);
-    });
-  }
-
-  var navToggle = document.getElementById('navToggle');
-  var navLinks = document.getElementById('navLinks');
-  if (navToggle && navLinks) {
-    navToggle.addEventListener('click', function () {
-      navToggle.classList.toggle('active');
-      navLinks.classList.toggle('active');
-    });
-    navLinks.querySelectorAll('a').forEach(function (link) {
-      link.addEventListener('click', function () {
-        navToggle.classList.remove('active');
-        navLinks.classList.remove('active');
-      });
-    });
-  }
-
-  /* ========== Smooth Scroll ========== */
-  document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
-    anchor.addEventListener('click', function (e) {
-      var href = this.getAttribute('href');
-      if (!href || href === '#') { e.preventDefault(); return; }
-      var target = document.querySelector(href);
-      if (target) {
-        e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    });
-  });
+  // 導覽列與平滑捲動已移至 js/layout.js（共用版面）
 
   /* ========== Scroll Reveal ========== */
   var inkElements = document.querySelectorAll(

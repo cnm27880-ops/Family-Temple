@@ -35,21 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var confirmNo = document.getElementById('confirmNo');
   var saveToast = document.getElementById('saveToast');
 
-  /* ---------- Navigation ---------- */
-  var navToggle = document.getElementById('navToggle');
-  var navLinks = document.getElementById('navLinks');
-  if (navToggle && navLinks) {
-    navToggle.addEventListener('click', function () {
-      navToggle.classList.toggle('active');
-      navLinks.classList.toggle('active');
-    });
-    navLinks.querySelectorAll('a').forEach(function (link) {
-      link.addEventListener('click', function () {
-        navToggle.classList.remove('active');
-        navLinks.classList.remove('active');
-      });
-    });
-  }
+  // 導覽列與平滑捲動已移至 js/layout.js（共用版面）
 
   /* ---------- Result Data ---------- */
   var results = {
