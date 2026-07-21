@@ -57,80 +57,12 @@ document.addEventListener('DOMContentLoaded', function () {
     return getSessionCount() >= SESSION_LIMIT;
   }
 
-  /* ========== Supabase 後端 ========== */
-  var SUPABASE_URL = window.SUPABASE_URL;
-  var SUPABASE_KEY = window.SUPABASE_KEY;
-  var REST = (SUPABASE_URL || '') + '/rest/v1';
-  var backendReady = !!(SUPABASE_URL && SUPABASE_KEY);
-
-  function apiHeaders(extra) {
-    var h = {
-      'apikey': SUPABASE_KEY,
-      'Authorization': 'Bearer ' + SUPABASE_KEY
-    };
-    if (extra) {
-      Object.keys(extra).forEach(function (k) { h[k] = extra[k]; });
-    }
-    return h;
-  }
-
-  // 將資料庫欄位轉為畫面使用的格式
-  function normalizePrayer(row) {
-    return {
-      id: row.id,
-      name: row.name,
-      content: row.content,
-      type: row.type || '純祈願',
-      time: row.created_at,
-      replies: Array.isArray(row.replies) ? row.replies : []
-    };
-  }
-
-  // 讀取公開心願（含回應），最新在前
-  function fetchPrayers() {
-    var url = REST + '/prayers' +
-      '?select=id,name,content,type,created_at,replies(author,text,created_at)' +
-      '&is_private=eq.false' +
-      '&order=created_at.desc';
-    return fetch(url, { headers: apiHeaders() }).then(function (res) {
-      if (!res.ok) { throw new Error('load ' + res.status); }
-      return res.json();
-    }).then(function (rows) {
-      return rows.map(normalizePrayer);
-    });
-  }
-
-  // 新增一則心願，回傳建立後的資料（含 id 與時間）
-  function insertPrayer(payload) {
-    return fetch(REST + '/prayers', {
-      method: 'POST',
-      headers: apiHeaders({
-        'Content-Type': 'application/json',
-        'Prefer': 'return=representation'
-      }),
-      body: JSON.stringify(payload)
-    }).then(function (res) {
-      if (!res.ok) { throw new Error('insert ' + res.status); }
-      return res.json();
-    }).then(function (rows) {
-      return normalizePrayer(rows[0]);
-    });
-  }
-
-  // 新增一則回應
-  function insertReply(payload) {
-    return fetch(REST + '/replies', {
-      method: 'POST',
-      headers: apiHeaders({
-        'Content-Type': 'application/json',
-        'Prefer': 'return=representation'
-      }),
-      body: JSON.stringify(payload)
-    }).then(function (res) {
-      if (!res.ok) { throw new Error('reply ' + res.status); }
-      return res.json();
-    });
-  }
+  /* ========== Supabase 後端（共用存取層 js/supabase-api.js）========== */
+  var api = window.TempleAPI || {};
+  var backendReady = !!api.ready;
+  var fetchPrayers = api.fetchPrayers;
+  var insertPrayer = api.insertPrayer;
+  var insertReply = api.insertReply;
 
   /* ========== DOM References ========== */
   var nickInput = document.getElementById('nickInput');

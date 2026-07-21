@@ -11,7 +11,7 @@
                  style-src 'self' https://fonts.googleapis.com 'unsafe-inline';
                  font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net;
                  img-src 'self' data:;
-                 connect-src 'self';
+                 connect-src 'self' https://kljxjzfbbiinbpzjuaqz.supabase.co;
                  frame-src 'none';
                  object-src 'none';
                  base-uri 'self';
@@ -157,6 +157,8 @@
 <div class="save-toast" id="saveToast" hidden>已儲存 ✓</div>
 
 <script src="js/layout.js" defer></script>
+<script src="js/supabase-config.js" defer></script>
+<script src="js/supabase-api.js" defer></script>
 <script src="js/jiaobei.js" defer></script>
 </body>
 </html>
