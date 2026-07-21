@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <rect width="64" height="64" rx="10" fill="#B8412E"/>
+  <rect x="8" y="8" width="48" height="48" rx="5" fill="none" stroke="#F5D080" stroke-width="2" opacity="0.85"/>
+  <text x="32" y="30" text-anchor="middle" font-family="'Noto Serif TC','LXGW WenKai TC',serif" font-size="22" font-weight="900" fill="#F5EDD8">天</text>
+  <text x="32" y="52" text-anchor="middle" font-family="'Noto Serif TC','LXGW WenKai TC',serif" font-size="22" font-weight="900" fill="#F5EDD8">虛</text>
+</svg>

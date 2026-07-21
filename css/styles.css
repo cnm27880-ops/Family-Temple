@@ -1080,6 +1080,57 @@ body > * {
   background: transparent;
 }
 
+/* ---------- Coming Soon（功能籌備中） ---------- */
+/* 尚未上線的功能卡片：移除點擊誤導的懸浮效果，並加上角標 */
+.feature-card--soon {
+  cursor: default;
+}
+
+.feature-card--soon:hover {
+  transform: none;
+  border-color: rgba(212, 168, 67, .1);
+  box-shadow: none;
+}
+
+.feature-card--soon:hover::before {
+  width: 0;
+  height: 0;
+}
+
+.feature-card--soon:hover .feature-emoji {
+  transform: none;
+}
+
+.feature-soon-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  padding: .15rem .55rem;
+  font-family: var(--font-display);
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .05em;
+  color: var(--parchment);
+  background: var(--gold-dim);
+}
+
+/* 導覽列 / 頁尾中尚未上線的連結標記 */
+.coming-soon {
+  display: inline-block;
+  margin-left: .4rem;
+  padding: 0 .4rem;
+  font-family: var(--font-display);
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .05em;
+  color: var(--gold-dim);
+  border: 1px solid var(--gold-dim);
+  border-radius: 2px;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
 /* ---------- Visit Section ---------- */
 .visit {
   background: var(--bg-primary);
