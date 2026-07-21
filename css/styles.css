@@ -1357,3 +1357,213 @@ body > * {
     align-items: center;
   }
 }
+
+/* ============================================
+   減少動態偏好（無障礙）
+   使用者若在系統開啟「減少動態效果」，
+   停用煙霧、金塵、水墨顯現、八卦旋轉等動畫。
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================
+   視覺美化 Polish（2026）
+   卡片質感、佔位區塊、區塊層次的整體打磨。
+   置於檔末以覆蓋前面的基礎樣式。
+   ============================================ */
+
+/* ---- 區塊層次：淡淡的暖色漸層增加深度 ---- */
+.about {
+  background: linear-gradient(180deg, #F8F1DE 0%, var(--bg-primary) 55%);
+}
+.features {
+  background: radial-gradient(120% 80% at 50% 0%, #F6EFDE 0%, var(--lotus-white) 60%);
+}
+.visit {
+  background: linear-gradient(180deg, var(--bg-primary) 0%, #F1E7CE 100%);
+}
+
+/* ---- 功能卡片：2×2 平衡排列（原本 4 張會落單）---- */
+@media (min-width: 900px) {
+  .features-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: 860px;
+    margin-inline: auto;
+  }
+}
+
+/* ---- 功能卡片：質感升級（漸層、金邊、陰影、符籙式頂線）---- */
+.feature-card {
+  background: linear-gradient(165deg, #FBF7EC 0%, var(--rice-paper) 100%);
+  border: 1px solid rgba(212, 168, 67, .22);
+  border-top: 3px solid rgba(160, 125, 46, .4);
+  box-shadow: 0 6px 22px rgba(74, 26, 10, .06);
+}
+.feature-card:hover {
+  border-color: var(--gold);
+  border-top-color: var(--gold);
+  box-shadow: 0 16px 44px rgba(74, 26, 10, .12);
+  transform: translateY(-8px);
+}
+
+/* 功能卡圖示：加上金色光暈，與神明卡的圓形圖示呼應 */
+.feature-emoji {
+  width: 90px;
+  height: 90px;
+  margin: 0 auto var(--space-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 45%, rgba(232, 192, 104, .22), rgba(232, 192, 104, 0) 70%);
+}
+
+/* ---- 神明卡片：加深陰影與立體感 ---- */
+.deity-card {
+  background: linear-gradient(160deg, rgba(255, 255, 255, .05), rgba(255, 255, 255, .015));
+  box-shadow: 0 6px 26px rgba(0, 0, 0, .18);
+}
+.deity-card:hover {
+  box-shadow: 0 18px 46px rgba(0, 0, 0, .3);
+}
+
+/* ---- 佔位區塊：照片待補時也體面 ---- */
+/* 廟宇主視覺 */
+.about-image-placeholder {
+  background:
+    radial-gradient(circle at 50% 35%, rgba(232, 192, 104, .12), transparent 62%),
+    linear-gradient(135deg, var(--vermillion-deep), #3D2019);
+}
+.about-image-placeholder::after {
+  content: '';
+  position: absolute;
+  inset: 18px;
+  border: 1px dashed rgba(232, 192, 104, .32);
+  pointer-events: none;
+}
+.about-image-placeholder .placeholder-icon { opacity: .62; }
+.about-image-placeholder .placeholder-text {
+  opacity: .6;
+  border: 1px solid rgba(232, 192, 104, .35);
+  padding: .3rem 1rem;
+  border-radius: 2px;
+}
+
+/* 地圖 */
+.map-placeholder {
+  position: relative;
+  background:
+    radial-gradient(circle at 50% 38%, rgba(212, 168, 67, .10), transparent 62%),
+    var(--parchment-warm);
+}
+.map-placeholder::after {
+  content: '';
+  position: absolute;
+  inset: 14px;
+  border: 1px dashed rgba(160, 125, 46, .35);
+  pointer-events: none;
+}
+.map-placeholder .map-icon { opacity: .55; }
+
+/* ---- 統計數字：底線裝飾更精緻 ---- */
+.stat-item .stat-number {
+  text-shadow: 0 2px 10px rgba(184, 65, 46, .15);
+}
+
+/* ============================================
+   莊嚴質感強化（Solemn refinement）
+   厚重明體標題、沉穩陳年宣紙配色、古樸金褐。
+   ============================================ */
+
+/* ---- 標題改用厚重明體，貼近廟宇匾額 ---- */
+.nav-logo,
+.hero-title,
+.hero-title-sub,
+.section-title,
+.about-text h3,
+.deity-name,
+.feature-name,
+.footer-brand .footer-logo {
+  font-family: 'Noto Serif TC', 'LXGW WenKai TC', serif;
+}
+
+.hero-title {
+  font-weight: 900;
+  letter-spacing: .3em;
+}
+.hero-title-sub {
+  font-weight: 700;
+  letter-spacing: .5em;
+}
+
+.section-title {
+  font-weight: 900;
+  letter-spacing: .16em;
+  color: #5A1512;                 /* 深硃紅，牌匾漆色 */
+}
+.section-title.on-dark {
+  color: var(--parchment);
+  text-shadow: 0 2px 22px rgba(0, 0, 0, .45);
+}
+
+.nav-logo,
+.footer-brand .footer-logo {
+  font-weight: 900;
+  letter-spacing: .18em;
+}
+
+.about-text h3 {
+  font-weight: 900;
+  color: #5A1512;
+  letter-spacing: .08em;
+}
+
+.deity-name { font-weight: 900; letter-spacing: .1em; }
+.feature-name { font-weight: 900; letter-spacing: .12em; }
+
+/* 區塊小標由青瓷改為古樸金褐，更沉穩 */
+.section-label { color: var(--gold-dim); }
+.section-label--deity { color: rgba(232, 192, 104, .5); }
+
+/* ---- 沉穩配色：光區改為較深的陳年宣紙色 ---- */
+.about {
+  background: linear-gradient(180deg, #EFE4C6 0%, #E7DABA 100%);
+}
+.features {
+  background: radial-gradient(120% 80% at 50% 0%, #ECE0C0 0%, #E4D6B2 65%);
+}
+.visit {
+  background: linear-gradient(180deg, #E9DCBC 0%, #E0D0A8 100%);
+}
+
+/* 卡片底色隨之沉穩，維持對比與立體 */
+.feature-card {
+  background: linear-gradient(165deg, #F7F0DC 0%, #EFE6CB 100%);
+  border-top-color: var(--gold-dim);
+}
+
+/* ---- 功能卡圖示：改為正式細金環，取代柔光暈 ---- */
+.feature-emoji {
+  background: radial-gradient(circle at 50% 45%, rgba(160, 125, 46, .12), transparent 68%);
+  border: 1px solid rgba(160, 125, 46, .38);
+  box-shadow: inset 0 0 12px rgba(160, 125, 46, .12);
+}
+
+/* 分隔線更古樸 */
+.about-stats { border-color: rgba(90, 21, 18, .15); }
+
+/* 子頁標題（祈福牆 / 擲筊結果）同步採用厚重明體 */
+.pw-hero-title,
+.result-title {
+  font-family: 'Noto Serif TC', 'LXGW WenKai TC', serif;
+  font-weight: 900;
+  letter-spacing: .2em;
+}

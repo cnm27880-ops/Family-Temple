@@ -8,8 +8,8 @@
   <meta http-equiv="Content-Security-Policy"
         content="default-src 'self';
                  script-src 'self';
-                 style-src 'self' https://fonts.googleapis.com https://unpkg.com 'unsafe-inline';
-                 font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net https://unpkg.com;
+                 style-src 'self' https://fonts.googleapis.com 'unsafe-inline';
+                 font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net;
                  img-src 'self' data:;
                  connect-src 'self' https://kljxjzfbbiinbpzjuaqz.supabase.co;
                  frame-src 'none';
@@ -33,6 +33,9 @@
   <meta name="description" content="天虛宮祈福牆 — 寫下您的心願，與眾人的祝福一同飄向天際。">
   <meta name="theme-color" content="#B8412E">
 
+  <!-- Canonical -->
+  <link rel="canonical" href="https://cnm27880-ops.github.io/Family-Temple/prayer-wall.html">
+
   <!-- Favicon -->
   <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
 
@@ -42,31 +45,14 @@
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@300;400;700&family=Noto+Serif+TC:wght@400;700;900&display=swap" rel="stylesheet">
 
-  <!-- Seal Script -->
-  <link rel="stylesheet" href="https://unpkg.com/@chinese-fonts/ysbzt@3.0.0/dist/%E5%B3%84%E5%B1%B1%E7%A2%91%E7%AF%86%E4%BD%93/result.css">
-
   <!-- Stylesheets -->
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/prayer-wall.css">
 </head>
 <body>
 
-<!-- ========== Navigation ========== -->
-<nav class="nav" id="navbar">
-  <div class="nav-inner">
-    <a href="index.html" class="nav-logo">天虛宮</a>
-    <button class="nav-toggle" id="navToggle" aria-label="開啟選單">
-      <span></span><span></span><span></span>
-    </button>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="index.html#about">廟宇介紹</a></li>
-      <li><a href="index.html#deities">神明介紹</a></li>
-      <li><a href="index.html#features">線上祈福</a></li>
-      <li><a href="index.html#visit">參拜資訊</a></li>
-      <li><a href="#" title="功能籌備中，敬請期待" aria-disabled="true">線上點燈<span class="coming-soon">籌備中</span></a></li>
-    </ul>
-  </div>
-</nav>
+<!-- ========== Navigation（由 js/layout.js 注入）========== -->
+<div id="site-nav"></div>
 
 <!-- ========== Hero ========== -->
 <section class="pw-hero">
@@ -165,41 +151,12 @@
   </div>
 </section>
 
-<!-- ========== Footer ========== -->
-<footer class="footer">
-  <div class="lattice-pattern lattice-pattern--faint"></div>
-  <div class="container">
-    <div class="footer-inner">
-      <div class="footer-brand">
-        <div class="footer-logo">天虛宮</div>
-        <p>歷經百年歲月，守護一方水土。<br>歡迎蒞臨參拜，共沐神恩。</p>
-      </div>
-      <div class="footer-section">
-        <h4>快速連結</h4>
-        <ul class="footer-links">
-          <li><a href="index.html#about">廟宇沿革</a></li>
-          <li><a href="index.html#deities">神明介紹</a></li>
-          <li><a href="index.html#features">線上祈福</a></li>
-          <li><a href="index.html#visit">參拜資訊</a></li>
-        </ul>
-      </div>
-      <div class="footer-section">
-        <h4>線上服務</h4>
-        <ul class="footer-links">
-          <li><a href="jiaobei.html">線上擲筊</a></li>
-          <li><a href="#" title="功能籌備中，敬請期待" aria-disabled="true">線上求籤<span class="coming-soon">籌備中</span></a></li>
-          <li><a href="#" title="功能籌備中，敬請期待" aria-disabled="true">線上點燈<span class="coming-soon">籌備中</span></a></li>
-          <li><a href="prayer-wall.html">祈福牆</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>&copy; 2026 天虛宮 All Rights Reserved</p>
-    </div>
-  </div>
-</footer>
+<!-- ========== Footer（由 js/layout.js 注入）========== -->
+<div id="site-footer"></div>
 
+<script src="js/layout.js" defer></script>
 <script src="js/supabase-config.js" defer></script>
+<script src="js/supabase-api.js" defer></script>
 <script src="js/prayer-wall.js" defer></script>
 </body>
 </html>

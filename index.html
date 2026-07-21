@@ -8,8 +8,8 @@
   <meta http-equiv="Content-Security-Policy"
         content="default-src 'self';
                  script-src 'self';
-                 style-src 'self' https://fonts.googleapis.com https://unpkg.com 'unsafe-inline';
-                 font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net https://unpkg.com;
+                 style-src 'self' https://fonts.googleapis.com 'unsafe-inline';
+                 font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net;
                  img-src 'self' data:;
                  connect-src 'self';
                  frame-src 'none';
@@ -39,12 +39,15 @@
   <meta property="og:title" content="天虛宮 — 祈福納祥・庇佑平安">
   <meta property="og:description" content="歷經百年歲月，守護一方水土。提供廟宇沿革、神明介紹、參拜資訊，以及線上擲筊、祈福牆等線上祈福服務。">
   <meta property="og:locale" content="zh_TW">
-  <!-- 分享縮圖：請放一張廟宇照片到 images/og-cover.jpg，並把下面兩行的網址改成你的正式網域後取消註解 -->
-  <!-- <meta property="og:url" content="https://你的網域/"> -->
-  <!-- <meta property="og:image" content="https://你的網域/images/og-cover.jpg"> -->
+  <!-- 分享縮圖：請放一張廟宇照片到 images/og-cover.jpg，再取消下面 og:image 的註解 -->
+  <meta property="og:url" content="https://cnm27880-ops.github.io/Family-Temple/">
+  <!-- <meta property="og:image" content="https://cnm27880-ops.github.io/Family-Temple/images/og-cover.jpg"> -->
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="天虛宮 — 祈福納祥・庇佑平安">
   <meta name="twitter:description" content="歷經百年歲月，守護一方水土。線上擲筊、祈福牆等線上祈福服務。">
+
+  <!-- 正式網址（canonical）。若改用自訂網域，請一併更新此處、og:url 與 sitemap.xml -->
+  <link rel="canonical" href="https://cnm27880-ops.github.io/Family-Temple/">
 
   <!-- Favicon -->
   <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
@@ -55,30 +58,31 @@
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@300;400;700&family=Noto+Serif+TC:wght@400;700;900&display=swap" rel="stylesheet">
 
-  <!-- 峄山碑篆体 (Seal Script) — for stamp/seal -->
-  <link rel="stylesheet" href="https://unpkg.com/@chinese-fonts/ysbzt@3.0.0/dist/%E5%B3%84%E5%B1%B1%E7%A2%91%E7%AF%86%E4%BD%93/result.css">
-
   <!-- Stylesheet -->
   <link rel="stylesheet" href="css/styles.css">
+
+  <!-- 結構化資料：協助 Google 正確辨識廟宇（填好地址/電話後可再補 address、telephone 欄位） -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "PlaceOfWorship",
+    "name": "天虛宮",
+    "alternateName": "龍行寺",
+    "description": "歷經百年歲月，守護一方水土的傳統廟宇，提供線上擲筊、祈福牆等祈福服務。",
+    "url": "https://cnm27880-ops.github.io/Family-Temple/",
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+      "opens": "06:00",
+      "closes": "21:00"
+    }
+  }
+  </script>
 </head>
 <body>
 
-<!-- ========== Navigation ========== -->
-<nav class="nav" id="navbar">
-  <div class="nav-inner">
-    <a href="#" class="nav-logo">天虛宮</a>
-    <button class="nav-toggle" id="navToggle" aria-label="開啟選單">
-      <span></span><span></span><span></span>
-    </button>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="#about">廟宇介紹</a></li>
-      <li><a href="#deities">神明介紹</a></li>
-      <li><a href="#features">線上祈福</a></li>
-      <li><a href="#visit">參拜資訊</a></li>
-      <li><a href="#" title="功能籌備中，敬請期待" aria-disabled="true">線上點燈<span class="coming-soon">籌備中</span></a></li>
-    </ul>
-  </div>
-</nav>
+<!-- ========== Navigation（由 js/layout.js 注入）========== -->
+<div id="site-nav"></div>
 
 <!-- ========== Hero ========== -->
 <section class="hero" id="hero">
@@ -96,8 +100,8 @@
         <svg viewBox="0 0 70 70" fill="none">
           <rect x="5" y="5" width="60" height="60" rx="4" stroke="#C4362A" stroke-width="3"/>
           <rect x="10" y="10" width="50" height="50" rx="2" stroke="#C4362A" stroke-width="1" opacity=".5"/>
-          <text x="35" y="33" text-anchor="middle" font-family="峄山碑篆体,LXGW WenKai TC,serif" font-size="18" font-weight="700" fill="#C4362A">无</text>
-          <text x="35" y="53" text-anchor="middle" font-family="峄山碑篆体,LXGW WenKai TC,serif" font-size="18" font-weight="700" fill="#C4362A">极</text>
+          <text x="35" y="33" text-anchor="middle" font-family="Noto Serif TC,LXGW WenKai TC,serif" font-size="18" font-weight="700" fill="#C4362A">无</text>
+          <text x="35" y="53" text-anchor="middle" font-family="Noto Serif TC,LXGW WenKai TC,serif" font-size="18" font-weight="700" fill="#C4362A">极</text>
         </svg>
       </div>
       <h1 class="hero-title">天虛宮</h1>
@@ -263,41 +267,11 @@
   </div>
 </section>
 
-<!-- ========== Footer ========== -->
-<footer class="footer">
-  <div class="lattice-pattern lattice-pattern--faint"></div>
-  <div class="container">
-    <div class="footer-inner">
-      <div class="footer-brand">
-        <div class="footer-logo">天虛宮</div>
-        <p>歷經百年歲月，守護一方水土。<br>歡迎蒞臨參拜，共沐神恩。</p>
-      </div>
-      <div class="footer-section">
-        <h4>快速連結</h4>
-        <ul class="footer-links">
-          <li><a href="#about">廟宇沿革</a></li>
-          <li><a href="#deities">神明介紹</a></li>
-          <li><a href="#features">線上祈福</a></li>
-          <li><a href="#visit">參拜資訊</a></li>
-        </ul>
-      </div>
-      <div class="footer-section">
-        <h4>線上服務</h4>
-        <ul class="footer-links">
-          <li><a href="jiaobei.html">線上擲筊</a></li>
-          <li><a href="#" title="功能籌備中，敬請期待" aria-disabled="true">線上求籤<span class="coming-soon">籌備中</span></a></li>
-          <li><a href="#" title="功能籌備中，敬請期待" aria-disabled="true">線上點燈<span class="coming-soon">籌備中</span></a></li>
-          <li><a href="prayer-wall.html">祈福牆</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>&copy; 2026 天虛宮 All Rights Reserved</p>
-    </div>
-  </div>
-</footer>
+<!-- ========== Footer（由 js/layout.js 注入）========== -->
+<div id="site-footer"></div>
 
 <!-- JavaScript (defer: loads after HTML parsing) -->
+<script src="js/layout.js" defer></script>
 <script src="js/main.js" defer></script>
 </body>
 </html>

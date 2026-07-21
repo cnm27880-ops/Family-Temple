@@ -35,21 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var confirmNo = document.getElementById('confirmNo');
   var saveToast = document.getElementById('saveToast');
 
-  /* ---------- Navigation ---------- */
-  var navToggle = document.getElementById('navToggle');
-  var navLinks = document.getElementById('navLinks');
-  if (navToggle && navLinks) {
-    navToggle.addEventListener('click', function () {
-      navToggle.classList.toggle('active');
-      navLinks.classList.toggle('active');
-    });
-    navLinks.querySelectorAll('a').forEach(function (link) {
-      link.addEventListener('click', function () {
-        navToggle.classList.remove('active');
-        navLinks.classList.remove('active');
-      });
-    });
-  }
+  // 導覽列與平滑捲動已移至 js/layout.js（共用版面）
 
   /* ---------- Result Data ---------- */
   var results = {
@@ -244,9 +230,37 @@ document.addEventListener('DOMContentLoaded', function () {
 
   if (confirmYes) {
     confirmYes.addEventListener('click', function () {
-      confirmModal.hidden = true;
-      // Show toast
-      showSaveToast();
+      var api = window.TempleAPI;
+      if (!api || !api.ready) {
+        confirmModal.hidden = true;
+        showSaveToast('祈福牆尚未設定，無法儲存');
+        return;
+      }
+      if (!wishText) {
+        confirmModal.hidden = true;
+        return;
+      }
+      // 以擲筊結果作為分類（聖筊 / 笑筊 / 陰筊），寫入公開祈福牆
+      var typeLabel = (lastResult && results[lastResult])
+        ? results[lastResult].title : '純祈願';
+      confirmYes.disabled = true;
+      api.insertPrayer({
+        name: '虔誠信眾',
+        content: wishText,
+        type: typeLabel,
+        is_private: false
+      }).then(function () {
+        confirmModal.hidden = true;
+        confirmYes.disabled = false;
+        showSaveToast('已儲存至祈福牆 ✓');
+      }).catch(function (err) {
+        if (window.console && console.warn) {
+          console.warn('儲存至祈福牆失敗：', err);
+        }
+        confirmModal.hidden = true;
+        confirmYes.disabled = false;
+        showSaveToast('儲存失敗，請稍後再試');
+      });
     });
   }
 
@@ -264,7 +278,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  function showSaveToast() {
+  function showSaveToast(msg) {
+    saveToast.textContent = msg || '已儲存 ✓';
     saveToast.hidden = false;
     // Force reflow
     void saveToast.offsetWidth;
