@@ -57,19 +57,79 @@ document.addEventListener('DOMContentLoaded', function () {
     return getSessionCount() >= SESSION_LIMIT;
   }
 
-  /* ========== LocalStorage Helpers ========== */
-  var STORAGE_KEY = 'pw_prayers';
+  /* ========== Supabase 後端 ========== */
+  var SUPABASE_URL = window.SUPABASE_URL;
+  var SUPABASE_KEY = window.SUPABASE_KEY;
+  var REST = (SUPABASE_URL || '') + '/rest/v1';
+  var backendReady = !!(SUPABASE_URL && SUPABASE_KEY);
 
-  function loadPrayers() {
-    try {
-      return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-    } catch (e) {
-      return [];
+  function apiHeaders(extra) {
+    var h = {
+      'apikey': SUPABASE_KEY,
+      'Authorization': 'Bearer ' + SUPABASE_KEY
+    };
+    if (extra) {
+      Object.keys(extra).forEach(function (k) { h[k] = extra[k]; });
     }
+    return h;
   }
 
-  function savePrayers(prayers) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(prayers));
+  // 將資料庫欄位轉為畫面使用的格式
+  function normalizePrayer(row) {
+    return {
+      id: row.id,
+      name: row.name,
+      content: row.content,
+      type: row.type || '純祈願',
+      time: row.created_at,
+      replies: Array.isArray(row.replies) ? row.replies : []
+    };
+  }
+
+  // 讀取公開心願（含回應），最新在前
+  function fetchPrayers() {
+    var url = REST + '/prayers' +
+      '?select=id,name,content,type,created_at,replies(author,text,created_at)' +
+      '&is_private=eq.false' +
+      '&order=created_at.desc';
+    return fetch(url, { headers: apiHeaders() }).then(function (res) {
+      if (!res.ok) { throw new Error('load ' + res.status); }
+      return res.json();
+    }).then(function (rows) {
+      return rows.map(normalizePrayer);
+    });
+  }
+
+  // 新增一則心願，回傳建立後的資料（含 id 與時間）
+  function insertPrayer(payload) {
+    return fetch(REST + '/prayers', {
+      method: 'POST',
+      headers: apiHeaders({
+        'Content-Type': 'application/json',
+        'Prefer': 'return=representation'
+      }),
+      body: JSON.stringify(payload)
+    }).then(function (res) {
+      if (!res.ok) { throw new Error('insert ' + res.status); }
+      return res.json();
+    }).then(function (rows) {
+      return normalizePrayer(rows[0]);
+    });
+  }
+
+  // 新增一則回應
+  function insertReply(payload) {
+    return fetch(REST + '/replies', {
+      method: 'POST',
+      headers: apiHeaders({
+        'Content-Type': 'application/json',
+        'Prefer': 'return=representation'
+      }),
+      body: JSON.stringify(payload)
+    }).then(function (res) {
+      if (!res.ok) { throw new Error('reply ' + res.status); }
+      return res.json();
+    });
   }
 
   /* ========== DOM References ========== */
@@ -214,28 +274,38 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /* ========== Load & Display All Cards ========== */
-  function loadWall() {
-    var prayers = loadPrayers();
-    // Only show public prayers
-    var publicPrayers = prayers.filter(function (p) { return !p.isPrivate; });
+  function showWallMessage(icon, text) {
+    cardsContainer.innerHTML =
+      '<div class="pw-empty">' +
+        '<span class="pw-empty-icon">' + icon + '</span>' +
+        '<p class="pw-empty-text">' + text + '</p>' +
+      '</div>';
+  }
 
-    if (publicPrayers.length === 0) {
-      cardsContainer.innerHTML =
-        '<div class="pw-empty">' +
-          '<span class="pw-empty-icon">🪷</span>' +
-          '<p class="pw-empty-text">尚無心願，成為第一位留言的人吧</p>' +
-        '</div>';
+  function loadWall() {
+    if (!backendReady) {
+      showWallMessage('⚠️', '祈福牆尚未設定後端，請聯絡管理者');
       return;
     }
 
-    // Sort newest first
-    publicPrayers.sort(function (a, b) { return b.time - a.time; });
-    var html = '';
-    publicPrayers.forEach(function (p) {
-      html += renderCard(p);
+    showWallMessage('🕯️', '心願載入中…');
+
+    fetchPrayers().then(function (prayers) {
+      // 後端查詢已過濾為公開、並依時間排序（最新在前）
+      if (prayers.length === 0) {
+        showWallMessage('🪷', '尚無心願，成為第一位留言的人吧');
+        return;
+      }
+      var html = '';
+      prayers.forEach(function (p) { html += renderCard(p); });
+      cardsContainer.innerHTML = html;
+      applyCurrentFilter();
+    }).catch(function (err) {
+      if (window.console && console.warn) {
+        console.warn('祈福牆載入失敗：', err);
+      }
+      showWallMessage('⚠️', '心願載入失敗，請稍後重新整理');
     });
-    cardsContainer.innerHTML = html;
-    applyCurrentFilter();
   }
 
   /* ========== Show Error ========== */
@@ -313,56 +383,64 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
       }
 
-      // 5. Get visibility
+      // 5. Backend ready?
+      if (!backendReady) {
+        showError('祈福牆尚未設定後端，暫時無法送出');
+        return;
+      }
+
+      // 6. Get visibility
       var visRadio = document.querySelector('input[name="visibility"]:checked');
       var isPrivate = visRadio && visRadio.value === 'private';
 
-      // 6. Build data object
-      var prayer = {
-        id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+      // 7. Send to backend
+      var originalLabel = submitBtn.textContent;
+      submitBtn.disabled = true;
+      submitBtn.textContent = '稟告中…';
+
+      insertPrayer({
         name: name,
         content: content,
         type: '純祈願',
-        isPrivate: isPrivate,
-        time: Date.now(),
-        replies: []
-      };
+        is_private: isPrivate
+      }).then(function (prayer) {
+        // Update session count
+        incrementSessionCount();
 
-      // 7. Save to localStorage
-      var prayers = loadPrayers();
-      prayers.push(prayer);
-      savePrayers(prayers);
+        // Show result
+        if (!isPrivate) {
+          var tempDiv = document.createElement('div');
+          tempDiv.innerHTML = renderCard(prayer);
+          var newCard = tempDiv.firstChild;
 
-      // 8. Update session count
-      incrementSessionCount();
-      if (isRateLimited()) {
-        submitBtn.disabled = true;
-      }
+          var emptyEl = cardsContainer.querySelector('.pw-empty');
+          if (emptyEl) { emptyEl.remove(); }
 
-      // 9. Show result
-      if (!isPrivate) {
-        // Prepend card to wall
-        var tempDiv = document.createElement('div');
-        tempDiv.innerHTML = renderCard(prayer);
-        var newCard = tempDiv.firstChild;
+          cardsContainer.insertBefore(newCard, cardsContainer.firstChild);
+          applyCurrentFilter();
+          showSuccess('心願已送出，神明已知曉 ✓');
+        } else {
+          showSuccess('心願已悄悄送達廟方，神明已知曉 ✓');
+        }
 
-        // Remove empty state if present
-        var emptyEl = cardsContainer.querySelector('.pw-empty');
-        if (emptyEl) { emptyEl.remove(); }
+        // Clear form
+        nickInput.value = '';
+        wishInput.value = '';
+        wishCharCount.textContent = '0';
+        var countWrap = wishCharCount.parentElement;
+        if (countWrap) { countWrap.classList.remove('near-limit'); }
 
-        cardsContainer.insertBefore(newCard, cardsContainer.firstChild);
-        applyCurrentFilter();
-        showSuccess('心願已送出，神明已知曉 ✓');
-      } else {
-        showSuccess('心願已悄悄送達廟方，神明已知曉 ✓');
-      }
-
-      // 10. Clear form
-      nickInput.value = '';
-      wishInput.value = '';
-      wishCharCount.textContent = '0';
-      var countWrap = wishCharCount.parentElement;
-      if (countWrap) { countWrap.classList.remove('near-limit'); }
+        // Restore button; keep disabled if rate limited
+        submitBtn.textContent = originalLabel;
+        submitBtn.disabled = isRateLimited();
+      }).catch(function (err) {
+        if (window.console && console.warn) {
+          console.warn('送出心願失敗：', err);
+        }
+        showError('送出失敗，請稍後再試');
+        submitBtn.textContent = originalLabel;
+        submitBtn.disabled = false;
+      });
     });
   }
 
@@ -458,50 +536,58 @@ document.addEventListener('DOMContentLoaded', function () {
       return;
     }
 
-    // Build reply
-    var reply = {
-      author: '匿名信眾',
-      text: text,
-      time: Date.now()
-    };
+    if (!backendReady) {
+      showReplyError(area, input, '尚未設定後端，暫時無法回應');
+      return;
+    }
 
-    // Save to localStorage
     var cardId = card.getAttribute('data-id');
-    var prayers = loadPrayers();
-    for (var i = 0; i < prayers.length; i++) {
-      if (prayers[i].id === cardId) {
-        if (!prayers[i].replies) { prayers[i].replies = []; }
-        prayers[i].replies.push(reply);
-        break;
+    var author = '匿名信眾';
+
+    // Send to backend
+    input.disabled = true;
+    btn.disabled = true;
+
+    insertReply({
+      prayer_id: cardId,
+      author: author,
+      text: text
+    }).then(function () {
+      // Add reply to DOM
+      var replyList = card.querySelector('.reply-list');
+      if (replyList) {
+        var replyDiv = document.createElement('div');
+        replyDiv.className = 'reply-item';
+        replyDiv.innerHTML =
+          '<span class="reply-author">' + escapeHtml(author) + '：</span>' +
+          escapeHtml(text);
+        replyList.appendChild(replyDiv);
       }
-    }
-    savePrayers(prayers);
 
-    // Add reply to DOM
-    var replyList = card.querySelector('.reply-list');
-    if (replyList) {
-      var replyDiv = document.createElement('div');
-      replyDiv.className = 'reply-item';
-      replyDiv.innerHTML =
-        '<span class="reply-author">' + escapeHtml(reply.author) + '：</span>' +
-        escapeHtml(reply.text);
-      replyList.appendChild(replyDiv);
-    }
+      // Update reply count text
+      var replyBtnEl = card.querySelector('.card-reply-btn');
+      if (replyBtnEl) {
+        var count = card.querySelectorAll('.reply-item').length;
+        replyBtnEl.textContent = '💬 ' + count + ' 則回應';
+      }
 
-    // Update reply count text
-    var replyBtnEl = card.querySelector('.card-reply-btn');
-    if (replyBtnEl) {
-      var count = card.querySelectorAll('.reply-item').length;
-      replyBtnEl.textContent = '💬 ' + count + ' 則回應';
-    }
-
-    // Clear input
-    input.value = '';
-    var counter = area.querySelector('.reply-count');
-    if (counter) {
-      counter.textContent = '0 / 80';
-      counter.classList.remove('near-limit');
-    }
+      // Clear input
+      input.value = '';
+      input.disabled = false;
+      btn.disabled = false;
+      var counter = area.querySelector('.reply-count');
+      if (counter) {
+        counter.textContent = '0 / 80';
+        counter.classList.remove('near-limit');
+      }
+    }).catch(function (err) {
+      if (window.console && console.warn) {
+        console.warn('送出回應失敗：', err);
+      }
+      input.disabled = false;
+      btn.disabled = false;
+      showReplyError(area, input, '送出失敗，請稍後再試');
+    });
   }
 
   function showReplyError(area, input, msg) {
