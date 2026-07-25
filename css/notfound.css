@@ -12,9 +12,9 @@
   text-align: center;
   overflow: hidden;
   background:
-    radial-gradient(ellipse at 50% 22%, rgba(196, 54, 42, .14) 0%, transparent 56%),
-    radial-gradient(ellipse at 74% 76%, rgba(212, 168, 67, .09) 0%, transparent 44%),
-    linear-gradient(180deg, #1E1A2E, #2C1A0E 44%, #1E1A2E);
+    radial-gradient(ellipse at 50% 22%, rgba(150, 38, 28, .22) 0%, transparent 58%),
+    radial-gradient(ellipse at 50% 104%, rgba(233, 141, 60, .14) 0%, transparent 62%),
+    linear-gradient(178deg, #1C130E 0%, #33200F 46%, #17110D 100%);
 }
 
 .nf-main .lattice-pattern {

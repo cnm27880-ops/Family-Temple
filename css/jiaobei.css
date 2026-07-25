@@ -6,7 +6,7 @@
 .jiaobei-app {
   min-height: 100vh;
   padding-top: 70px; /* nav height */
-  background: var(--ink-black);
+  background: var(--night);
   position: relative;
 }
 
@@ -817,3 +817,21 @@
     min-width: 0;
   }
 }
+
+/* ============================================
+   置中文字的字距補償
+   --------------------------------------------
+   letter-spacing 會在最後一個字後面也留一段空白，置中時整體會
+   往左偏「字距的一半」。補上同值的 text-indent 即可抵銷。
+   補償值要跟本檔實際生效的 letter-spacing 相同。
+   ============================================ */
+.stage-title         { text-indent: 0.15em; }
+.stage-subtitle      { text-indent: .1em; }
+.method-name         { text-indent: .1em; }
+.countdown-hint      { text-indent: .08em; }
+.result-title        { text-indent: .15em; }
+.result-progress     { text-indent: .06em; }
+.mode-name           { text-indent: .1em; }
+.streak-label        { text-indent: .3em; }
+.confirm-modal-title { text-indent: .12em; }
+.save-toast          { text-indent: .1em; }

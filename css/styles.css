@@ -47,6 +47,11 @@
   --lotus-white: #F0E8E0;
   --sandalwood: #2C1A0E;
 
+  /* 深色頁面的底色。原本沿用偏紫的 --ink-black，配上冷色光暈氣質偏奇幻；
+     改為暖黑褐，較貼近廟宇的木作與香火。
+     （--ink-black 仍作為淺色頁面的文字顏色使用，故不動它） */
+  --night: #17110D;
+
   /* Semantic */
   --text-primary: var(--ink-black);
   --text-secondary: var(--ink-medium);
@@ -569,37 +574,6 @@ body > * {
   letter-spacing: 0.4em;
   white-space: nowrap;
   opacity: 0.8;
-}
-
-.title-divider {
-  width: 160px;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
-  margin: 0.3rem 0;
-}
-
-.hero-ornament {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1.5rem;
-  margin: var(--space-sm) 0;
-  opacity: 0;
-  animation: ink-appear 1s var(--ease-smooth) .9s forwards;
-}
-
-.hero-ornament::before,
-.hero-ornament::after {
-  content: '';
-  height: 1px;
-  width: 80px;
-  background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
-}
-
-.hero-ornament-icon {
-  color: var(--celadon);
-  font-size: 1.5rem;
-  opacity: .6;
 }
 
 .hero-motto {
@@ -1715,4 +1689,283 @@ html {
   .ink-reveal-right.visible {
     transform: translateY(0);
   }
+}
+
+/* ============================================================
+   封面重整（2026-07）
+   ------------------------------------------------------------
+   1. 修正「置中 + 字距」造成的整體偏左
+   2. 首頁封面改為匾額式構圖與暖色調
+   ============================================================ */
+
+/* ---- 1. 置中文字的字距補償 ----------------------------------
+   letter-spacing 會在最後一個字後面也加上一段空白，這段空白算進
+   文字寬度裡，於是置中時整體會往左偏「字距的一半」。標題字距
+   0.3em、字級 116px 時偏移約 17px，肉眼看得出來，而旁邊的印章、
+   分隔線是真正置中的，兩者對不上就顯得歪斜。
+
+   在置中文字上補一個與 letter-spacing 同值的 text-indent，
+   剛好把偏移抵銷回來（text-indent 對置中文字的位移是其值的一半）。
+   -------------------------------------------------------------- */
+.hero-subtitle-top   { text-indent: .5em; }
+.hero-title          { text-indent: .3em; }
+.hero-motto          { text-indent: .35em; }
+.scroll-hint-inner span { text-indent: .3em; }
+
+.section-label       { text-indent: .4em; }
+.section-title       { text-indent: .16em; }
+.section-subtitle    { text-indent: .1em; }
+
+.stat-label          { text-indent: .05em; }
+.deity-name          { text-indent: .1em; }
+.deity-title-label   { text-indent: .2em; }
+.feature-name        { text-indent: .12em; }
+.feature-tag         { text-indent: .08em; }
+.news-tag            { text-indent: .08em; }
+
+/* 子頁的置中標題也要補償，但補償值必須跟「最後生效」的 letter-spacing
+   一致。這些選擇器的字距是在各子頁 CSS（載入順序在本檔之後）宣告的，
+   所以補償值也寫在那些檔案裡，避免兩邊的值不一致。 */
+
+/* ---- 2. 封面：暖色調與縱深 ----------------------------------
+   原本的底色偏紫（#1E1A2E），配上青瓷色光暈，氣質偏奇幻。
+   改成暖黑褐，光源設定為「下方供桌的燭火 + 上方神龕的硃紅」，
+   並在四周收暗，把視線集中到中央的匾額。
+   -------------------------------------------------------------- */
+.hero {
+  background: var(--night);
+}
+
+.hero-bg {
+  background:
+    /* 下方燭火透上來的暖光 */
+    radial-gradient(ellipse 66% 40% at 50% 102%, rgba(233, 141, 60, .24) 0%, transparent 70%),
+    /* 上方神龕的硃紅暈染 */
+    radial-gradient(ellipse 58% 38% at 50% -4%, rgba(150, 38, 28, .28) 0%, transparent 64%),
+    /* 四周收暗 */
+    radial-gradient(ellipse 118% 88% at 50% 50%, transparent 38%, rgba(8, 5, 4, .58) 100%),
+    linear-gradient(178deg, #1C130E 0%, #33200F 46%, #17110D 100%);
+}
+
+/* 格紋再淡一些，避免雜訊蓋過主體 */
+.hero .lattice-pattern { opacity: .018; }
+
+/* 香煙原本是細直線，看起來像刮痕。加寬、模糊、調暖後才像煙。
+   （粒子的透明度由 keyframes 控制，改這裡的 opacity 沒有作用，
+   所以是調整顏色與模糊度。） */
+.hero .smoke-particle {
+  width: 3px;
+  background: linear-gradient(to top, rgba(214, 188, 148, .18), transparent);
+  filter: blur(1.6px);
+}
+
+/* 金塵改為暖金，並縮小亮度 */
+.hero .dust {
+  background: #D8A94E;
+  box-shadow: 0 0 4px rgba(216, 169, 78, .45);
+}
+
+.hero-scroll-frame {
+  border-color: rgba(201, 160, 74, .18);
+}
+
+/* ---- 封面：眉標 ---- */
+.hero-subtitle-top {
+  font-size: .88rem;
+  color: rgba(222, 184, 106, .92);
+  letter-spacing: .58em;
+  text-indent: .58em;
+  margin-bottom: var(--space-md);
+}
+
+/* ---- 封面：匾額 ----
+   廟名以匾額（牌匾）呈現——這是廟宇最具識別度的元素，
+   比單純把大字置中更有來歷。 */
+.hero-plaque {
+  position: relative;
+  display: inline-block;
+  padding: 1.5rem 3.6rem 1.7rem;
+  background: linear-gradient(176deg, rgba(62, 32, 15, .55) 0%, rgba(28, 15, 9, .72) 100%);
+  border: 1px solid rgba(201, 160, 74, .5);
+  box-shadow:
+    inset 0 0 34px rgba(0, 0, 0, .55),
+    0 20px 60px rgba(0, 0, 0, .5);
+  opacity: 0;
+  animation: ink-appear 1.2s var(--ease-smooth) .55s forwards;
+}
+
+/* 內圈細金線，匾額的雙框 */
+.hero-plaque::before {
+  content: '';
+  position: absolute;
+  inset: 7px;
+  border: 1px solid rgba(201, 160, 74, .24);
+  pointer-events: none;
+}
+
+.hero-title {
+  font-size: clamp(3.2rem, 8.6vw, 6.2rem);
+  line-height: 1.16;
+  /* 金箔漸層，模擬牌匾貼金 */
+  background-image: linear-gradient(180deg,
+    #FCF0C8 0%, #F1D584 36%, #DCAF54 62%, #A97C2E 100%);
+  animation: none;
+  opacity: 1;
+}
+
+@supports ((background-clip: text) or (-webkit-background-clip: text)) {
+  .hero-title {
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+/* ---- 封面：落款印章 ----
+   移到匾額右下角，像實際牌匾與書畫的落款位置。 */
+.hero-seal {
+  position: absolute;
+  right: -16px;
+  bottom: -18px;
+  width: 54px;
+  height: 54px;
+  margin: 0;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, .45);
+  transform: rotate(-3deg);
+  opacity: 0;
+  animation: ink-appear .5s var(--ease-smooth) 1.5s forwards;
+}
+
+/* ---- 封面：龍行寺（兩側金線） ---- */
+.hero-title-sub {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.3rem;
+  margin-top: 1.5rem;
+  /* 字距移到內層的文字上，容器本身不需要 */
+  letter-spacing: normal;
+  opacity: 0;
+  animation: ink-appear 1s var(--ease-smooth) .95s forwards;
+}
+
+.hero-rule {
+  display: block;
+  width: clamp(26px, 7vw, 74px);
+  height: 1px;
+  flex-shrink: 0;
+  background: linear-gradient(90deg, transparent, rgba(201, 160, 74, .7));
+}
+
+.hero-rule:last-child {
+  background: linear-gradient(90deg, rgba(201, 160, 74, .7), transparent);
+}
+
+.hero-title-sub-text {
+  font-family: 'Noto Serif TC', 'LXGW WenKai TC', serif;
+  font-size: clamp(1.3rem, 3.4vw, 2.05rem);
+  font-weight: 700;
+  color: #CFA652;
+  letter-spacing: .36em;
+  text-indent: .36em;
+  white-space: nowrap;
+}
+
+/* ---- 封面：對句與說明 ---- */
+.hero-motto {
+  margin-top: var(--space-md);
+  font-size: clamp(.95rem, 2.2vw, 1.15rem);
+  color: rgba(216, 176, 96, .8);
+  letter-spacing: .3em;
+  text-indent: .3em;
+}
+
+.hero-desc {
+  margin-top: 1.4rem;
+  color: rgba(240, 230, 210, .5);
+  line-height: 2.1;
+}
+
+/* ---- 封面：主次按鈕分明 ----
+   兩顆都是外框線時看不出主從，主要動作改為實色。 */
+.hero-cta-group {
+  margin-top: var(--space-lg);
+}
+
+.hero-cta-group .btn-seal.hero-cta-primary {
+  color: #FCF2D8;
+  border-color: rgba(232, 192, 104, .8);
+  background: linear-gradient(180deg, #B8412E 0%, #8B1A1A 100%);
+  box-shadow: 0 10px 28px rgba(139, 26, 26, .42);
+}
+
+.hero-cta-group .btn-seal.hero-cta-primary::before {
+  border-color: rgba(252, 242, 216, .35);
+  opacity: 1;
+}
+
+.hero-cta-group .btn-seal.hero-cta-primary::after {
+  background: #74130F;
+}
+
+.hero-cta-group .btn-seal.hero-cta-primary:hover {
+  color: #FFF8E4;
+  border-color: var(--gold-bright);
+}
+
+.scroll-hint-inner {
+  color: rgba(210, 172, 88, .6);
+}
+
+.hero .scroll-arrow {
+  border-color: rgba(210, 172, 88, .6);
+}
+
+/* 其他深色頁面（擲筊 / 求籤 / 祈福牆）的底色改在各自的 CSS 檔，
+   因為那些檔案的載入順序在本檔之後，寫在這裡會被蓋掉。 */
+
+@media (max-width: 768px) {
+  .hero-plaque {
+    padding: 1.1rem 1.6rem 1.3rem;
+  }
+
+  .hero-seal {
+    right: -11px;
+    bottom: -13px;
+    width: 44px;
+    height: 44px;
+  }
+
+  .hero-title-sub {
+    gap: .8rem;
+  }
+}
+
+/* ---- 3. 線稿圖示 ----------------------------------------------
+   功能卡與神明卡原本用 emoji 當圖示：各平台長相不一、風格與
+   其他手繪元素不搭。改為線稿 SVG，顏色沿用 currentColor。
+   ---------------------------------------------------------------- */
+.feature-emoji svg,
+.deity-icon--mark svg {
+  width: 46px;
+  height: 46px;
+  display: block;
+}
+
+.feature-emoji {
+  color: #B08A38;
+  /* SVG 版不需要 emoji 的字級 */
+  font-size: 0;
+  transition: color .4s var(--ease-smooth), transform .4s var(--ease-smooth);
+}
+
+/* 原本 hover 會旋轉 emoji，線稿圖示轉起來像貼紙，改為單純放大 */
+.feature-card:hover .feature-emoji {
+  transform: scale(1.06);
+  color: var(--vermillion);
+}
+
+.deity-icon--mark {
+  color: rgba(232, 192, 104, .72);
+  font-size: 0;
 }

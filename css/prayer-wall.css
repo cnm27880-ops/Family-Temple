@@ -6,7 +6,7 @@
 .pw-hero {
   height: 40vh;
   min-height: 300px;
-  background: var(--ink-black);
+  background: var(--night);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -576,3 +576,8 @@
     width: 100%;
   }
 }
+
+/* ---- 置中文字的字距補償（說明見 css/styles.css） ---- */
+.pw-hero-title    { text-indent: .15em; }
+.pw-hero-subtitle { text-indent: .1em; }
+.pw-radio-name    { text-indent: .08em; }

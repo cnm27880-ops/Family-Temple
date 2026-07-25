@@ -247,3 +247,6 @@
     text-align: left;
   }
 }
+
+/* ---- 置中文字的字距補償（說明見 css/styles.css） ---- */
+.dd-lamp-name { text-indent: .12em; }
