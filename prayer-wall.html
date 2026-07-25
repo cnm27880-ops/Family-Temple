@@ -33,11 +33,26 @@
   <meta name="description" content="天虛宮祈福牆 — 寫下您的心願，與眾人的祝福一同飄向天際。">
   <meta name="theme-color" content="#B8412E">
 
+  <!-- Open Graph（分享到 LINE / Facebook 的預覽） -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="天虛宮">
+  <meta property="og:title" content="祈福牆 — 天虛宮">
+  <meta property="og:description" content="寫下您的心願，與眾人的祝福一同飄向天際。">
+  <meta property="og:locale" content="zh_TW">
+  <meta property="og:url" content="https://cnm27880-ops.github.io/Family-Temple/prayer-wall.html">
+  <meta property="og:image" content="https://cnm27880-ops.github.io/Family-Temple/images/og-cover.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="祈福牆 — 天虛宮">
+  <meta name="twitter:description" content="寫下您的心願，與眾人的祝福一同飄向天際。">
+  <meta name="twitter:image" content="https://cnm27880-ops.github.io/Family-Temple/images/og-cover.jpg">
+
   <!-- Canonical -->
   <link rel="canonical" href="https://cnm27880-ops.github.io/Family-Temple/prayer-wall.html">
 
-  <!-- Favicon -->
+  <!-- Favicon / 加入主畫面 -->
   <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="images/icon-192.png">
+  <link rel="manifest" href="manifest.json">
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -138,16 +153,21 @@
     </div>
 
     <!-- Filter Bar -->
-    <div class="pw-filters ink-reveal" id="filterBar">
-      <button class="btn-seal btn-seal--compact filter-btn active" data-filter="全部">全部</button>
-      <button class="btn-seal btn-seal--compact filter-btn" data-filter="聖筊">聖筊</button>
-      <button class="btn-seal btn-seal--compact filter-btn" data-filter="笑筊">笑筊</button>
-      <button class="btn-seal btn-seal--compact filter-btn" data-filter="陰筊">陰筊</button>
-      <button class="btn-seal btn-seal--compact filter-btn" data-filter="純祈願">純祈願</button>
+    <div class="pw-filters ink-reveal" id="filterBar" role="group" aria-label="依擲筊結果篩選心願">
+      <button class="btn-seal btn-seal--compact filter-btn active" data-filter="全部" aria-pressed="true">全部</button>
+      <button class="btn-seal btn-seal--compact filter-btn" data-filter="聖筊" aria-pressed="false">聖筊</button>
+      <button class="btn-seal btn-seal--compact filter-btn" data-filter="笑筊" aria-pressed="false">笑筊</button>
+      <button class="btn-seal btn-seal--compact filter-btn" data-filter="陰筊" aria-pressed="false">陰筊</button>
+      <button class="btn-seal btn-seal--compact filter-btn" data-filter="純祈願" aria-pressed="false">純祈願</button>
     </div>
 
     <!-- Cards Container -->
-    <div class="pw-cards" id="cardsContainer"></div>
+    <div class="pw-cards" id="cardsContainer" aria-live="polite"></div>
+
+    <!-- 分頁：心願一多時不一次全部載入 -->
+    <div class="pw-more" id="moreWrap" hidden>
+      <button class="btn-seal" id="moreBtn">載入更多心願</button>
+    </div>
   </div>
 </section>
 
@@ -155,6 +175,7 @@
 <div id="site-footer"></div>
 
 <script src="js/layout.js" defer></script>
+<script src="js/temple-common.js" defer></script>
 <script src="js/supabase-config.js" defer></script>
 <script src="js/supabase-api.js" defer></script>
 <script src="js/prayer-wall.js" defer></script>

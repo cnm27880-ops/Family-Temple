@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Security: Content Security Policy -->
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self';
+                 script-src 'self';
+                 style-src 'self' https://fonts.googleapis.com 'unsafe-inline';
+                 font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net;
+                 img-src 'self' data:;
+                 connect-src 'self';
+                 frame-src 'none';
+                 object-src 'none';
+                 base-uri 'self';
+                 form-action 'self'">
+
+  <!-- Security: Prevent MIME-type sniffing -->
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+
+  <!-- Security: Referrer Policy -->
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
+  <!-- Security: Permissions Policy -->
+  <meta http-equiv="Permissions-Policy"
+        content="camera=(), microphone=(), geolocation=(), payment=(), usb=()">
+
+  <title>線上求籤 — 天虛宮</title>
+
+  <!-- SEO -->
+  <meta name="description" content="天虛宮線上求籤 — 淨心稟告、搖動籤筒、擲筊確認，依六十甲子籤為您指引方向。">
+  <meta name="theme-color" content="#B8412E">
+
+  <!-- Open Graph（分享到 LINE / Facebook 的預覽） -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="天虛宮">
+  <meta property="og:title" content="線上求籤 — 天虛宮">
+  <meta property="og:description" content="淨心稟告、搖動籤筒、擲筊確認，依六十甲子籤為您指引方向。">
+  <meta property="og:locale" content="zh_TW">
+  <meta property="og:url" content="https://cnm27880-ops.github.io/Family-Temple/qiuqian.html">
+  <meta property="og:image" content="https://cnm27880-ops.github.io/Family-Temple/images/og-cover.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="線上求籤 — 天虛宮">
+  <meta name="twitter:description" content="淨心稟告、搖動籤筒、擲筊確認，依六十甲子籤為您指引方向。">
+  <meta name="twitter:image" content="https://cnm27880-ops.github.io/Family-Temple/images/og-cover.jpg">
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://cnm27880-ops.github.io/Family-Temple/qiuqian.html">
+
+  <!-- Favicon / 加入主畫面 -->
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="images/icon-192.png">
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@300;400;700&family=Noto+Serif+TC:wght@400;700;900&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <!-- jiaobei.css 提供共用的流程版面、倒數圈與擲筊供桌樣式，求籤流程也用得到 -->
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/jiaobei.css">
+  <link rel="stylesheet" href="css/qiuqian.css">
+</head>
+<body>
+
+<!-- ========== Navigation（由 js/layout.js 注入）========== -->
+<div id="site-nav"></div>
+
+<!-- ========== Qiuqian App ========== -->
+<main class="qq-app">
+
+  <!-- Stage 1: 淨心稟告 -->
+  <section class="qq-stage" data-qq-stage="1">
+    <div class="stage-content stage-center">
+      <h1 class="stage-title">求籤問事</h1>
+      <p class="stage-subtitle">請先向神明稟明姓名、生辰與所求之事</p>
+
+      <div class="countdown-circle">
+        <span class="countdown-number" id="qqCountdown" role="timer" aria-live="off">10</span>
+      </div>
+
+      <label class="qq-option">
+        <input type="checkbox" id="qqConfirmToggle" checked>
+        <span class="qq-option-text">
+          依傳統擲筊確認此籤
+          <span class="qq-option-note">關閉則搖出籤後直接看籤詩</span>
+        </span>
+      </label>
+
+      <button class="btn-seal btn-seal--compact countdown-skip" id="qqSkipBtn">
+        已稟告完畢，開始搖籤
+      </button>
+
+      <p class="qq-datanote" id="qqDataNote" hidden></p>
+    </div>
+  </section>
+
+  <!-- Stage 2: 搖籤筒 -->
+  <section class="qq-stage" data-qq-stage="2" hidden>
+    <div class="stage-content stage-center">
+      <p class="qq-hint">虔心搖動籤筒，待一支籤落出</p>
+
+      <div class="qq-tube-scene">
+        <div class="candle-glow candle-glow--left"></div>
+        <div class="candle-glow candle-glow--right"></div>
+
+        <div class="qq-tube-wrap">
+          <div class="qq-tube" id="qqTube">
+            <div class="qq-sticks" aria-hidden="true">
+              <span class="qq-stick"></span>
+              <span class="qq-stick"></span>
+              <span class="qq-stick"></span>
+              <span class="qq-stick"></span>
+              <span class="qq-stick"></span>
+              <span class="qq-stick"></span>
+              <span class="qq-stick"></span>
+            </div>
+            <div class="qq-tube-body"><span class="qq-tube-label">籤</span></div>
+          </div>
+
+          <div class="qq-drawn" id="qqDrawn" hidden aria-live="polite">
+            <span class="qq-drawn-stick">
+              <span class="qq-drawn-no" id="qqDrawnNo"></span>
+            </span>
+          </div>
+        </div>
+
+        <button class="btn-seal throw-btn" id="qqShakeBtn">🎋 搖動籤筒</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stage 3: 擲筊確認 -->
+  <section class="qq-stage" data-qq-stage="3" hidden>
+    <div class="stage-content stage-center">
+      <p class="qq-hint" id="qqConfirmHint">請擲筊請示神明，此籤是否為您所求</p>
+
+      <div class="altar-scene">
+        <div class="candle-glow candle-glow--left"></div>
+        <div class="candle-glow candle-glow--right"></div>
+
+        <img id="qqBagua" src="images/bagua.svg" alt="太極八卦圖" class="bagua-icon" hidden>
+
+        <p class="qq-confirm-note" id="qqConfirmNote" hidden aria-live="polite"></p>
+
+        <button class="btn-seal throw-btn" id="qqConfirmBtn">🙏 擲筊確認</button>
+        <button class="btn-seal btn-seal--compact qq-redraw-btn" id="qqRedrawBtn" hidden>
+          重新搖籤
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stage 4: 籤詩 -->
+  <section class="qq-stage" data-qq-stage="4" hidden>
+    <div class="stage-content">
+      <div class="qq-slip" id="qqSlip">
+        <div class="qq-slip-frame"></div>
+        <div class="qq-slip-head">
+          <span class="qq-slip-no" id="qqSlipNo"></span>
+          <span class="qq-slip-ganzhi" id="qqSlipGanzhi"></span>
+          <span class="qq-slip-level" id="qqSlipLevel" hidden></span>
+        </div>
+
+        <div class="qq-poem" id="qqPoem"></div>
+
+        <div class="qq-meaning" id="qqMeaning" hidden>
+          <h2 class="qq-meaning-title">白話參考</h2>
+          <p class="qq-meaning-text" id="qqMeaningText"></p>
+        </div>
+
+        <p class="qq-slip-empty" id="qqSlipEmpty" hidden></p>
+      </div>
+
+      <div class="result-actions">
+        <button class="btn-seal result-btn" id="qqAgainBtn">再求一支籤</button>
+        <button class="btn-seal result-btn" id="qqShareBtn">分享籤詩</button>
+      </div>
+
+      <p class="qq-disclaimer">籤詩僅供參考指引，遇重大決定仍請多方衡量。</p>
+    </div>
+  </section>
+
+</main>
+
+<!-- ========== Footer（由 js/layout.js 注入）========== -->
+<div id="site-footer"></div>
+
+<!-- Toast -->
+<div class="save-toast" id="qqToast" role="status" aria-live="polite" hidden></div>
+
+<script src="js/layout.js" defer></script>
+<script src="js/temple-common.js" defer></script>
+<script src="js/qiuqian.js" defer></script>
+</body>
+</html>

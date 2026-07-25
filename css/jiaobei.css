@@ -597,3 +597,223 @@
     padding: var(--space-md);
   }
 }
+
+/* ============================================
+   跳過倒數（默念完不必乾等）
+   ============================================ */
+.countdown-skip {
+  margin-top: var(--space-lg);
+  color: var(--gold);
+  border-color: var(--gold-dim);
+}
+
+.countdown-skip::before {
+  border-color: var(--gold-dim);
+  opacity: .3;
+}
+
+.countdown-skip::after {
+  background: var(--vermillion);
+}
+
+.countdown-skip:hover {
+  color: var(--parchment);
+  border-color: var(--vermillion);
+}
+
+/* ============================================
+   問事類型：一般詢問 / 連三聖筊
+   ============================================ */
+.throw-mode {
+  display: flex;
+  gap: var(--space-sm);
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: var(--space-md);
+}
+
+.mode-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .15rem;
+  min-width: 150px;
+  padding: .6rem 1.2rem;
+  background: rgba(245, 237, 216, .04);
+  border: 1px solid rgba(160, 125, 46, .45);
+  font-family: var(--font-display);
+  cursor: pointer;
+  transition: all .3s var(--ease-smooth);
+}
+
+.mode-btn:hover {
+  background: rgba(245, 237, 216, .08);
+  border-color: var(--gold);
+}
+
+.mode-btn.active {
+  background: rgba(184, 65, 46, .18);
+  border-color: var(--gold-bright);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, .25);
+}
+
+.mode-name {
+  font-size: .98rem;
+  font-weight: 700;
+  color: rgba(242, 235, 221, .6);
+  letter-spacing: .1em;
+}
+
+.mode-btn.active .mode-name {
+  color: var(--gold-bright);
+}
+
+.mode-note {
+  font-size: .74rem;
+  color: rgba(242, 235, 221, .35);
+  letter-spacing: .05em;
+}
+
+.mode-btn.active .mode-note {
+  color: rgba(245, 208, 128, .6);
+}
+
+/* ============================================
+   連三聖筊進度
+   ============================================ */
+.streak-track {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.streak-track[hidden] {
+  display: none;
+}
+
+.streak-label {
+  font-family: var(--font-display);
+  font-size: .78rem;
+  font-weight: 700;
+  color: rgba(242, 235, 221, .4);
+  letter-spacing: .3em;
+}
+
+.streak-dots {
+  display: flex;
+  gap: .8rem;
+}
+
+.streak-dot {
+  width: 16px;
+  height: 16px;
+  transform: rotate(45deg);
+  border: 1px solid var(--gold-dim);
+  background: transparent;
+  transition: background .4s var(--ease-smooth), box-shadow .4s;
+}
+
+.streak-dot.filled {
+  background: var(--gold-bright);
+  border-color: var(--gold-bright);
+  box-shadow: 0 0 14px rgba(245, 208, 128, .55);
+}
+
+/* ============================================
+   結果頁的連三聖筊進度說明
+   ============================================ */
+.result-progress {
+  font-family: var(--font-display);
+  font-size: .92rem;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: .06em;
+  margin-top: var(--space-sm);
+  position: relative;
+  z-index: 1;
+}
+
+.result-progress[hidden] {
+  display: none;
+}
+
+/* ============================================
+   確認彈窗：標題、署名欄位、錯誤訊息
+   ============================================ */
+.confirm-modal-title {
+  font-family: 'Noto Serif TC', 'LXGW WenKai TC', serif;
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: var(--gold-bright);
+  letter-spacing: .12em;
+  margin-bottom: var(--space-sm);
+}
+
+.confirm-modal-field {
+  display: flex;
+  flex-direction: column;
+  gap: .35rem;
+  text-align: left;
+  margin-bottom: var(--space-sm);
+}
+
+.confirm-modal-label {
+  font-family: var(--font-display);
+  font-size: .82rem;
+  font-weight: 700;
+  color: rgba(242, 235, 221, .5);
+  letter-spacing: .08em;
+}
+
+.confirm-modal-input {
+  width: 100%;
+  font-family: var(--font-display);
+  font-size: .95rem;
+  background: rgba(245, 237, 216, .07);
+  border: 1px solid rgba(160, 125, 46, .45);
+  color: var(--parchment);
+  padding: .55rem .8rem;
+  outline: none;
+  transition: border-color .3s, box-shadow .3s;
+}
+
+.confirm-modal-input::placeholder {
+  color: rgba(242, 235, 221, .3);
+}
+
+.confirm-modal-input:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(232, 192, 104, .12);
+}
+
+.confirm-modal-error {
+  font-family: var(--font-display);
+  font-size: .85rem;
+  color: var(--vermillion-light);
+  margin-bottom: var(--space-sm);
+}
+
+.confirm-modal-error[hidden] {
+  display: none;
+}
+
+/* 彈窗內按鈕的焦點框（鍵盤操作時要看得出焦點在哪） */
+.confirm-modal-box .btn-seal:focus-visible,
+.confirm-modal-input:focus-visible {
+  outline: 2px solid var(--gold-bright);
+  outline-offset: 2px;
+}
+
+@media (max-width: 768px) {
+  .throw-mode {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .mode-btn {
+    min-width: 0;
+  }
+}

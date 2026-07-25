@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- GitHub Pages 會把找不到的網址都導到這一頁，而網址可能有任意深度
+       （例如 /Family-Temple/abc/def），相對路徑會失效。
+       用 base 把所有相對路徑釘在網站根目錄。
+       ※ 若日後改用自訂網域，請把下面的 base 改成 "/"。 -->
+  <base href="/Family-Temple/">
+
+  <!-- Security: Content Security Policy -->
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self';
+                 script-src 'self';
+                 style-src 'self' https://fonts.googleapis.com 'unsafe-inline';
+                 font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net;
+                 img-src 'self' data:;
+                 connect-src 'self';
+                 frame-src 'none';
+                 object-src 'none';
+                 base-uri 'self';
+                 form-action 'self'">
+
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
+  <title>找不到這個頁面 — 天虛宮</title>
+  <meta name="description" content="您要找的頁面不存在，或已經移動位置。">
+  <meta name="theme-color" content="#B8412E">
+  <!-- 錯誤頁不需要被搜尋引擎收錄 -->
+  <meta name="robots" content="noindex, follow">
+
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="images/icon-192.png">
+  <link rel="manifest" href="manifest.json">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@300;400;700&family=Noto+Serif+TC:wght@400;700;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/notfound.css">
+</head>
+<body>
+
+<!-- ========== Navigation（由 js/layout.js 注入）========== -->
+<div id="site-nav"></div>
+
+<main class="nf-main">
+  <div class="lattice-pattern"></div>
+  <div class="nf-content">
+    <p class="nf-code">四 〇 四</p>
+    <div class="nf-ornament"><span class="nf-ornament-icon">☯</span></div>
+    <h1 class="nf-title">此路未通</h1>
+    <p class="nf-desc">
+      您要找的頁面並不存在，或已經移動了位置。<br>
+      不妨從下面幾處重新啟程。
+    </p>
+
+    <div class="nf-links">
+      <a href="index.html" class="btn-seal nf-btn">✦ 回到首頁</a>
+      <a href="index.html#features" class="btn-gold">線上祈福</a>
+    </div>
+
+    <ul class="nf-list">
+      <li><a href="jiaobei.html">線上擲筊</a></li>
+      <li><a href="qiuqian.html">線上求籤</a></li>
+      <li><a href="diandeng.html">線上點燈</a></li>
+      <li><a href="prayer-wall.html">祈福牆</a></li>
+      <li><a href="index.html#visit">參拜資訊</a></li>
+    </ul>
+  </div>
+</main>
+
+<!-- ========== Footer（由 js/layout.js 注入）========== -->
+<div id="site-footer"></div>
+
+<script src="js/layout.js" defer></script>
+</body>
+</html>
