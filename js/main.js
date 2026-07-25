@@ -169,6 +169,17 @@ function loadContent(observeInk) {
     }
   }
 
+  // 未指定圖示時的佔位線稿（神像多坐蓮座）。
+  // 為固定字串、不含外部輸入，故可直接用 innerHTML。
+  var LOTUS_MARK =
+    '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" ' +
+    'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+      '<path d="M16 7.5c2.7 3.2 4 6.8 4 10.7h-8c0-3.9 1.3-7.5 4-10.7z"/>' +
+      '<path d="M12 18.2c-2.3-2.2-4.7-3.4-7.3-3.7.5 3.8 2.7 6.9 5.6 8.7"/>' +
+      '<path d="M20 18.2c2.3-2.2 4.7-3.4 7.3-3.7-.5 3.8-2.7 6.9-5.6 8.7"/>' +
+      '<path d="M7.5 25h17" opacity=".45"/>' +
+    '</svg>';
+
   function renderDeities(deities, observeInk) {
     var grid = document.getElementById('deitiesGrid');
     if (!grid || !Array.isArray(deities)) { return; }
@@ -179,7 +190,12 @@ function loadContent(observeInk) {
 
       var icon = document.createElement('div');
       icon.className = 'deity-icon';
-      icon.textContent = d.icon || '🙏';
+      if (d.icon) {
+        icon.textContent = d.icon;
+      } else {
+        icon.classList.add('deity-icon--mark');
+        icon.innerHTML = LOTUS_MARK;
+      }
 
       var name = document.createElement('h3');
       name.className = 'deity-name';

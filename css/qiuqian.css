@@ -10,7 +10,7 @@
 .qq-app {
   min-height: 100vh;
   padding-top: 70px; /* nav height */
-  background: var(--ink-black);
+  background: var(--night);
   position: relative;
 }
 
@@ -476,3 +476,12 @@
     padding: var(--space-md) var(--space-sm);
   }
 }
+
+/* ---- 置中文字的字距補償（說明見 css/styles.css） ---- */
+.qq-hint          { text-indent: .08em; }
+.qq-slip-no       { text-indent: .12em; }
+.qq-slip-ganzhi   { text-indent: .25em; }
+.qq-slip-level    { text-indent: .12em; }
+.qq-poem-line     { text-indent: .22em; }
+.qq-meaning-title { text-indent: .3em; }
+.qq-tube-label    { text-indent: .1em; }
