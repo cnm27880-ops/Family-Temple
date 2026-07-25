@@ -12,7 +12,7 @@
                  font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net;
                  img-src 'self' data:;
                  connect-src 'self';
-                 frame-src 'none';
+                 frame-src https://www.google.com;
                  object-src 'none';
                  base-uri 'self';
                  form-action 'self'">
@@ -39,18 +39,25 @@
   <meta property="og:title" content="天虛宮 — 祈福納祥・庇佑平安">
   <meta property="og:description" content="歷經百年歲月，守護一方水土。提供廟宇沿革、神明介紹、參拜資訊，以及線上擲筊、祈福牆等線上祈福服務。">
   <meta property="og:locale" content="zh_TW">
-  <!-- 分享縮圖：請放一張廟宇照片到 images/og-cover.jpg，再取消下面 og:image 的註解 -->
   <meta property="og:url" content="https://cnm27880-ops.github.io/Family-Temple/">
-  <!-- <meta property="og:image" content="https://cnm27880-ops.github.io/Family-Temple/images/og-cover.jpg"> -->
-  <meta name="twitter:card" content="summary">
+  <!-- 分享縮圖：目前是自動產生的封面圖。若有實景照片，
+       請放一張 1200×630 的圖覆蓋 images/og-cover.jpg 即可。 -->
+  <meta property="og:image" content="https://cnm27880-ops.github.io/Family-Temple/images/og-cover.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="天虛宮 — 祈福納祥・庇佑平安">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="天虛宮 — 祈福納祥・庇佑平安">
-  <meta name="twitter:description" content="歷經百年歲月，守護一方水土。線上擲筊、祈福牆等線上祈福服務。">
+  <meta name="twitter:description" content="歷經百年歲月，守護一方水土。線上擲筊、求籤、點燈、祈福牆等線上祈福服務。">
+  <meta name="twitter:image" content="https://cnm27880-ops.github.io/Family-Temple/images/og-cover.jpg">
 
   <!-- 正式網址（canonical）。若改用自訂網域，請一併更新此處、og:url 與 sitemap.xml -->
   <link rel="canonical" href="https://cnm27880-ops.github.io/Family-Temple/">
 
-  <!-- Favicon -->
+  <!-- Favicon / 加入主畫面 -->
   <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="images/icon-192.png">
+  <link rel="manifest" href="manifest.json">
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -214,20 +221,18 @@
         <p class="feature-desc">虔心默念您的問題，<br>擲出聖筊，聆聽神明的指引。</p>
         <span class="feature-tag">互動動畫</span>
       </a>
-      <div class="feature-card feature-card--soon ink-reveal ink-delay-2" aria-disabled="true">
-        <span class="feature-soon-badge">敬請期待</span>
+      <a href="qiuqian.html" class="feature-card ink-reveal ink-delay-2">
         <span class="feature-emoji">🎋</span>
         <h3 class="feature-name">線上求籤</h3>
-        <p class="feature-desc">搖動籤筒，抽取您的籤詩，<br>附完整籤詩解釋與指引。</p>
-        <span class="feature-tag">籤詩解籤</span>
-      </div>
-      <div class="feature-card feature-card--soon ink-reveal ink-delay-3" aria-disabled="true">
-        <span class="feature-soon-badge">敬請期待</span>
+        <p class="feature-desc">搖動籤筒抽出籤支，<br>依傳統擲筊確認後展開籤詩。</p>
+        <span class="feature-tag">六十甲子籤</span>
+      </a>
+      <a href="diandeng.html" class="feature-card ink-reveal ink-delay-3">
         <span class="feature-emoji">🏮</span>
         <h3 class="feature-name">線上點燈</h3>
         <p class="feature-desc">光明燈、太歲燈線上登記，<br>為您與家人祈求平安順遂。</p>
         <span class="feature-tag">線上登記</span>
-      </div>
+      </a>
       <a href="prayer-wall.html" class="feature-card ink-reveal ink-delay-4">
         <span class="feature-emoji">🪷</span>
         <h3 class="feature-name">祈福牆</h3>
@@ -235,6 +240,20 @@
         <span class="feature-tag">許願留言</span>
       </a>
     </div>
+  </div>
+</section>
+
+<!-- ========== News（內容由 content.json 的 news 注入；清空則整區隱藏）========== -->
+<section class="news" id="news" hidden>
+  <div class="lattice-pattern"></div>
+  <div class="container">
+    <div class="section-header ink-reveal">
+      <span class="section-label">N E W S</span>
+      <h2 class="section-title">最新消息</h2>
+      <div class="section-title-ornament"><span class="dot"></span></div>
+      <p class="section-subtitle">慶典、法會與廟方公告</p>
+    </div>
+    <div class="news-list" id="newsList"></div>
   </div>
 </section>
 
@@ -257,10 +276,14 @@
         </div>
       </div>
       <div class="ink-reveal-right">
-        <div class="map-placeholder">
-          <span class="map-icon">🗺️</span>
-          <p>Google Map 將嵌入此處</p>
-          <p class="map-note">填入地址後即可啟用</p>
+        <!-- content.json 的 visit.mapQuery 填入地址後，
+             js/main.js 會把下面的佔位區塊換成 Google 地圖 -->
+        <div class="map-mount" id="mapMount">
+          <div class="map-placeholder">
+            <span class="map-icon">🗺️</span>
+            <p>Google Map 將嵌入此處</p>
+            <p class="map-note">於 content.json 填入地址後即自動啟用</p>
+          </div>
         </div>
       </div>
     </div>

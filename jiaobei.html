@@ -30,14 +30,29 @@
   <title>線上擲筊 — 天虛宮</title>
 
   <!-- SEO -->
-  <meta name="description" content="天虛宮線上擲筊 — 虔心默念您的問題，擲出聖筊，聆聽神明的指引。">
+  <meta name="description" content="天虛宮線上擲筊 — 虔心默念您的問題，擲出聖筊，聆聽神明的指引。重大事項可選連三聖筊。">
   <meta name="theme-color" content="#B8412E">
+
+  <!-- Open Graph（分享到 LINE / Facebook 的預覽） -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="天虛宮">
+  <meta property="og:title" content="線上擲筊 — 天虛宮">
+  <meta property="og:description" content="虔心默念您的問題，擲出聖筊，聆聽神明的指引。">
+  <meta property="og:locale" content="zh_TW">
+  <meta property="og:url" content="https://cnm27880-ops.github.io/Family-Temple/jiaobei.html">
+  <meta property="og:image" content="https://cnm27880-ops.github.io/Family-Temple/images/og-cover.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="線上擲筊 — 天虛宮">
+  <meta name="twitter:description" content="虔心默念您的問題，擲出聖筊，聆聽神明的指引。">
+  <meta name="twitter:image" content="https://cnm27880-ops.github.io/Family-Temple/images/og-cover.jpg">
 
   <!-- Canonical -->
   <link rel="canonical" href="https://cnm27880-ops.github.io/Family-Temple/jiaobei.html">
 
-  <!-- Favicon -->
+  <!-- Favicon / 加入主畫面 -->
   <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="images/icon-192.png">
+  <link rel="manifest" href="manifest.json">
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -82,8 +97,12 @@
     <div class="stage-content stage-center">
       <p class="countdown-hint">請於心中默念您的姓名、生辰與所求之事</p>
       <div class="countdown-circle">
-        <span class="countdown-number" id="countdownNumber">10</span>
+        <span class="countdown-number" id="countdownNumber" role="timer" aria-live="off">10</span>
       </div>
+      <!-- 默念完不必等倒數走完 -->
+      <button class="btn-seal btn-seal--compact countdown-skip" id="skipCountdownBtn">
+        已稟告完畢，開始擲筊
+      </button>
     </div>
   </section>
 
@@ -91,6 +110,7 @@
   <section class="jiaobei-stage" data-stage="2b" hidden>
     <div class="stage-content stage-center">
       <div class="wish-paper" id="wishPaper">
+        <label class="sr-only" for="wishTextarea">心願內容</label>
         <textarea
           class="wish-textarea"
           id="wishTextarea"
@@ -106,6 +126,19 @@
   <!-- Stage 3: Throw Jiaobei -->
   <section class="jiaobei-stage" data-stage="3" hidden>
     <div class="stage-content stage-center">
+
+      <!-- 問事類型：重大事項依傳統需連得三次聖筊 -->
+      <div class="throw-mode" id="throwMode" role="group" aria-label="問事類型">
+        <button class="mode-btn active" data-mode="single" aria-pressed="true">
+          <span class="mode-name">一般詢問</span>
+          <span class="mode-note">擲一次即可</span>
+        </button>
+        <button class="mode-btn" data-mode="triple" aria-pressed="false">
+          <span class="mode-name">重大事項</span>
+          <span class="mode-note">需連三聖筊</span>
+        </button>
+      </div>
+
       <div class="altar-scene">
         <!-- Left candle glow -->
         <div class="candle-glow candle-glow--left"></div>
@@ -113,6 +146,16 @@
         <div class="candle-glow candle-glow--right"></div>
 
         <img id="baguaImg" src="images/bagua.svg" alt="太極八卦圖" class="bagua-icon" hidden>
+
+        <!-- 連三聖筊進度 -->
+        <div class="streak-track" id="streakTrack" hidden aria-live="polite">
+          <span class="streak-label">連三聖筊</span>
+          <span class="streak-dots">
+            <span class="streak-dot"></span>
+            <span class="streak-dot"></span>
+            <span class="streak-dot"></span>
+          </span>
+        </div>
 
         <button class="btn-seal throw-btn" id="throwBtn">🙏 擲筊問神</button>
       </div>
@@ -127,6 +170,7 @@
         <img class="result-image" id="resultImage" src="" alt="" hidden>
         <h2 class="result-title" id="resultTitle"></h2>
         <p class="result-desc" id="resultDesc"></p>
+        <p class="result-progress" id="resultProgress" hidden></p>
       </div>
       <div class="result-actions">
         <button class="btn-seal result-btn" id="retryBtn">再擲一次</button>
@@ -145,7 +189,14 @@
 <div class="confirm-modal" id="confirmModal" hidden>
   <div class="confirm-modal-backdrop"></div>
   <div class="confirm-modal-box">
+    <h2 class="confirm-modal-title" id="confirmTitle">儲存至祈福牆</h2>
     <p class="confirm-modal-text">您的心願將公開顯示於祈福牆，確認儲存？</p>
+    <div class="confirm-modal-field">
+      <label class="confirm-modal-label" for="saveNickInput">署名</label>
+      <input type="text" class="confirm-modal-input" id="saveNickInput"
+             maxlength="10" placeholder="虔誠信眾（可留空）">
+    </div>
+    <p class="confirm-modal-error" id="confirmError" hidden></p>
     <div class="confirm-modal-actions">
       <button class="btn-seal btn-seal--compact" id="confirmYes">確認</button>
       <button class="btn-seal btn-seal--compact" id="confirmNo">取消</button>
@@ -154,9 +205,10 @@
 </div>
 
 <!-- Save Toast -->
-<div class="save-toast" id="saveToast" hidden>已儲存 ✓</div>
+<div class="save-toast" id="saveToast" role="status" aria-live="polite" hidden>已儲存 ✓</div>
 
 <script src="js/layout.js" defer></script>
+<script src="js/temple-common.js" defer></script>
 <script src="js/supabase-config.js" defer></script>
 <script src="js/supabase-api.js" defer></script>
 <script src="js/jiaobei.js" defer></script>

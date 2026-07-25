@@ -1,0 +1,249 @@
+/* ============================================
+   天虛宮 — 線上點燈頁面樣式
+   --------------------------------------------
+   表單元件（pw-field / pw-input / pw-radio-card /
+   pw-error / pw-success）沿用 css/prayer-wall.css，
+   此檔只放點燈頁特有的燈籠、燈別卡與隱私說明。
+   ============================================ */
+
+/* ---------- Hero：懸掛的燈籠 ---------- */
+.dd-hero {
+  position: relative;
+}
+
+.dd-lanterns {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.dd-lantern {
+  position: absolute;
+  top: -18px;
+  width: 26px;
+  height: 34px;
+  border-radius: 50% / 38%;
+  background: radial-gradient(circle at 50% 35%, #F0A24A 0%, #C4362A 65%, #8B1A1A 100%);
+  box-shadow: 0 0 26px rgba(232, 120, 60, .45);
+  transform-origin: top center;
+  animation: lantern-sway 5s ease-in-out infinite;
+}
+
+/* 燈籠的提繩 */
+.dd-lantern::before {
+  content: '';
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  width: 1px;
+  height: 14px;
+  background: rgba(232, 192, 104, .4);
+  transform: translateX(-50%);
+}
+
+/* 燈籠下方的流蘇 */
+.dd-lantern::after {
+  content: '';
+  position: absolute;
+  bottom: -7px;
+  left: 50%;
+  width: 2px;
+  height: 8px;
+  background: var(--gold-dim);
+  transform: translateX(-50%);
+}
+
+.dd-lantern:nth-child(1) { left: 14%; animation-delay: 0s; }
+.dd-lantern:nth-child(2) { left: 50%; animation-delay: 1.4s; top: -26px; }
+.dd-lantern:nth-child(3) { left: 84%; animation-delay: 2.6s; }
+
+@keyframes lantern-sway {
+  0%, 100% { transform: rotate(-4deg); }
+  50%      { transform: rotate(4deg); }
+}
+
+/* ---------- 燈別介紹 ---------- */
+.dd-intro {
+  background: linear-gradient(180deg, #EFE4C6 0%, #E7DABA 100%);
+  padding: var(--space-xl) 0;
+  position: relative;
+}
+
+.dd-lamp-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--space-md);
+}
+
+.dd-lamp-card {
+  text-align: center;
+  padding: var(--space-md) var(--space-sm);
+  background: linear-gradient(165deg, #F7F0DC 0%, #EFE6CB 100%);
+  border: 1px solid rgba(212, 168, 67, .22);
+  border-top: 3px solid var(--gold-dim);
+  box-shadow: 0 6px 22px rgba(74, 26, 10, .06);
+  transition: all .5s var(--ease-smooth);
+}
+
+.dd-lamp-card:hover {
+  border-color: var(--gold);
+  border-top-color: var(--gold);
+  transform: translateY(-6px);
+  box-shadow: 0 16px 44px rgba(74, 26, 10, .12);
+}
+
+.dd-lamp-icon {
+  width: 84px;
+  height: 84px;
+  margin: 0 auto var(--space-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.6rem;
+  border-radius: 50%;
+  border: 1px solid rgba(160, 125, 46, .38);
+  background: radial-gradient(circle at 50% 45%, rgba(240, 162, 74, .18), transparent 68%);
+  box-shadow: inset 0 0 12px rgba(160, 125, 46, .12);
+}
+
+.dd-lamp-name {
+  font-family: 'Noto Serif TC', 'LXGW WenKai TC', serif;
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: #5A1512;
+  letter-spacing: .12em;
+  margin-bottom: .5rem;
+}
+
+.dd-lamp-desc {
+  font-family: var(--font-display);
+  font-size: .9rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  line-height: 1.95;
+}
+
+.dd-fee-note {
+  max-width: 42rem;
+  margin: var(--space-lg) auto 0;
+  padding: var(--space-sm) var(--space-md);
+  font-family: var(--font-display);
+  font-size: .88rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  line-height: 2;
+  text-align: center;
+  border: 1px dashed rgba(160, 125, 46, .5);
+  background: rgba(255, 255, 255, .25);
+}
+
+.dd-fee-note strong {
+  color: #5A1512;
+}
+
+/* ---------- 登記表單 ---------- */
+.dd-register {
+  background: var(--parchment);
+}
+
+.dd-required {
+  display: inline-block;
+  margin-left: .3rem;
+  padding: 0 .35rem;
+  font-size: .68rem;
+  font-weight: 700;
+  color: var(--vermillion);
+  border: 1px solid rgba(184, 65, 46, .5);
+  letter-spacing: .05em;
+  vertical-align: middle;
+}
+
+.dd-field-hint {
+  font-family: var(--font-display);
+  font-size: .76rem;
+  color: var(--text-secondary);
+  opacity: .75;
+  letter-spacing: .03em;
+}
+
+.dd-textarea {
+  min-height: 100px;
+}
+
+/* ---------- 隱私說明與同意 ---------- */
+.dd-privacy {
+  padding: var(--space-sm) var(--space-md);
+  background: rgba(255, 255, 255, .35);
+  border: 1px solid rgba(160, 125, 46, .35);
+}
+
+.dd-privacy-title {
+  font-family: var(--font-display);
+  font-size: .92rem;
+  font-weight: 700;
+  color: #5A1512;
+  letter-spacing: .1em;
+  margin-bottom: .6rem;
+}
+
+.dd-privacy-list {
+  list-style: none;
+  margin-bottom: var(--space-sm);
+}
+
+.dd-privacy-list li {
+  position: relative;
+  padding-left: 1.1rem;
+  font-family: var(--font-display);
+  font-size: .85rem;
+  color: var(--text-secondary);
+  line-height: 1.95;
+}
+
+.dd-privacy-list li::before {
+  content: '·';
+  position: absolute;
+  left: .25rem;
+  color: var(--gold-dim);
+  font-weight: 700;
+}
+
+.dd-agree {
+  display: flex;
+  align-items: flex-start;
+  gap: .55rem;
+  padding-top: .6rem;
+  border-top: 1px solid rgba(160, 125, 46, .25);
+  font-family: var(--font-display);
+  font-size: .88rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.7;
+  cursor: pointer;
+}
+
+.dd-agree input[type="checkbox"] {
+  margin-top: .28rem;
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+  accent-color: var(--vermillion);
+}
+
+/* 送出成功後表單停用，訊息才是重點 */
+.pw-submit-btn:disabled {
+  opacity: .4;
+  pointer-events: none;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 768px) {
+  .dd-lantern:nth-child(3) {
+    display: none;
+  }
+
+  .dd-fee-note {
+    text-align: left;
+  }
+}

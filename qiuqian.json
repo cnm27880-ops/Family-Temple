@@ -1,0 +1,437 @@
+{
+  "_note": "這是求籤的籤詩資料檔。籤詩因各廟籤本而異，本檔僅建立六十甲子的籤號架構，籤詩內容請廟方依本廟籤本填入——請勿沿用他廟版本。",
+  "_howto": {
+    "步驟": "找到要填的籤號，把 level、poem、meaning 三個欄位填上即可，不需要改動 no 與 ganzhi。",
+    "level": "吉凶等級，例如：大吉、上吉、中吉、中平、下下。留空則畫面上不顯示等級。",
+    "poem": "籤詩句子，一句一個字串，通常四句。留空的籤會在畫面上提示尚未建置。",
+    "meaning": "白話解說，寫給看不懂古文的信眾。可留空。",
+    "範例": "第一籤已填好，可直接照著它的格式填其餘各籤。"
+  },
+  "sticks": [
+    {
+      "no": 1,
+      "ganzhi": "甲子",
+      "level": "大吉",
+      "poem": [
+        "日出便見風雲散",
+        "光明清淨照世間",
+        "一向前途通大道",
+        "萬事清吉萬事成"
+      ],
+      "meaning": "烏雲散去、日光重現，先前的阻礙正在退去。此時心境清明，適合往前推進，凡事以正道行之則順遂。"
+    },
+    {
+      "no": 2,
+      "ganzhi": "乙丑",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    },
+    {
+      "no": 3,
+      "ganzhi": "丙寅",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    },
+    {
+      "no": 4,
+      "ganzhi": "丁卯",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    },
+    {
+      "no": 5,
+      "ganzhi": "戊辰",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    },
+    {
+      "no": 6,
+      "ganzhi": "己巳",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    },
+    {
+      "no": 7,
+      "ganzhi": "庚午",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    },
+    {
+      "no": 8,
+      "ganzhi": "辛未",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    },
+    {
+      "no": 9,
+      "ganzhi": "壬申",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    },
+    {
+      "no": 10,
+      "ganzhi": "癸酉",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    },
+    {
+      "no": 11,
+      "ganzhi": "甲戌",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    },
+    {
+      "no": 12,
+      "ganzhi": "乙亥",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    },
+    {
+      "no": 13,
+      "ganzhi": "丙子",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    },
+    {
+      "no": 14,
+      "ganzhi": "丁丑",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    },
+    {
+      "no": 15,
+      "ganzhi": "戊寅",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    },
+    {
+      "no": 16,
+      "ganzhi": "己卯",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    },
+    {
+      "no": 17,
+      "ganzhi": "庚辰",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    },
+    {
+      "no": 18,
+      "ganzhi": "辛巳",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    },
+    {
+      "no": 19,
+      "ganzhi": "壬午",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    },
+    {
+      "no": 20,
+      "ganzhi": "癸未",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    },
+    {
+      "no": 21,
+      "ganzhi": "甲申",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    },
+    {
+      "no": 22,
+      "ganzhi": "乙酉",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    },
+    {
+      "no": 23,
+      "ganzhi": "丙戌",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    },
+    {
+      "no": 24,
+      "ganzhi": "丁亥",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    },
+    {
+      "no": 25,
+      "ganzhi": "戊子",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    },
+    {
+      "no": 26,
+      "ganzhi": "己丑",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    },
+    {
+      "no": 27,
+      "ganzhi": "庚寅",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    },
+    {
+      "no": 28,
+      "ganzhi": "辛卯",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    },
+    {
+      "no": 29,
+      "ganzhi": "壬辰",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    },
+    {
+      "no": 30,
+      "ganzhi": "癸巳",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    },
+    {
+      "no": 31,
+      "ganzhi": "甲午",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    },
+    {
+      "no": 32,
+      "ganzhi": "乙未",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    },
+    {
+      "no": 33,
+      "ganzhi": "丙申",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    },
+    {
+      "no": 34,
+      "ganzhi": "丁酉",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    },
+    {
+      "no": 35,
+      "ganzhi": "戊戌",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    },
+    {
+      "no": 36,
+      "ganzhi": "己亥",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    },
+    {
+      "no": 37,
+      "ganzhi": "庚子",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    },
+    {
+      "no": 38,
+      "ganzhi": "辛丑",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    },
+    {
+      "no": 39,
+      "ganzhi": "壬寅",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    },
+    {
+      "no": 40,
+      "ganzhi": "癸卯",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    },
+    {
+      "no": 41,
+      "ganzhi": "甲辰",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    },
+    {
+      "no": 42,
+      "ganzhi": "乙巳",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    },
+    {
+      "no": 43,
+      "ganzhi": "丙午",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    },
+    {
+      "no": 44,
+      "ganzhi": "丁未",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    },
+    {
+      "no": 45,
+      "ganzhi": "戊申",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    },
+    {
+      "no": 46,
+      "ganzhi": "己酉",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    },
+    {
+      "no": 47,
+      "ganzhi": "庚戌",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    },
+    {
+      "no": 48,
+      "ganzhi": "辛亥",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    },
+    {
+      "no": 49,
+      "ganzhi": "壬子",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    },
+    {
+      "no": 50,
+      "ganzhi": "癸丑",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    },
+    {
+      "no": 51,
+      "ganzhi": "甲寅",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    },
+    {
+      "no": 52,
+      "ganzhi": "乙卯",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    },
+    {
+      "no": 53,
+      "ganzhi": "丙辰",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    },
+    {
+      "no": 54,
+      "ganzhi": "丁巳",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    },
+    {
+      "no": 55,
+      "ganzhi": "戊午",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    },
+    {
+      "no": 56,
+      "ganzhi": "己未",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    },
+    {
+      "no": 57,
+      "ganzhi": "庚申",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    },
+    {
+      "no": 58,
+      "ganzhi": "辛酉",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    },
+    {
+      "no": 59,
+      "ganzhi": "壬戌",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    },
+    {
+      "no": 60,
+      "ganzhi": "癸亥",
+      "level": "",
+      "poem": [],
+      "meaning": ""
+    }
+  ]
+}

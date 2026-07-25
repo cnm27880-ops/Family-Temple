@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Security: Content Security Policy -->
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self';
+                 script-src 'self';
+                 style-src 'self' https://fonts.googleapis.com 'unsafe-inline';
+                 font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net;
+                 img-src 'self' data:;
+                 connect-src 'self' https://kljxjzfbbiinbpzjuaqz.supabase.co;
+                 frame-src 'none';
+                 object-src 'none';
+                 base-uri 'self';
+                 form-action 'self'">
+
+  <!-- Security: Prevent MIME-type sniffing -->
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+
+  <!-- Security: Referrer Policy -->
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
+  <!-- Security: Permissions Policy -->
+  <meta http-equiv="Permissions-Policy"
+        content="camera=(), microphone=(), geolocation=(), payment=(), usb=()">
+
+  <title>線上點燈 — 天虛宮</title>
+
+  <!-- SEO -->
+  <meta name="description" content="天虛宮線上點燈登記 — 光明燈、太歲燈、平安燈線上登記，為您與家人祈求平安順遂。">
+  <meta name="theme-color" content="#B8412E">
+
+  <!-- Open Graph（分享到 LINE / Facebook 的預覽） -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="天虛宮">
+  <meta property="og:title" content="線上點燈 — 天虛宮">
+  <meta property="og:description" content="光明燈、太歲燈、平安燈線上登記，為您與家人祈求平安順遂。">
+  <meta property="og:locale" content="zh_TW">
+  <meta property="og:url" content="https://cnm27880-ops.github.io/Family-Temple/diandeng.html">
+  <meta property="og:image" content="https://cnm27880-ops.github.io/Family-Temple/images/og-cover.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="線上點燈 — 天虛宮">
+  <meta name="twitter:description" content="光明燈、太歲燈、平安燈線上登記，為您與家人祈求平安順遂。">
+  <meta name="twitter:image" content="https://cnm27880-ops.github.io/Family-Temple/images/og-cover.jpg">
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://cnm27880-ops.github.io/Family-Temple/diandeng.html">
+
+  <!-- Favicon / 加入主畫面 -->
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="images/icon-192.png">
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@300;400;700&family=Noto+Serif+TC:wght@400;700;900&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <!-- prayer-wall.css 提供共用的表單元件樣式（欄位、符紙卡片、錯誤訊息），此頁一併沿用 -->
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/prayer-wall.css">
+  <link rel="stylesheet" href="css/diandeng.css">
+</head>
+<body>
+
+<!-- ========== Navigation（由 js/layout.js 注入）========== -->
+<div id="site-nav"></div>
+
+<!-- ========== Hero ========== -->
+<section class="pw-hero dd-hero">
+  <div class="lattice-pattern"></div>
+  <div class="dd-lanterns" aria-hidden="true">
+    <span class="dd-lantern"></span>
+    <span class="dd-lantern"></span>
+    <span class="dd-lantern"></span>
+  </div>
+  <div class="pw-hero-content">
+    <h1 class="pw-hero-title">線上點燈</h1>
+    <p class="pw-hero-subtitle">一盞明燈，長年為您與家人照亮前路</p>
+    <a href="#register" class="btn-seal pw-hero-btn">✦ 前往登記</a>
+  </div>
+</section>
+
+<!-- ========== 燈別說明 ========== -->
+<section class="dd-intro">
+  <div class="container">
+    <div class="section-header ink-reveal">
+      <span class="section-label">L A M P S</span>
+      <h2 class="section-title">燈別介紹</h2>
+      <div class="section-title-ornament"><span class="dot"></span></div>
+    </div>
+
+    <div class="dd-lamp-grid">
+      <div class="dd-lamp-card ink-reveal ink-delay-1">
+        <span class="dd-lamp-icon">🏮</span>
+        <h3 class="dd-lamp-name">光明燈</h3>
+        <p class="dd-lamp-desc">祈求前程光明、學業與事業順遂，常為考生與求職者所點。</p>
+      </div>
+      <div class="dd-lamp-card ink-reveal ink-delay-2">
+        <span class="dd-lamp-icon">🕯️</span>
+        <h3 class="dd-lamp-name">太歲燈</h3>
+        <p class="dd-lamp-desc">祈求消災解厄，安度流年，適合當年沖犯太歲者。</p>
+      </div>
+      <div class="dd-lamp-card ink-reveal ink-delay-3">
+        <span class="dd-lamp-icon">🪔</span>
+        <h3 class="dd-lamp-name">平安燈</h3>
+        <p class="dd-lamp-desc">祈求闔家平安、身體健康，為家人常年祈福。</p>
+      </div>
+    </div>
+
+    <p class="dd-fee-note">
+      燈別項目、供奉期間與隨喜金額，以廟方最新公告為準。
+      本頁僅受理<strong>登記</strong>，繳費方式將由廟方另行與您聯繫確認。
+    </p>
+  </div>
+</section>
+
+<!-- ========== 登記表單 ========== -->
+<section class="pw-write dd-register" id="register">
+  <div class="container">
+    <div class="section-header ink-reveal">
+      <span class="section-label">R E G I S T E R</span>
+      <h2 class="section-title">點燈登記</h2>
+      <div class="section-title-ornament"><span class="dot"></span></div>
+      <p class="section-subtitle">填妥以下資料，廟方將與您聯繫確認</p>
+    </div>
+
+    <div class="pw-form-wrapper ink-reveal">
+      <form class="pw-form" id="lampForm" novalidate>
+
+        <!-- 燈別 -->
+        <div class="pw-field">
+          <span class="pw-label" id="lampTypeLabel">燈別</span>
+          <div class="pw-radio-cards" role="radiogroup" aria-labelledby="lampTypeLabel">
+            <label class="pw-radio-card">
+              <input type="radio" name="lampType" value="光明燈" checked>
+              <span class="pw-radio-card-inner">
+                <span class="pw-radio-icon">🏮</span>
+                <span class="pw-radio-name">光明燈</span>
+                <span class="pw-radio-desc">前程光明</span>
+              </span>
+            </label>
+            <label class="pw-radio-card">
+              <input type="radio" name="lampType" value="太歲燈">
+              <span class="pw-radio-card-inner">
+                <span class="pw-radio-icon">🕯️</span>
+                <span class="pw-radio-name">太歲燈</span>
+                <span class="pw-radio-desc">消災解厄</span>
+              </span>
+            </label>
+            <label class="pw-radio-card">
+              <input type="radio" name="lampType" value="平安燈">
+              <span class="pw-radio-card-inner">
+                <span class="pw-radio-icon">🪔</span>
+                <span class="pw-radio-name">平安燈</span>
+                <span class="pw-radio-desc">闔家平安</span>
+              </span>
+            </label>
+          </div>
+        </div>
+
+        <!-- 姓名 -->
+        <div class="pw-field">
+          <label class="pw-label" for="lampName">信眾姓名 <span class="dd-required">必填</span></label>
+          <input type="text" class="pw-input" id="lampName" name="lampName"
+                 maxlength="20" autocomplete="name" placeholder="點燈者本人姓名">
+        </div>
+
+        <!-- 生辰 -->
+        <div class="pw-field">
+          <label class="pw-label" for="lampBirth">生辰</label>
+          <input type="text" class="pw-input" id="lampBirth" name="lampBirth"
+                 maxlength="30" placeholder="例：民國70年3月5日（農曆）">
+          <span class="dd-field-hint">可留空。填寫有助於廟方為您登錄疏文。</span>
+        </div>
+
+        <!-- 聯絡方式 -->
+        <div class="pw-field">
+          <label class="pw-label" for="lampContact">聯絡方式 <span class="dd-required">必填</span></label>
+          <input type="text" class="pw-input" id="lampContact" name="lampContact"
+                 maxlength="50" placeholder="手機號碼或電子郵件">
+          <span class="dd-field-hint">廟方僅用於聯繫確認點燈事宜。</span>
+        </div>
+
+        <!-- 祈願備註 -->
+        <div class="pw-field">
+          <label class="pw-label" for="lampNote">祈願備註</label>
+          <div class="pw-textarea-wrap">
+            <textarea class="pw-textarea dd-textarea" id="lampNote" name="lampNote"
+                      maxlength="100" placeholder="如有特別想祈求的事，可在此說明……"></textarea>
+            <span class="pw-char-count"><span id="lampNoteCount">0</span> / 100</span>
+          </div>
+        </div>
+
+        <!-- 隱私與同意 -->
+        <div class="dd-privacy">
+          <h3 class="dd-privacy-title">個人資料使用說明</h3>
+          <ul class="dd-privacy-list">
+            <li>您填寫的資料僅供廟方辦理點燈登記與聯繫之用，不會公開於網站上。</li>
+            <li>本頁不會向您收取任何費用，也不會要求提供金融帳戶或信用卡資訊。</li>
+            <li>若需修改或刪除已登記的資料，請直接與廟方聯繫。</li>
+          </ul>
+          <label class="dd-agree">
+            <input type="checkbox" id="lampAgree">
+            <span>我已閱讀並同意上述個人資料使用方式</span>
+          </label>
+        </div>
+
+        <!-- 錯誤訊息 -->
+        <p class="pw-error" id="lampError" hidden></p>
+
+        <!-- 送出 -->
+        <button type="submit" class="btn-seal pw-submit-btn" id="lampSubmit">🙏 送出登記</button>
+
+        <!-- 成功訊息 -->
+        <p class="pw-success" id="lampSuccess" hidden></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ========== Footer（由 js/layout.js 注入）========== -->
+<div id="site-footer"></div>
+
+<script src="js/layout.js" defer></script>
+<script src="js/temple-common.js" defer></script>
+<script src="js/supabase-config.js" defer></script>
+<script src="js/supabase-api.js" defer></script>
+<script src="js/diandeng.js" defer></script>
+</body>
+</html>

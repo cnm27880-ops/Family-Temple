@@ -17,9 +17,6 @@
   var home = onIndex ? '' : 'index.html';
   var logoHref = onIndex ? '#hero' : 'index.html';
 
-  var SOON = ' title="功能籌備中，敬請期待" aria-disabled="true" tabindex="-1"';
-  var SOON_BADGE = '<span class="coming-soon">籌備中</span>';
-
   function navHtml() {
     return '' +
       '<nav class="nav" id="navbar">' +
@@ -31,9 +28,9 @@
           '<ul class="nav-links" id="navLinks">' +
             '<li><a href="' + home + '#about">廟宇介紹</a></li>' +
             '<li><a href="' + home + '#deities">神明介紹</a></li>' +
+            '<li><a href="' + home + '#news">最新消息</a></li>' +
             '<li><a href="' + home + '#features">線上祈福</a></li>' +
             '<li><a href="' + home + '#visit">參拜資訊</a></li>' +
-            '<li><a href="#"' + SOON + '>線上點燈' + SOON_BADGE + '</a></li>' +
           '</ul>' +
         '</div>' +
       '</nav>';
@@ -54,7 +51,7 @@
               '<ul class="footer-links">' +
                 '<li><a href="' + home + '#about">廟宇沿革</a></li>' +
                 '<li><a href="' + home + '#deities">神明介紹</a></li>' +
-                '<li><a href="' + home + '#features">線上祈福</a></li>' +
+                '<li><a href="' + home + '#news">最新消息</a></li>' +
                 '<li><a href="' + home + '#visit">參拜資訊</a></li>' +
               '</ul>' +
             '</div>' +
@@ -62,8 +59,8 @@
               '<h4>線上服務</h4>' +
               '<ul class="footer-links">' +
                 '<li><a href="jiaobei.html">線上擲筊</a></li>' +
-                '<li><a href="#"' + SOON + '>線上求籤' + SOON_BADGE + '</a></li>' +
-                '<li><a href="#"' + SOON + '>線上點燈' + SOON_BADGE + '</a></li>' +
+                '<li><a href="qiuqian.html">線上求籤</a></li>' +
+                '<li><a href="diandeng.html">線上點燈</a></li>' +
                 '<li><a href="prayer-wall.html">祈福牆</a></li>' +
               '</ul>' +
             '</div>' +

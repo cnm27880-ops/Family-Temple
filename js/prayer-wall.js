@@ -6,63 +6,22 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
-  /* ========== Content Filter ========== */
-  var ContentFilter = {
-    patterns: [
-      /09\d{8}/,
-      /0\d{1,2}-\d{6,8}/,
-      /[\w.-]+@[\w.-]+\.\w+/,
-      /[A-Z][12]\d{8}/,
-      /https?:\/\/|www\./i,
-      /\d{8,}/
-    ],
+  /* ========== 共用內容守門（js/temple-common.js）========== */
+  var Guard = window.TempleGuard;
 
-    keywords: [
-      '幹', '他媽', '去死', '白痴', '智障',
-      '加line', '加賴', '私訊', '代辦', '貸款',
-      '點我', '限時'
-    ],
+  // 心願與擲筊儲存寫入同一張表，共用一組次數限制，
+  // 避免兩條路徑各自計算而變成兩倍的送出量。
+  var writeLimit = Guard
+    ? Guard.rateLimiter('prayer_write', 5)
+    : { limited: function () { return false; }, record: function () {}, remaining: function () { return 99; } };
 
-    check: function (text) {
-      var i;
-      for (i = 0; i < this.patterns.length; i++) {
-        if (this.patterns[i].test(text)) {
-          return { pass: false, reason: '內容含有不允許的個人資訊或連結' };
-        }
-      }
-      for (i = 0; i < this.keywords.length; i++) {
-        if (text.includes(this.keywords[i])) {
-          return { pass: false, reason: '內容含有不適當的詞彙，請修改後再送出' };
-        }
-      }
-      return { pass: true };
-    }
-  };
-
-  /* ========== Session Rate Limiter ========== */
-  var SESSION_LIMIT = 3;
-  var SESSION_KEY = 'pw_submit_count';
-
-  function getSessionCount() {
-    return parseInt(sessionStorage.getItem(SESSION_KEY) || '0', 10);
-  }
-
-  function incrementSessionCount() {
-    var count = getSessionCount() + 1;
-    sessionStorage.setItem(SESSION_KEY, String(count));
-    return count;
-  }
-
-  function isRateLimited() {
-    return getSessionCount() >= SESSION_LIMIT;
+  function checkText(text) {
+    return Guard ? Guard.check(text) : { pass: true };
   }
 
   /* ========== Supabase 後端（共用存取層 js/supabase-api.js）========== */
   var api = window.TempleAPI || {};
   var backendReady = !!api.ready;
-  var fetchPrayers = api.fetchPrayers;
-  var insertPrayer = api.insertPrayer;
-  var insertReply = api.insertReply;
 
   /* ========== DOM References ========== */
   var nickInput = document.getElementById('nickInput');
@@ -73,6 +32,8 @@ document.addEventListener('DOMContentLoaded', function () {
   var formSuccess = document.getElementById('formSuccess');
   var cardsContainer = document.getElementById('cardsContainer');
   var filterBar = document.getElementById('filterBar');
+  var moreWrap = document.getElementById('moreWrap');
+  var moreBtn = document.getElementById('moreBtn');
 
   // 導覽列與平滑捲動已移至 js/layout.js（共用版面）
 
@@ -127,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function () {
   /* ========== Sanitize Text ========== */
   function escapeHtml(str) {
     var div = document.createElement('div');
-    div.appendChild(document.createTextNode(str));
+    div.appendChild(document.createTextNode(str == null ? '' : str));
     return div.innerHTML;
   }
 
@@ -146,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     return (
-      '<div class="prayer-card" data-type="' + escapeHtml(data.type) + '" data-id="' + data.id + '">' +
+      '<div class="prayer-card" data-type="' + escapeHtml(data.type) + '" data-id="' + escapeHtml(data.id) + '">' +
         '<div class="card-side-bar"></div>' +
         '<div class="card-body">' +
           '<div class="card-header">' +
@@ -156,13 +117,16 @@ document.addEventListener('DOMContentLoaded', function () {
           '<p class="card-content">' + escapeHtml(data.content) + '</p>' +
           '<div class="card-footer">' +
             '<span class="card-time">' + formatDate(data.time) + '</span>' +
-            '<button class="card-reply-btn">💬 ' + replyCountText + '</button>' +
+            '<button class="card-reply-btn" aria-expanded="false">💬 ' + replyCountText + '</button>' +
           '</div>' +
         '</div>' +
         '<div class="card-replies">' +
           '<div class="reply-list">' + repliesHtml + '</div>' +
           '<div class="reply-input-area">' +
-            '<input type="text" placeholder="給予祝福或鼓勵…" maxlength="80">' +
+            '<input type="text" class="reply-name" maxlength="10" ' +
+                   'placeholder="暱稱" aria-label="回應者暱稱（可留空）">' +
+            '<input type="text" class="reply-text" maxlength="80" ' +
+                   'placeholder="給予祝福或鼓勵…" aria-label="回應內容">' +
             '<span class="reply-count">0 / 80</span>' +
             '<button class="reply-submit btn-seal btn-seal--compact">送出</button>' +
           '</div>' +
@@ -171,42 +135,99 @@ document.addEventListener('DOMContentLoaded', function () {
     );
   }
 
-  /* ========== Load & Display All Cards ========== */
+  /* ========== Wall State ========== */
+  var PAGE_SIZE = 12;
+  var activeFilter = '全部';
+  var offset = 0;
+  var loading = false;
+
   function showWallMessage(icon, text) {
     cardsContainer.innerHTML =
       '<div class="pw-empty">' +
         '<span class="pw-empty-icon">' + icon + '</span>' +
-        '<p class="pw-empty-text">' + text + '</p>' +
+        '<p class="pw-empty-text">' + escapeHtml(text) + '</p>' +
       '</div>';
   }
 
-  function loadWall() {
+  function clearWallMessage() {
+    var emptyEl = cardsContainer.querySelector('.pw-empty');
+    if (emptyEl) { emptyEl.remove(); }
+  }
+
+  function setMoreVisible(visible) {
+    if (!moreWrap) { return; }
+    moreWrap.hidden = !visible;
+  }
+
+  /**
+   * 載入一頁心願。
+   * @param {boolean} reset true 時清空重載（切換分類或首次載入）
+   */
+  function loadPage(reset) {
     if (!backendReady) {
       showWallMessage('⚠️', '祈福牆尚未設定後端，請聯絡管理者');
+      setMoreVisible(false);
       return;
     }
+    if (loading) { return; }
+    loading = true;
 
-    showWallMessage('🕯️', '心願載入中…');
+    if (reset) {
+      offset = 0;
+      showWallMessage('🕯️', '心願載入中…');
+      setMoreVisible(false);
+    } else if (moreBtn) {
+      moreBtn.disabled = true;
+      moreBtn.textContent = '載入中…';
+    }
 
-    fetchPrayers().then(function (prayers) {
-      // 後端查詢已過濾為公開、並依時間排序（最新在前）
-      if (prayers.length === 0) {
-        showWallMessage('🪷', '尚無心願，成為第一位留言的人吧');
-        return;
+    api.fetchPrayers({
+      type: activeFilter,
+      limit: PAGE_SIZE,
+      offset: offset
+    }).then(function (page) {
+      if (reset) { cardsContainer.innerHTML = ''; }
+      clearWallMessage();
+
+      if (page.items.length === 0 && offset === 0) {
+        showWallMessage('🪷', activeFilter === '全部'
+          ? '尚無心願，成為第一位留言的人吧'
+          : '此分類目前還沒有心願');
+        setMoreVisible(false);
+      } else {
+        var html = '';
+        page.items.forEach(function (p) { html += renderCard(p); });
+        cardsContainer.insertAdjacentHTML('beforeend', html);
+        offset += page.items.length;
+        setMoreVisible(page.hasMore);
       }
-      var html = '';
-      prayers.forEach(function (p) { html += renderCard(p); });
-      cardsContainer.innerHTML = html;
-      applyCurrentFilter();
+
+      loading = false;
+      if (moreBtn) {
+        moreBtn.disabled = false;
+        moreBtn.textContent = '載入更多心願';
+      }
     }).catch(function (err) {
       if (window.console && console.warn) {
         console.warn('祈福牆載入失敗：', err);
       }
-      showWallMessage('⚠️', '心願載入失敗，請稍後重新整理');
+      loading = false;
+      if (moreBtn) {
+        moreBtn.disabled = false;
+        moreBtn.textContent = '載入更多心願';
+      }
+      if (offset === 0) {
+        showWallMessage('⚠️', '心願載入失敗，請稍後重新整理');
+        setMoreVisible(false);
+      }
     });
   }
 
-  /* ========== Show Error ========== */
+  if (moreBtn) {
+    moreBtn.addEventListener('click', function () { loadPage(false); });
+  }
+
+  /* ========== Show Error / Success ========== */
   function showError(msg) {
     formError.textContent = msg;
     formError.hidden = false;
@@ -217,14 +238,13 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function showFieldError(el) {
-    el.classList.add('error');
+    if (el) { el.classList.add('error'); }
   }
 
   function clearFieldError(el) {
-    el.classList.remove('error');
+    if (el) { el.classList.remove('error'); }
   }
 
-  /* ========== Show Success ========== */
   function showSuccess(msg) {
     formSuccess.textContent = msg;
     formSuccess.hidden = false;
@@ -260,22 +280,22 @@ document.addEventListener('DOMContentLoaded', function () {
       }
 
       // 3. Content filter
-      var nameCheck = ContentFilter.check(name);
+      var nameCheck = checkText(name);
       if (!nameCheck.pass) {
         showError(nameCheck.reason);
         showFieldError(nickInput);
         return;
       }
 
-      var contentCheck = ContentFilter.check(content);
+      var contentCheck = checkText(content);
       if (!contentCheck.pass) {
         showError(contentCheck.reason);
         showFieldError(wishInput);
         return;
       }
 
-      // 4. Session rate limit
-      if (isRateLimited()) {
+      // 4. Rate limit
+      if (writeLimit.limited()) {
         showError('您已送出多則心願，請稍後再試');
         submitBtn.disabled = true;
         return;
@@ -296,26 +316,24 @@ document.addEventListener('DOMContentLoaded', function () {
       submitBtn.disabled = true;
       submitBtn.textContent = '稟告中…';
 
-      insertPrayer({
+      api.insertPrayer({
         name: name,
         content: content,
         type: '純祈願',
         is_private: isPrivate
       }).then(function (prayer) {
-        // Update session count
-        incrementSessionCount();
+        writeLimit.record();
 
-        // Show result
         if (!isPrivate) {
-          var tempDiv = document.createElement('div');
-          tempDiv.innerHTML = renderCard(prayer);
-          var newCard = tempDiv.firstChild;
-
-          var emptyEl = cardsContainer.querySelector('.pw-empty');
-          if (emptyEl) { emptyEl.remove(); }
-
-          cardsContainer.insertBefore(newCard, cardsContainer.firstChild);
-          applyCurrentFilter();
+          // 只有在目前分類看得到這則心願時才插到最前面
+          if (activeFilter === '全部' || activeFilter === prayer.type) {
+            var tempDiv = document.createElement('div');
+            tempDiv.innerHTML = renderCard(prayer);
+            var newCard = tempDiv.firstChild;
+            clearWallMessage();
+            cardsContainer.insertBefore(newCard, cardsContainer.firstChild);
+            offset += 1;
+          }
           showSuccess('心願已送出，神明已知曉 ✓');
         } else {
           showSuccess('心願已悄悄送達廟方，神明已知曉 ✓');
@@ -330,7 +348,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Restore button; keep disabled if rate limited
         submitBtn.textContent = originalLabel;
-        submitBtn.disabled = isRateLimited();
+        submitBtn.disabled = writeLimit.limited();
       }).catch(function (err) {
         if (window.console && console.warn) {
           console.warn('送出心願失敗：', err);
@@ -342,49 +360,40 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  /* ========== Filter Logic ========== */
-  var activeFilter = '全部';
-
-  function applyCurrentFilter() {
-    var cards = cardsContainer.querySelectorAll('.prayer-card');
-    cards.forEach(function (card) {
-      if (activeFilter === '全部') {
-        card.style.display = '';
-      } else {
-        card.style.display = card.getAttribute('data-type') === activeFilter ? '' : 'none';
-      }
-    });
-  }
-
+  /* ========== Filter（改為向後端查詢，分頁才不會只篩到已載入的部分）========== */
   if (filterBar) {
     filterBar.addEventListener('click', function (e) {
       var btn = e.target.closest('.filter-btn');
-      if (!btn) return;
+      if (!btn) { return; }
+
+      var next = btn.getAttribute('data-filter');
+      if (next === activeFilter) { return; }
 
       filterBar.querySelectorAll('.filter-btn').forEach(function (b) {
         b.classList.remove('active');
+        b.setAttribute('aria-pressed', 'false');
       });
       btn.classList.add('active');
-      activeFilter = btn.getAttribute('data-filter');
-      applyCurrentFilter();
+      btn.setAttribute('aria-pressed', 'true');
+      activeFilter = next;
+      loadPage(true);
     });
   }
 
   /* ========== Reply Toggle & Submit (Event Delegation) ========== */
   if (cardsContainer) {
-    // Reply toggle
     cardsContainer.addEventListener('click', function (e) {
       var replyBtn = e.target.closest('.card-reply-btn');
       if (replyBtn) {
         var card = replyBtn.closest('.prayer-card');
-        if (!card) return;
+        if (!card) { return; }
         var repliesSection = card.querySelector('.card-replies');
-        if (!repliesSection) return;
-        repliesSection.classList.toggle('expanded');
+        if (!repliesSection) { return; }
+        var expanded = repliesSection.classList.toggle('expanded');
+        replyBtn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
         return;
       }
 
-      // Reply submit
       var submitReplyBtn = e.target.closest('.reply-submit');
       if (submitReplyBtn) {
         handleReplySubmit(submitReplyBtn);
@@ -393,9 +402,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Reply char counter
     cardsContainer.addEventListener('input', function (e) {
-      if (e.target.matches('.reply-input-area input')) {
+      if (e.target.matches('.reply-text')) {
         var area = e.target.closest('.reply-input-area');
-        if (!area) return;
+        if (!area) { return; }
         var counter = area.querySelector('.reply-count');
         if (counter) {
           var len = e.target.value.length;
@@ -408,18 +417,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function handleReplySubmit(btn) {
     var card = btn.closest('.prayer-card');
-    if (!card) return;
+    if (!card) { return; }
     var area = btn.closest('.reply-input-area');
-    if (!area) return;
-    var input = area.querySelector('input');
-    if (!input) return;
+    if (!area) { return; }
+    var input = area.querySelector('.reply-text');
+    var nameField = area.querySelector('.reply-name');
+    if (!input) { return; }
 
     // Remove previous error
     var prevError = area.querySelector('.reply-error');
     if (prevError) { prevError.remove(); }
     input.classList.remove('error');
+    if (nameField) { nameField.classList.remove('error'); }
 
     var text = input.value.trim();
+    var author = nameField ? nameField.value.trim() : '';
+    if (!author) { author = '匿名信眾'; }
 
     // Length check (5–80)
     if (text.length < 5) {
@@ -427,8 +440,14 @@ document.addEventListener('DOMContentLoaded', function () {
       return;
     }
 
-    // Content filter
-    var check = ContentFilter.check(text);
+    // Content filter — 暱稱與內容都要檢查
+    var nameCheck = checkText(author);
+    if (!nameCheck.pass) {
+      showReplyError(area, nameField || input, nameCheck.reason);
+      return;
+    }
+
+    var check = checkText(text);
     if (!check.pass) {
       showReplyError(area, input, check.reason);
       return;
@@ -440,18 +459,16 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     var cardId = card.getAttribute('data-id');
-    var author = '匿名信眾';
 
     // Send to backend
     input.disabled = true;
     btn.disabled = true;
 
-    insertReply({
+    api.insertReply({
       prayer_id: cardId,
       author: author,
       text: text
     }).then(function () {
-      // Add reply to DOM
       var replyList = card.querySelector('.reply-list');
       if (replyList) {
         var replyDiv = document.createElement('div');
@@ -462,14 +479,12 @@ document.addEventListener('DOMContentLoaded', function () {
         replyList.appendChild(replyDiv);
       }
 
-      // Update reply count text
       var replyBtnEl = card.querySelector('.card-reply-btn');
       if (replyBtnEl) {
         var count = card.querySelectorAll('.reply-item').length;
         replyBtnEl.textContent = '💬 ' + count + ' 則回應';
       }
 
-      // Clear input
       input.value = '';
       input.disabled = false;
       btn.disabled = false;
@@ -488,8 +503,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  function showReplyError(area, input, msg) {
-    input.classList.add('error');
+  function showReplyError(area, field, msg) {
+    if (field) { field.classList.add('error'); }
     var errEl = document.createElement('p');
     errEl.className = 'reply-error';
     errEl.textContent = msg;
@@ -498,10 +513,9 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /* ========== Initialize ========== */
-  loadWall();
+  loadPage(true);
 
-  // Disable submit if already rate limited
-  if (isRateLimited() && submitBtn) {
+  if (writeLimit.limited() && submitBtn) {
     submitBtn.disabled = true;
   }
 

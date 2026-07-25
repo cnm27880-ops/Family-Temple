@@ -1567,3 +1567,152 @@ body > * {
   font-weight: 900;
   letter-spacing: .2em;
 }
+
+/* ============================================
+   僅供輔助技術讀取的文字
+   （視覺上隱藏，但螢幕閱讀器仍會唸出）
+   ============================================ */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---- 鍵盤操作時的焦點指示（滑鼠點擊不會顯示）---- */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--gold-bright);
+  outline-offset: 2px;
+}
+
+/* ============================================
+   最新消息（內容由 content.json 的 news 注入）
+   ============================================ */
+.news {
+  background: linear-gradient(180deg, #E4D6B2 0%, #E9DCBC 100%);
+  position: relative;
+  padding: var(--space-xl) 0;
+  overflow: hidden;
+}
+
+.news[hidden] {
+  display: none;
+}
+
+.news-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-md);
+  position: relative;
+  z-index: 1;
+}
+
+.news-item {
+  padding: var(--space-md) var(--space-sm);
+  background: linear-gradient(165deg, #F7F0DC 0%, #EFE6CB 100%);
+  border: 1px solid rgba(212, 168, 67, .22);
+  /* 左側硃紅書籤，與祈福牆卡片的色條語彙呼應 */
+  border-left: 3px solid var(--vermillion);
+  box-shadow: 0 6px 22px rgba(74, 26, 10, .06);
+  transition: all .5s var(--ease-smooth);
+}
+
+.news-item:hover {
+  transform: translateY(-5px);
+  border-color: var(--gold);
+  box-shadow: 0 16px 44px rgba(74, 26, 10, .12);
+}
+
+.news-meta {
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  margin-bottom: .6rem;
+}
+
+.news-date {
+  font-family: var(--font-display);
+  font-size: .8rem;
+  font-weight: 700;
+  color: var(--bronze);
+  letter-spacing: .1em;
+}
+
+.news-tag {
+  font-family: var(--font-display);
+  font-size: .72rem;
+  font-weight: 700;
+  color: var(--vermillion);
+  letter-spacing: .08em;
+  padding: .1rem .6rem;
+  border: 1px solid rgba(184, 65, 46, .45);
+  white-space: nowrap;
+}
+
+.news-title {
+  font-family: 'Noto Serif TC', 'LXGW WenKai TC', serif;
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: #5A1512;
+  letter-spacing: .06em;
+  line-height: 1.7;
+  margin-bottom: .5rem;
+}
+
+.news-body {
+  font-family: var(--font-display);
+  font-size: .9rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  line-height: 2;
+}
+
+/* ============================================
+   地圖：填入地址後由 js/main.js 換成 Google 地圖
+   ============================================ */
+.map-mount {
+  height: 100%;
+  min-height: 350px;
+}
+
+.map-embed {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 350px;
+  border: 1px solid rgba(212, 168, 67, .15);
+}
+
+/* ============================================
+   修正窄螢幕的橫向溢出
+   --------------------------------------------
+   .ink-reveal-left / -right 在顯現前帶有 ±60px 的
+   水平位移，窄螢幕上右側那一欄會被推出畫面，讓整頁
+   可以左右拖動。窄螢幕改用垂直位移，直接免除溢出；
+   html 再補一層 overflow-x 作為其他寬度的保險。
+   ============================================ */
+html {
+  overflow-x: hidden;
+}
+
+@media (max-width: 900px) {
+  .ink-reveal-left,
+  .ink-reveal-right {
+    transform: translateY(28px);
+  }
+
+  .ink-reveal-left.visible,
+  .ink-reveal-right.visible {
+    transform: translateY(0);
+  }
+}
