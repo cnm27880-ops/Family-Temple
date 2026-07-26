@@ -485,3 +485,11 @@
 .qq-poem-line     { text-indent: .22em; }
 .qq-meaning-title { text-indent: .3em; }
 .qq-tube-label    { text-indent: .1em; }
+
+/* ---- 全頁底色補上暖光，與首頁封面連貫 ---- */
+.qq-app {
+  background:
+    radial-gradient(ellipse 66% 40% at 50% 104%, rgba(233, 141, 60, .16) 0%, transparent 70%),
+    radial-gradient(ellipse 58% 34% at 50% -2%, rgba(150, 38, 28, .20) 0%, transparent 64%),
+    var(--night);
+}

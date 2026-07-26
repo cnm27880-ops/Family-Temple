@@ -268,14 +268,23 @@ function loadContent(observeInk) {
     var list = document.getElementById('newsList');
     if (!list) { return; }
 
+    // 最新消息是深色區塊，上下各有一道波浪分隔銜接淺色區塊。
+    // 區塊隱藏時分隔也要一起收起，否則會出現兩道連在一起的波浪。
+    function setNewsVisible(on) {
+      if (section) { section.hidden = !on; }
+      ['newsDividerTop', 'newsDividerBottom'].forEach(function (id) {
+        var d = document.getElementById(id);
+        if (d) { d.hidden = !on; }
+      });
+      setNewsLinksVisible(on);
+    }
+
     // 廟方把 news 清空時，整個區塊就不要出現
     if (!Array.isArray(news) || news.length === 0) {
-      if (section) { section.hidden = true; }
-      setNewsLinksVisible(false);
+      setNewsVisible(false);
       return;
     }
-    if (section) { section.hidden = false; }
-    setNewsLinksVisible(true);
+    setNewsVisible(true);
 
     // 日期新的排前面（ISO 格式可直接比字串）
     var items = news.slice().sort(function (a, b) {

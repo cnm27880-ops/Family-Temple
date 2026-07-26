@@ -2140,3 +2140,157 @@ html {
       rgba(0, 0, 0, .11) 17px 20px),
     radial-gradient(126% 150% at 50% 38%, #4B2A14 0%, #341C0C 56%, #22120A 100%);
 }
+
+/* ============================================================
+   版面節奏調整（2026-07・第三輪）
+   ============================================================ */
+
+/* ---- 1. 最新消息改為深色區塊 --------------------------------
+   原本 祈福(淺) → 消息(淺) → 參拜(淺) 三個淺色區塊連著，後半頁
+   突然失去前半頁「淺→深→淺」的交錯律動，也沒有波浪分隔可放。
+   把消息改為深色（與神明介紹同色系）後，整頁變成
+   hero深 → 沿革淺 → 神明深 → 祈福淺 → 消息深 → 參拜淺 → 頁尾深，
+   交錯貫穿到底，並讓上下兩道波浪分隔有存在的理由。
+   -------------------------------------------------------------- */
+.news {
+  background: var(--sandalwood);
+  /* 區塊較短，收一點上下留白，與上下的波浪分隔加起來才不會太空 */
+  padding: var(--space-lg) 0;
+}
+
+.news::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 22% 30%, rgba(232, 192, 104, .05) 0%, transparent 52%),
+    radial-gradient(ellipse at 78% 70%, rgba(184, 65, 46, .07) 0%, transparent 52%);
+}
+
+.news .lattice-pattern {
+  opacity: .022;
+}
+
+.news .section-label {
+  color: rgba(232, 192, 104, .5);
+}
+
+.news .section-subtitle {
+  color: rgba(242, 235, 221, .45);
+}
+
+/* 卡片改深色版，與神明卡的質感一致 */
+.news-item {
+  background: linear-gradient(160deg, rgba(255, 255, 255, .052), rgba(255, 255, 255, .016));
+  border: 1px solid rgba(212, 168, 67, .13);
+  border-left: 3px solid var(--vermillion-light);
+  box-shadow: 0 6px 26px rgba(0, 0, 0, .2);
+}
+
+.news-item:hover {
+  border-color: rgba(212, 168, 67, .3);
+  border-left-color: var(--vermillion-light);
+  box-shadow: 0 18px 46px rgba(0, 0, 0, .32);
+}
+
+.news-date {
+  color: rgba(216, 176, 96, .7);
+}
+
+.news-tag {
+  color: rgba(232, 120, 96, .9);
+  border-color: rgba(232, 120, 96, .45);
+}
+
+.news-title {
+  color: var(--gold-bright);
+}
+
+.news-body {
+  color: rgba(242, 235, 221, .48);
+}
+
+/* 區塊隱藏時，上下的波浪分隔也要一起收起 */
+.ink-cloud-divider[hidden] {
+  display: none;
+}
+
+/* ---- 2. 兩欄區塊的標題改左對齊 ------------------------------
+   五個區塊的標題原本結構、字級、對齊方式完全相同，一路置中疊下來
+   顯得單調。沿革與參拜資訊是左右兩欄的版面，標題左對齊可以與內容
+   的左緣對上，也讓整頁的標題不再千篇一律；神明、祈福、消息是格狀
+   排列，維持置中。
+   ※ 左對齊時字距不會造成偏移，因此要把上一輪加的 text-indent 歸零，
+     否則反而會被往右推。
+   -------------------------------------------------------------- */
+.about .section-header,
+.visit .section-header {
+  text-align: left;
+}
+
+.about .section-title,
+.about .section-label,
+.visit .section-title,
+.visit .section-label {
+  text-indent: 0;
+}
+
+.about .section-title-ornament,
+.visit .section-title-ornament {
+  justify-content: flex-start;
+}
+
+/* 左對齊時前面那條裝飾線會懸空，只留右邊 */
+.about .section-title-ornament::before,
+.visit .section-title-ornament::before {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  /* 窄螢幕是單欄堆疊，置中反而穩定 */
+  .about .section-header,
+  .visit .section-header {
+    text-align: center;
+  }
+
+  .about .section-title,
+  .visit .section-title {
+    text-indent: .16em;
+  }
+
+  .about .section-label,
+  .visit .section-label {
+    text-indent: .4em;
+  }
+
+  .about .section-title-ornament,
+  .visit .section-title-ornament {
+    justify-content: center;
+  }
+
+  .about .section-title-ornament::before,
+  .visit .section-title-ornament::before {
+    display: block;
+  }
+}
+
+/* ---- 左對齊標題：裝飾線延伸到右緣 ----
+   標題靠左後，右側會空出一大片，看起來不像刻意安排。把裝飾線拉到
+   容器右緣，變成編輯排版常見的「標題＋貫穿橫線」，空間才有交代。 */
+.about .section-title-ornament::after,
+.visit .section-title-ornament::after {
+  width: auto;
+  flex: 1;
+  background: linear-gradient(90deg, var(--gold), rgba(160, 125, 46, .12));
+}
+
+@media (max-width: 768px) {
+  /* 窄螢幕回到置中的短裝飾線 */
+  .about .section-title-ornament::after,
+  .visit .section-title-ornament::after {
+    width: 50px;
+    flex: none;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+}
