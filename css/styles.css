@@ -1969,3 +1969,174 @@ html {
   color: rgba(232, 192, 104, .72);
   font-size: 0;
 }
+
+/* ============================================================
+   封面修正與匾額實體化（2026-07・第二輪）
+   ============================================================ */
+
+/* ---- 1. 動畫覆蓋掉定位用的 transform ------------------------
+   .scroll-hint 用 left:50% + translateX(-50%) 置中，但它的
+   ink-appear 動畫（帶 forwards）結束時會把 transform 設成
+   translateY(0)，等於把 translateX(-50%) 整個蓋掉，元素左緣
+   停在畫面中央，整塊便往右偏了自身寬度的一半（實測 33px）。
+   .hero-seal 的 rotate(-3deg) 也是同樣原因失效。
+
+   解法是各自給一組把原本 transform 寫進去的 keyframes。
+   只改 animation-name，其餘（時間、延遲、fill）沿用原本設定。
+   ※ 日後若要對已有 transform 的元素加動畫，keyframes 裡務必
+     把原本那個 transform 一起寫上。
+   -------------------------------------------------------------- */
+@keyframes hint-appear {
+  from { opacity: 0; transform: translateX(-50%) translateY(25px); filter: blur(4px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0);    filter: blur(0); }
+}
+
+.scroll-hint {
+  animation-name: hint-appear;
+}
+
+/* 印章改為「蓋下去」的動作，並保留原本的傾斜 */
+@keyframes seal-stamp {
+  0%   { opacity: 0; transform: rotate(-3deg) scale(1.55); }
+  55%  { opacity: 1; transform: rotate(-3deg) scale(.94); }
+  78%  { opacity: 1; transform: rotate(-3deg) scale(1.03); }
+  100% { opacity: 1; transform: rotate(-3deg) scale(1); }
+}
+
+.hero-seal {
+  animation-name: seal-stamp;
+  animation-duration: .6s;
+}
+
+/* ---- 2. 匾額改為實體木質 ------------------------------------
+   原本是半透明面板，看起來像浮在畫面上的色塊。改為不透明的
+   漆木：木紋 + 中央受光的漸層 + 上緣高光與下緣陰影做出厚度，
+   金框加粗並補一圈框厚，讓它像掛在牆上的實物。
+   -------------------------------------------------------------- */
+.hero-plaque {
+  padding: 1.7rem 3.6rem 1.9rem;
+  background:
+    /* 木紋：疏密不一的細直紋 */
+    repeating-linear-gradient(91deg,
+      rgba(0, 0, 0, .20) 0 2px,
+      rgba(255, 226, 170, .022) 2px 5px,
+      rgba(0, 0, 0, .12) 5px 8px,
+      rgba(255, 226, 170, .014) 8px 13px,
+      rgba(0, 0, 0, .16) 13px 15px),
+    /* 中央略受光、四邊沉下去 */
+    radial-gradient(126% 150% at 50% 38%, #4B2A14 0%, #341C0C 56%, #22120A 100%);
+  border: 2px solid #C9A34E;
+  box-shadow:
+    /* 上緣受光、下緣陰影＝板材厚度 */
+    inset 0 1px 0 rgba(255, 228, 176, .26),
+    inset 0 -2px 7px rgba(0, 0, 0, .62),
+    inset 0 0 40px rgba(0, 0, 0, .45),
+    /* 金框本身的厚度 */
+    0 3px 0 rgba(122, 88, 34, .95),
+    /* 落在後方的影子 */
+    0 28px 54px rgba(0, 0, 0, .62);
+}
+
+.hero-plaque::before {
+  inset: 8px;
+  border-color: rgba(201, 160, 74, .34);
+}
+
+/* 木頭上的貼金要更亮才壓得住底色 */
+.hero-title {
+  background-image: linear-gradient(180deg,
+    #FFF6D8 0%, #F6DC94 34%, #E4BA62 62%, #B98C39 100%);
+  text-shadow: 0 3px 14px rgba(0, 0, 0, .55);
+}
+
+@media (max-width: 768px) {
+  .hero-plaque {
+    padding: 1.2rem 1.7rem 1.4rem;
+    border-width: 1px;
+  }
+}
+
+/* ---- 3. 線稿圖示的尺寸（燈別卡、符紙選項、參拜資訊）-------- */
+.dd-lamp-icon svg {
+  width: 44px;
+  height: 44px;
+  display: block;
+}
+
+.dd-lamp-icon {
+  color: #B0742F;
+  font-size: 0;
+}
+
+.pw-radio-icon svg {
+  width: 30px;
+  height: 30px;
+  display: block;
+}
+
+.pw-radio-icon {
+  color: #8A6524;
+  font-size: 0;
+}
+
+.pw-radio-card input[type="radio"]:checked + .pw-radio-card-inner .pw-radio-icon {
+  color: #A8301B;
+}
+
+.info-icon--mark svg {
+  width: 21px;
+  height: 21px;
+  display: block;
+}
+
+.info-icon--mark {
+  color: var(--vermillion);
+  font-size: 0;
+}
+
+/* ---- 佔位區塊的線稿圖示 ---- */
+.placeholder-icon svg {
+  width: 62px;
+  height: 62px;
+  display: block;
+}
+
+.placeholder-icon {
+  color: var(--gold);
+  font-size: 0;
+}
+
+.map-icon svg {
+  width: 52px;
+  height: 52px;
+  display: block;
+  margin: 0 auto;
+}
+
+.map-icon {
+  color: var(--gold-dim);
+  font-size: 0;
+}
+
+/* ---- 4. 捲軸箭頭的彈跳方向 --------------------------------
+   原本是 transform: rotate(45deg) translateY(8px)。transform 由左
+   往右依序套用，translateY 落在「已旋轉的座標系」裡，於是箭頭是
+   往左下斜移（實測中途偏左 5.7px），看起來像歪掉。
+   把位移放到旋轉之前，位移就回到畫面座標系，變成單純的上下浮動。
+   -------------------------------------------------------------- */
+@keyframes scroll-bounce {
+  0%, 100% { transform: translateY(0) rotate(45deg);   opacity: .4; }
+  50%      { transform: translateY(8px) rotate(45deg); opacity: .8; }
+}
+
+/* ---- 5. 木紋再收斂一點，避免變成燈芯絨 ---- */
+.hero-plaque {
+  background:
+    repeating-linear-gradient(91deg,
+      rgba(0, 0, 0, .14) 0 3px,
+      rgba(255, 226, 170, .016) 3px 7px,
+      rgba(0, 0, 0, .08) 7px 11px,
+      rgba(255, 226, 170, .01) 11px 17px,
+      rgba(0, 0, 0, .11) 17px 20px),
+    radial-gradient(126% 150% at 50% 38%, #4B2A14 0%, #341C0C 56%, #22120A 100%);
+}

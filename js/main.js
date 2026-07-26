@@ -169,8 +169,42 @@ function loadContent(observeInk) {
     }
   }
 
+  /* ---- 內建線稿圖示 ----------------------------------------
+     content.json 的 icon 欄位若填下面的代號，就會畫出對應線稿；
+     填其他內容（文字或 emoji）則原樣顯示。
+     全部是固定字串、不含外部輸入，故可直接用 innerHTML。
+     ---------------------------------------------------------- */
+  function lineIcon(paths) {
+    return '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" ' +
+      'stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" ' +
+      'aria-hidden="true">' + paths + '</svg>';
+  }
+
+  var INFO_ICONS = {
+    // 地址
+    pin: lineIcon(
+      '<path d="M16 27.5s8.5-8 8.5-13.8a8.5 8.5 0 0 0-17 0C7.5 19.5 16 27.5 16 27.5z"/>' +
+      '<circle cx="16" cy="13.5" r="3.1"/>'),
+    // 開放時間
+    clock: lineIcon(
+      '<circle cx="16" cy="16" r="10.5"/>' +
+      '<path d="M16 9.8v6.6l4.6 2.8"/>'),
+    // 電話
+    phone: lineIcon(
+      '<path d="M9.6 5.5h4l2 5-2.6 1.9a13 13 0 0 0 5.6 5.6l1.9-2.6 5 2v4a2.5 2.5 0 0 1-2.5 2.5' +
+      'C15.2 23.9 8.1 16.8 8.1 8A2.5 2.5 0 0 1 9.6 5.5z"/>'),
+    // 停車
+    parking: lineIcon(
+      '<rect x="6" y="6" width="20" height="20" rx="3"/>' +
+      '<path d="M13 21.8V10.2h3.9a3.5 3.5 0 0 1 0 7H13"/>'),
+    // LINE / 聯絡訊息
+    chat: lineIcon(
+      '<path d="M26 15.4c0 4.6-4.5 8.4-10 8.4-1.1 0-2.2-.2-3.2-.5L7.2 25.8l1.4-4.1' +
+      'A7.8 7.8 0 0 1 6 15.4C6 10.8 10.5 7 16 7s10 3.8 10 8.4z"/>' +
+      '<path d="M12 15.4h8" opacity=".45"/>')
+  };
+
   // 未指定圖示時的佔位線稿（神像多坐蓮座）。
-  // 為固定字串、不含外部輸入，故可直接用 innerHTML。
   var LOTUS_MARK =
     '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" ' +
     'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
@@ -321,7 +355,14 @@ function loadContent(observeInk) {
 
         var icon = document.createElement('div');
         icon.className = 'info-icon';
-        icon.textContent = info.icon || '';
+        var iconKey = String(info.icon == null ? '' : info.icon).trim();
+        if (INFO_ICONS[iconKey]) {
+          icon.classList.add('info-icon--mark');
+          icon.innerHTML = INFO_ICONS[iconKey];
+        } else {
+          // 不是內建代號就當文字顯示（原本填 emoji 的資料仍可運作）
+          icon.textContent = iconKey;
+        }
 
         var content = document.createElement('div');
         content.className = 'info-content';
