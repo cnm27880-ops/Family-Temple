@@ -24,7 +24,7 @@
   width: 26px;
   height: 34px;
   border-radius: 50% / 38%;
-  background: radial-gradient(circle at 50% 35%, #F0A24A 0%, #C4362A 65%, #8B1A1A 100%);
+  background: radial-gradient(circle at 50% 35%, #F0A24A 0%, #A62B2B 65%, #8B261D 100%);
   box-shadow: 0 0 26px rgba(232, 120, 60, .45);
   transform-origin: top center;
   animation: lantern-sway 5s ease-in-out infinite;
@@ -38,7 +38,7 @@
   left: 50%;
   width: 1px;
   height: 14px;
-  background: rgba(232, 192, 104, .4);
+  background: rgba(197, 160, 89, .4);
   transform: translateX(-50%);
 }
 
@@ -65,7 +65,7 @@
 
 /* ---------- 燈別介紹 ---------- */
 .dd-intro {
-  background: linear-gradient(180deg, #EFE4C6 0%, #E7DABA 100%);
+  background: linear-gradient(180deg, #F4EFE6 0%, #E8DFD1 100%);
   padding: var(--space-xl) 0;
   position: relative;
 }
@@ -79,9 +79,10 @@
 .dd-lamp-card {
   text-align: center;
   padding: var(--space-md) var(--space-sm);
-  background: linear-gradient(165deg, #F7F0DC 0%, #EFE6CB 100%);
-  border: 1px solid rgba(212, 168, 67, .22);
-  border-top: 3px solid var(--gold-dim);
+  background: linear-gradient(165deg, #FAF6EE 0%, #F0EADE 100%);
+  border: 3px double var(--gold-dim);
+  border-top: 3px double var(--gold-dim);
+  border-radius: 0;
   box-shadow: 0 6px 22px rgba(74, 26, 10, .06);
   transition: all .5s var(--ease-smooth);
 }
@@ -102,16 +103,16 @@
   justify-content: center;
   font-size: 2.6rem;
   border-radius: 50%;
-  border: 1px solid rgba(160, 125, 46, .38);
+  border: 1px solid rgba(142, 114, 56, .38);
   background: radial-gradient(circle at 50% 45%, rgba(240, 162, 74, .18), transparent 68%);
-  box-shadow: inset 0 0 12px rgba(160, 125, 46, .12);
+  box-shadow: inset 0 0 12px rgba(142, 114, 56, .12);
 }
 
 .dd-lamp-name {
-  font-family: 'Noto Serif TC', 'LXGW WenKai TC', serif;
+  font-family: var(--font-plaque);
   font-size: 1.2rem;
   font-weight: 900;
-  color: #5A1512;
+  color: #8B261D;
   letter-spacing: .12em;
   margin-bottom: .5rem;
 }
@@ -134,12 +135,12 @@
   color: var(--text-secondary);
   line-height: 2;
   text-align: center;
-  border: 1px dashed rgba(160, 125, 46, .5);
+  border: 1px dashed rgba(142, 114, 56, .5);
   background: rgba(255, 255, 255, .25);
 }
 
 .dd-fee-note strong {
-  color: #5A1512;
+  color: #8B261D;
 }
 
 /* ---------- 登記表單 ---------- */
@@ -154,7 +155,7 @@
   font-size: .68rem;
   font-weight: 700;
   color: var(--vermillion);
-  border: 1px solid rgba(184, 65, 46, .5);
+  border: 1px solid rgba(166, 43, 43, .5);
   letter-spacing: .05em;
   vertical-align: middle;
 }
@@ -175,14 +176,14 @@
 .dd-privacy {
   padding: var(--space-sm) var(--space-md);
   background: rgba(255, 255, 255, .35);
-  border: 1px solid rgba(160, 125, 46, .35);
+  border: 1px solid rgba(142, 114, 56, .35);
 }
 
 .dd-privacy-title {
   font-family: var(--font-display);
   font-size: .92rem;
   font-weight: 700;
-  color: #5A1512;
+  color: #8B261D;
   letter-spacing: .1em;
   margin-bottom: .6rem;
 }
@@ -214,7 +215,7 @@
   align-items: flex-start;
   gap: .55rem;
   padding-top: .6rem;
-  border-top: 1px solid rgba(160, 125, 46, .25);
+  border-top: 1px solid rgba(142, 114, 56, .25);
   font-family: var(--font-display);
   font-size: .88rem;
   font-weight: 700;

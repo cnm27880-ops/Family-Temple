@@ -9,6 +9,9 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
+  /* ---------- 共用工具（js/temple-common.js） ---------- */
+  var Fate = window.TempleFate;
+
   /* ---------- State ---------- */
   var sticks = [];            // 由 qiuqian.json 載入
   var drawnStick = null;      // 目前抽到的那一支
@@ -161,9 +164,17 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
+  /**
+   * 抽一支籤。
+   * 每一支等機率——籤詩的吉凶不該被程式偏袒，只有取數的來源
+   * 改用 crypto（見 js/temple-common.js 的 TempleFate）。
+   */
   function pickStick() {
     if (sticks.length === 0) { return null; }
-    return sticks[Math.floor(Math.random() * sticks.length)];
+    var i = Fate
+      ? Fate.pickIndex(sticks.length)
+      : Math.floor(Math.random() * sticks.length);
+    return sticks[i];
   }
 
   if (shakeBtn) {
@@ -177,7 +188,8 @@ document.addEventListener('DOMContentLoaded', function () {
       shakeBtn.hidden = true;
       if (tube) { tube.classList.add('shaking'); }
 
-      // 搖 1.6 秒後落出一支籤
+      // 搖 2.4 秒後才落出一支籤：搖籤本來就要搖上一陣子，
+      // 按完馬上掉籤會像抽獎機
       setTimeout(function () {
         if (tube) { tube.classList.remove('shaking'); }
         drawnStick = pickStick();
@@ -203,8 +215,8 @@ document.addEventListener('DOMContentLoaded', function () {
             renderSlip(drawnStick);
             showStage('4');
           }
-        }, 1400);
-      }, 1600);
+        }, 1600);
+      }, 2400);
     });
   }
 
@@ -244,8 +256,16 @@ document.addEventListener('DOMContentLoaded', function () {
         bagua.hidden = true;
       }
 
-      // 三分之一機率聖筊，與擲筊頁一致
-      var sheng = Math.random() < 1 / 3;
+      // 與擲筊頁同一套取數：三分之一為底，再依誠意微調
+      var sheng;
+      if (Fate) {
+        sheng = Fate.weighted({
+          sheng: 1 / 3 + Fate.sincerity() * 0.06,
+          other: 2 / 3 - Fate.sincerity() * 0.06
+        }) === 'sheng';
+      } else {
+        sheng = Math.random() < 1 / 3;
+      }
 
       if (sheng) {
         if (confirmNote) {
@@ -264,7 +284,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         if (redrawBtn) { redrawBtn.hidden = false; }
       }
-    }, 1500);
+    }, 2600);
   }
 
   if (confirmBtn) {
@@ -302,7 +322,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (isFilled(stick)) {
         stick.poem.forEach(function (line) {
           var p = document.createElement('p');
-          p.className = 'qq-poem-line';
+          p.className = 'qq-poem-line vertical-text';
           p.textContent = line;
           poemWrap.appendChild(p);
         });
