@@ -835,3 +835,29 @@
 .streak-label        { text-indent: .3em; }
 .confirm-modal-title { text-indent: .12em; }
 .save-toast          { text-indent: .1em; }
+
+/* ---- 稟告方式的線稿圖示（原本是 emoji） ---- */
+.method-icon svg {
+  width: 46px;
+  height: 46px;
+  display: block;
+  margin: 0 auto;
+}
+
+.method-icon {
+  color: rgba(222, 184, 106, .85);
+  font-size: 0;
+  transition: color .4s var(--ease-smooth);
+}
+
+.method-card:hover .method-icon {
+  color: var(--gold-bright);
+}
+
+/* ---- 全頁底色補上暖光，與首頁封面連貫 ---- */
+.jiaobei-app {
+  background:
+    radial-gradient(ellipse 66% 40% at 50% 104%, rgba(233, 141, 60, .16) 0%, transparent 70%),
+    radial-gradient(ellipse 58% 34% at 50% -2%, rgba(150, 38, 28, .20) 0%, transparent 64%),
+    var(--night);
+}

@@ -581,3 +581,12 @@
 .pw-hero-title    { text-indent: .15em; }
 .pw-hero-subtitle { text-indent: .1em; }
 .pw-radio-name    { text-indent: .08em; }
+
+/* ---- Hero 補上與首頁一致的暖光層 ----
+   原本只是平面深色加格紋，與首頁封面的燭火／硃紅氣質不連貫。 */
+.pw-hero {
+  background:
+    radial-gradient(ellipse 70% 62% at 50% 114%, rgba(233, 141, 60, .18) 0%, transparent 72%),
+    radial-gradient(ellipse 62% 54% at 50% -16%, rgba(150, 38, 28, .26) 0%, transparent 68%),
+    var(--night);
+}

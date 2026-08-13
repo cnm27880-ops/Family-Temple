@@ -217,8 +217,8 @@ document.addEventListener('DOMContentLoaded', function () {
       throwBtn.disabled = false;
       throwBtn.hidden = false;
       throwBtn.textContent = (throwMode === 'triple' && streak > 0)
-        ? '🙏 擲第 ' + (streak + 1) + ' 次'
-        : '🙏 擲筊問神';
+        ? '擲第 ' + (streak + 1) + ' 次'
+        : '擲筊問神';
     }
     updateStreakDisplay();
   }

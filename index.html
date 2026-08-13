@@ -146,11 +146,24 @@
 
 <!-- Divider -->
 <div class="ink-cloud-divider">
-  <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
-    <defs><filter id="ib1"><feGaussianBlur in="SourceGraphic" stdDeviation="2"/></filter></defs>
-    <!-- 深色需與上方 hero 底部同色（--night），接縫才不會出現色差 -->
-    <path d="M0,0L1440,0L1440,40Q1200,120 960,60Q720,0 480,80Q240,120 0,50Z" fill="#17110D"/>
-    <path d="M0,20Q200,80 400,40Q600,0 800,50Q1000,100 1200,30Q1400,10 1440,40L1440,0L0,0Z" fill="#17110D" filter="url(#ib1)" opacity=".5"/>
+  <svg viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
+    <defs>
+      <filter id="ibw1"><feGaussianBlur in="SourceGraphic" stdDeviation="2"/></filter>
+      <!-- hero 底部有由下往上的燭火暖光，中央比兩側暖（實測邊緣 rgb(21,15,10)、
+           中央 rgb(69,44,23)）。波浪若填單一深色，接縫中央會出現明顯色階，
+           因此用同樣分布的橫向漸層接續下來。 -->
+      <linearGradient id="ibg1" x1="0" y1="0" x2="1440" y2="0" gradientUnits="userSpaceOnUse">
+        <stop offset="0"    stop-color="#150F0A"/>
+        <stop offset="0.25" stop-color="#2D1D10"/>
+        <stop offset="0.5"  stop-color="#452C17"/>
+        <stop offset="0.75" stop-color="#2D1D10"/>
+        <stop offset="1"    stop-color="#120D0A"/>
+      </linearGradient>
+    </defs>
+    <!-- rect＝下方沿革區的頂色 -->
+    <rect width="1440" height="120" fill="#EFE4C6"/>
+    <path d="M0,0L1440,0L1440,44Q1180,120 950,58Q720,0 480,78Q240,120 0,52Z" fill="url(#ibg1)"/>
+    <path d="M0,22Q200,82 400,42Q600,2 800,52Q1000,102 1200,32Q1400,12 1440,42L1440,0L0,0Z" fill="url(#ibg1)" filter="url(#ibw1)" opacity=".5"/>
   </svg>
 </div>
 
@@ -166,7 +179,7 @@
     <div class="about-grid">
       <div class="about-image-wrapper ink-reveal-left">
         <div class="about-image-placeholder">
-          <span class="placeholder-icon">🏛️</span>
+          <span class="placeholder-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><!-- 廟宇 --><path d="M4.5 12.5c4-.7 7.2-2.5 11.5-6 4.3 3.5 7.5 5.3 11.5 6"/><path d="M4 26.5h24"/><path d="M7 12.8v13.7M25 12.8v13.7M12 26.5v-9M20 26.5v-9M16 26.5v-11"/></svg></span>
           <span class="placeholder-text">廟宇主視覺照片</span>
         </div>
         <div class="image-frame">
@@ -188,12 +201,12 @@
 
 <!-- Divider -->
 <div class="ink-cloud-divider">
-  <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
-    <defs><filter id="ib2"><feGaussianBlur in="SourceGraphic" stdDeviation="2"/></filter></defs>
-    <!-- 深色需與下方神明介紹區同色（--sandalwood） -->
+  <svg viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
+    <defs><filter id="ibw2"><feGaussianBlur in="SourceGraphic" stdDeviation="2"/></filter></defs>
+    <!-- rect＝下方區塊的顏色，波浪＝上方區塊的顏色且錨在頂緣，兩邊都寫實色才無接縫色差 -->
     <rect width="1440" height="120" fill="#2C1A0E"/>
-    <path d="M0,120L1440,120L1440,80Q1200,0 960,60Q720,120 480,40Q240,0 0,70Z" fill="#F5EDD8"/>
-    <path d="M0,100Q200,40 400,80Q600,120 800,70Q1000,20 1200,90Q1400,110 1440,80L1440,120L0,120Z" fill="#F5EDD8" filter="url(#ib2)" opacity=".5"/>
+    <path d="M0,0L1440,0L1440,70Q1210,0 980,66Q740,120 500,48Q250,4 0,74Z" fill="#E7DABA"/>
+    <path d="M0,30Q240,96 480,50Q720,8 960,72Q1200,116 1440,58L1440,0L0,0Z" fill="#E7DABA" filter="url(#ibw2)" opacity=".5"/>
   </svg>
 </div>
 
@@ -213,10 +226,12 @@
 
 <!-- Divider -->
 <div class="ink-cloud-divider">
-  <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
-    <!-- 深色需與上方神明介紹區同色（--sandalwood） -->
+  <svg viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
+    <defs><filter id="ibw3"><feGaussianBlur in="SourceGraphic" stdDeviation="2"/></filter></defs>
+    <!-- rect＝下方區塊的顏色，波浪＝上方區塊的顏色且錨在頂緣，兩邊都寫實色才無接縫色差 -->
+    <rect width="1440" height="120" fill="#ECE0C0"/>
     <path d="M0,0L1440,0L1440,50Q1100,120 800,40Q500,0 200,80Q100,100 0,60Z" fill="#2C1A0E"/>
-    <path d="M0,30Q360,100 720,30Q1080,0 1440,50L1440,0L0,0Z" fill="#2C1A0E" opacity=".4" filter="url(#ib1)"/>
+    <path d="M0,30Q360,100 720,30Q1080,0 1440,50L1440,0L0,0Z" fill="#2C1A0E" filter="url(#ibw3)" opacity=".5"/>
   </svg>
 </div>
 
@@ -295,19 +310,39 @@
   </div>
 </section>
 
+<div class="ink-cloud-divider" id="newsDividerTop">
+  <svg viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
+    <defs><filter id="ibw4"><feGaussianBlur in="SourceGraphic" stdDeviation="2"/></filter></defs>
+    <!-- rect＝下方區塊的顏色，波浪＝上方區塊的顏色且錨在頂緣，兩邊都寫實色才無接縫色差 -->
+    <rect width="1440" height="120" fill="#2C1A0E"/>
+    <path d="M0,0L1440,0L1440,62Q1160,116 920,52Q680,0 440,72Q220,112 0,46Z" fill="#E4D6B2"/>
+    <path d="M0,26Q220,88 440,44Q660,4 880,64Q1120,112 1440,50L1440,0L0,0Z" fill="#E4D6B2" filter="url(#ibw4)" opacity=".5"/>
+  </svg>
+</div>
+
 <!-- ========== News（內容由 content.json 的 news 注入；清空則整區隱藏）========== -->
 <section class="news" id="news" hidden>
   <div class="lattice-pattern"></div>
   <div class="container">
     <div class="section-header ink-reveal">
       <span class="section-label">N E W S</span>
-      <h2 class="section-title">最新消息</h2>
+      <h2 class="section-title on-dark">最新消息</h2>
       <div class="section-title-ornament"><span class="dot"></span></div>
       <p class="section-subtitle">慶典、法會與廟方公告</p>
     </div>
     <div class="news-list" id="newsList"></div>
   </div>
 </section>
+
+<div class="ink-cloud-divider" id="newsDividerBottom">
+  <svg viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
+    <defs><filter id="ibw5"><feGaussianBlur in="SourceGraphic" stdDeviation="2"/></filter></defs>
+    <!-- rect＝下方區塊的顏色，波浪＝上方區塊的顏色且錨在頂緣，兩邊都寫實色才無接縫色差 -->
+    <rect width="1440" height="120" fill="#E9DCBC"/>
+    <path d="M0,0L1440,0L1440,40Q1150,110 880,46Q620,0 360,74Q180,108 0,58Z" fill="#2C1A0E"/>
+    <path d="M0,24Q260,90 520,46Q780,6 1040,60Q1280,104 1440,44L1440,0L0,0Z" fill="#2C1A0E" filter="url(#ibw5)" opacity=".5"/>
+  </svg>
+</div>
 
 <!-- ========== Visit ========== -->
 <section class="visit" id="visit">
@@ -332,7 +367,7 @@
              js/main.js 會把下面的佔位區塊換成 Google 地圖 -->
         <div class="map-mount" id="mapMount">
           <div class="map-placeholder">
-            <span class="map-icon">🗺️</span>
+            <span class="map-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><!-- 地圖 --><path d="M12 6.5L6 8.8v16.7l6-2.3 8 2.8 6-2.3V7l-6 2.3z"/><path d="M12 6.5v16.5M20 9.3v16.7" opacity=".5"/></svg></span>
             <p>Google Map 將嵌入此處</p>
             <p class="map-note">於 content.json 填入地址後即自動啟用</p>
           </div>

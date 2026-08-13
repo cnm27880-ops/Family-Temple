@@ -64,29 +64,30 @@
     }
   ],
   "visit": {
+    "_info_icon_note": "icon 可填內建線稿代號：pin（地址）、clock（時間）、phone（電話）、parking（停車）、chat（LINE／訊息）。填其他文字或 emoji 則原樣顯示。",
     "info": [
       {
-        "icon": "📍",
+        "icon": "pin",
         "label": "廟宇地址",
         "value": "【請填入廟宇地址】"
       },
       {
-        "icon": "🕐",
+        "icon": "clock",
         "label": "開放時間",
         "value": "每日 06:00 — 21:00（全年無休）"
       },
       {
-        "icon": "📞",
+        "icon": "phone",
         "label": "聯絡電話",
         "value": "【請填入電話號碼】"
       },
       {
-        "icon": "🅿️",
+        "icon": "parking",
         "label": "停車資訊",
         "value": "【請填入停車場資訊】"
       },
       {
-        "icon": "💬",
+        "icon": "chat",
         "label": "LINE 官方帳號",
         "value": "【請填入 LINE ID】"
       }

@@ -140,3 +140,11 @@
     align-items: center;
   }
 }
+
+/* ---- 裝飾改為菱形，與各區塊標題的裝飾一致（原本是 ☯） ---- */
+.nf-ornament-dot {
+  width: 7px;
+  height: 7px;
+  background: var(--gold);
+  transform: rotate(45deg);
+}
