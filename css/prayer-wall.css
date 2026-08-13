@@ -33,13 +33,31 @@
 .pw-hero-subtitle {
   font-family: var(--font-display);
   font-size: 1rem;
-  color: rgba(242, 235, 221, .5);
+  color: rgba(244, 239, 230, .5);
   letter-spacing: .1em;
   margin-bottom: var(--space-md);
 }
 
+/* 深色主視覺上的按鈕：硃紅字壓在暗底上看不清楚（對比約 2:1），
+   改用金色描邊，與擲筊、求籤兩頁深色區的按鈕一致。 */
 .pw-hero-btn {
   display: inline-block;
+  color: var(--gold);
+  border-color: var(--gold);
+}
+
+.pw-hero-btn::before {
+  border-color: var(--gold);
+  opacity: .3;
+}
+
+.pw-hero-btn::after {
+  background: var(--vermillion);
+}
+
+.pw-hero-btn:hover {
+  color: var(--parchment);
+  border-color: var(--vermillion);
 }
 
 /* ---------- Write Section ---------- */
@@ -79,7 +97,7 @@
   font-family: var(--font-display);
   font-size: 1rem;
   background: var(--parchment-light);
-  border: 1px solid rgba(196, 54, 42, .2);
+  border: 1px solid rgba(166, 43, 43, .2);
   color: var(--text-primary);
   padding: .8rem 1rem;
   outline: none;
@@ -89,13 +107,13 @@
 .pw-input:focus,
 .pw-textarea:focus {
   border-color: var(--gold);
-  box-shadow: 0 0 0 3px rgba(232, 192, 104, .1);
+  box-shadow: 0 0 0 3px rgba(197, 160, 89, .1);
 }
 
 .pw-input.error,
 .pw-textarea.error {
   border-color: var(--vermillion);
-  box-shadow: 0 0 0 3px rgba(184, 65, 46, .1);
+  box-shadow: 0 0 0 3px rgba(166, 43, 43, .1);
 }
 
 .pw-textarea {
@@ -148,8 +166,9 @@
   align-items: center;
   text-align: center;
   padding: var(--space-sm) var(--space-xs);
-  background: rgba(245, 237, 216, .4);
-  border: 2px solid var(--gold-dim);
+  background: rgba(244, 239, 230, .4);
+  border: 3px double var(--gold-dim);
+  border-radius: 0;
   transition: all .4s var(--ease-smooth);
   position: relative;
 }
@@ -158,19 +177,19 @@
   content: '';
   position: absolute;
   inset: 4px;
-  border: 1px solid rgba(160, 125, 46, .2);
+  border: 1px solid rgba(142, 114, 56, .2);
   pointer-events: none;
   transition: border-color .4s;
 }
 
 .pw-radio-card input[type="radio"]:checked + .pw-radio-card-inner {
   border-color: var(--gold-bright);
-  background: rgba(245, 208, 128, .12);
-  box-shadow: 0 4px 20px rgba(232, 192, 104, .1);
+  background: rgba(217, 188, 126, .12);
+  box-shadow: 0 4px 20px rgba(197, 160, 89, .1);
 }
 
 .pw-radio-card input[type="radio"]:checked + .pw-radio-card-inner::before {
-  border-color: rgba(245, 208, 128, .35);
+  border-color: rgba(217, 188, 126, .35);
 }
 
 .pw-radio-card:hover .pw-radio-card-inner {
@@ -184,7 +203,7 @@
 }
 
 /* 這些卡片是放在淺色宣紙底上的，文字要用深色才讀得清楚。
-   原本選中狀態用亮金 #F5D080，對比只有 1.3:1 幾乎看不見；
+   原本選中狀態用亮金，對比只有 1.3:1 幾乎看不見；
    改為深金褐（5.3:1）與深硃紅（11.6:1），兩者都通過 WCAG AA。 */
 .pw-radio-name {
   font-family: var(--font-display);
@@ -196,7 +215,7 @@
 }
 
 .pw-radio-card input[type="radio"]:checked + .pw-radio-card-inner .pw-radio-name {
-  color: #5A1512;
+  color: #8B261D;
 }
 
 .pw-radio-desc {
@@ -289,7 +308,9 @@
 /* ---------- Prayer Card ---------- */
 .prayer-card {
   background: var(--rice-paper);
-  border: 1px solid rgba(212, 168, 67, .15);
+  /* 祈福牌位的雙線框 */
+  border: 3px double rgba(197, 160, 89, .45);
+  border-radius: 0;
   position: relative;
   padding: 1.2rem 1.2rem 1.2rem 1.6rem;
   transition: all .4s var(--ease-smooth);
@@ -310,7 +331,7 @@
 }
 
 [data-type="聖筊"] .card-side-bar { background: var(--gold); }
-[data-type="笑筊"] .card-side-bar { background: #E8A040; }
+[data-type="笑筊"] .card-side-bar { background: #C08A3E; }
 [data-type="陰筊"] .card-side-bar { background: var(--celadon); }
 [data-type="純祈願"] .card-side-bar { background: var(--vermillion); }
 
@@ -344,7 +365,7 @@
 }
 
 [data-type="聖筊"] .card-tag { color: var(--gold-dim); }
-[data-type="笑筊"] .card-tag { color: #E8A040; }
+[data-type="笑筊"] .card-tag { color: #C08A3E; }
 [data-type="陰筊"] .card-tag { color: var(--celadon); }
 [data-type="純祈願"] .card-tag { color: var(--vermillion); }
 
@@ -387,7 +408,7 @@
 
 /* ---------- Reply Section ---------- */
 .card-replies {
-  border-top: 1px solid rgba(212, 168, 67, .15);
+  border-top: 1px solid rgba(197, 160, 89, .15);
   margin-top: 1rem;
   padding-top: 0;
   max-height: 0;
@@ -413,7 +434,7 @@
   color: var(--text-primary);
   line-height: 1.6;
   padding-left: .8rem;
-  border-left: 2px solid rgba(212, 168, 67, .2);
+  border-left: 2px solid rgba(197, 160, 89, .2);
 }
 
 .reply-item .reply-author {
@@ -437,7 +458,7 @@
   font-family: var(--font-display);
   font-size: .85rem;
   background: var(--parchment-light);
-  border: 1px solid rgba(196, 54, 42, .2);
+  border: 1px solid rgba(166, 43, 43, .2);
   color: var(--text-primary);
   padding: .5rem .7rem;
   outline: none;

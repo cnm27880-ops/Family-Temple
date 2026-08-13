@@ -9,6 +9,7 @@
    對外提供：
      window.TempleGuard  — 內容過濾與送出頻率限制
      window.TempleModal  — 可用鍵盤操作的確認彈窗
+     window.TempleFate   — 擲筊、抽籤的取數
    ============================================ */
 (function () {
 
@@ -263,5 +264,126 @@
   }
 
   window.TempleModal = { create: createModal };
+
+  /* ============================================
+     TempleFate — 擲筊與抽籤的取數
+     --------------------------------------------
+     兩件事：
+
+     1. 亂數改用 crypto.getRandomValues。Math.random 的實作是可預測的
+        偽亂數，同一輪操作裡連著取值容易出現肉眼可見的規律；問神的
+        結果用它取，說不過去。
+
+     2. 「誠意」會微幅影響筊象的分布。實際到廟裡，匆匆忙忙擲一筊，
+        與淨心稟告、靜候片刻後再擲，本來就是兩種心境；這裡把停留
+        時間與擲筊前的靜止時間換算成 0～1 的誠意值，讓聖筊的機率
+        從三分之一最多升到約 0.39。
+
+        幅度刻意壓在一成以內，而且不對使用者宣告——它是讓結果不至於
+        淪為純骰子的暗紋，不是可以操作的機制。三種筊象在任何情況下
+        都保有相當的機率，不會出現「等久一點就必定聖筊」。
+     ============================================ */
+
+  var startedAt = Date.now();
+  var lastMoveAt = Date.now();
+  var moves = 0;
+
+  function noteMove() {
+    lastMoveAt = Date.now();
+    moves++;
+  }
+
+  ['pointermove', 'pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(function (evt) {
+    window.addEventListener(evt, noteMove, { passive: true });
+  });
+
+  function clamp01(n) {
+    if (!isFinite(n)) { return 0; }
+    return n < 0 ? 0 : (n > 1 ? 1 : n);
+  }
+
+  // 亂數來源：優先 crypto，環境不支援時才退回 Math.random
+  function randomUint32() {
+    var c = window.crypto || window.msCrypto;
+    if (c && typeof c.getRandomValues === 'function') {
+      var buf = new Uint32Array(1);
+      c.getRandomValues(buf);
+      return buf[0];
+    }
+    return Math.floor(Math.random() * 4294967296);
+  }
+
+  // [0, 1) 的浮點數
+  function random() {
+    return randomUint32() / 4294967296;
+  }
+
+  /**
+   * [0, n) 的整數，且各數等機率。
+   * 直接取餘數會讓前幾個數字略多一點（2^32 不能被 n 整除），
+   * 所以把落在尾端不完整區段的取值丟掉重取。
+   */
+  function pickIndex(n) {
+    var count = Math.floor(n);
+    if (!(count > 0)) { return 0; }
+    var limit = Math.floor(4294967296 / count) * count;
+    var v = randomUint32();
+    var guard = 0;
+    while (v >= limit && guard < 64) {
+      v = randomUint32();
+      guard++;
+    }
+    return v % count;
+  }
+
+  /** 在頁面停留多久（0～1，三分鐘為滿） */
+  function dwell() {
+    return clamp01((Date.now() - startedAt) / (3 * 60 * 1000));
+  }
+
+  /** 擲之前靜候了多久（0～1，八秒為滿） */
+  function stillness() {
+    return clamp01((Date.now() - lastMoveAt) / 8000);
+  }
+
+  /** 誠意值（0～1）：停留時間與靜候各半 */
+  function sincerity() {
+    return clamp01(dwell() * 0.5 + stillness() * 0.5);
+  }
+
+  /**
+   * 依權重抽出一個鍵。
+   * @param {Object} weights 例如 { sheng: .36, xiao: .32, yin: .32 }
+   * @returns {string|null}
+   */
+  function weighted(weights) {
+    var keys = Object.keys(weights || {});
+    var total = 0;
+    var i;
+    for (i = 0; i < keys.length; i++) {
+      var w = weights[keys[i]];
+      if (typeof w === 'number' && w > 0) { total += w; }
+    }
+    if (total <= 0) { return keys.length ? keys[pickIndex(keys.length)] : null; }
+
+    var roll = random() * total;
+    for (i = 0; i < keys.length; i++) {
+      var v = weights[keys[i]];
+      if (typeof v !== 'number' || v <= 0) { continue; }
+      roll -= v;
+      if (roll <= 0) { return keys[i]; }
+    }
+    return keys[keys.length - 1];
+  }
+
+  window.TempleFate = {
+    random: random,
+    pickIndex: pickIndex,
+    weighted: weighted,
+    sincerity: sincerity,
+    dwell: dwell,
+    stillness: stillness,
+    moves: function () { return moves; }
+  };
 
 })();

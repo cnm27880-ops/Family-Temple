@@ -16,35 +16,36 @@
 
 /* ---------- Design Tokens ---------- */
 :root {
-  /* Colors — Vermillion */
-  --vermillion: #B8412E;
-  --vermillion-deep: #8B1A1A;
-  --vermillion-light: #E85D4A;
+  /* Colors — Vermillion（廟牆硃砂，非鮮紅） */
+  --vermillion: #A62B2B;
+  --vermillion-deep: #8B261D;
+  --vermillion-light: #C0483A;
 
-  /* Colors — Gold */
-  --gold: #E8C068;
-  --gold-bright: #F5D080;
-  --gold-dim: #A07D2E;
+  /* Colors — Gold（沉金／金箔舊色，非亮黃） */
+  --gold: #C5A059;
+  --gold-bright: #D9BC7E;
+  --gold-dim: #8E7238;
 
   /* Colors — Ink */
   --ink-black: #1E1A2E;
   --ink-dark: #2C1A0E;
   --ink-medium: #5C554A;
 
-  /* Colors — Accent */
-  --celadon: #7FB5B0;
-  --celadon-dim: #5A8E89;
-  --lotus-pink: #ECC5C0;
+  /* Colors — Accent（翡翠青，深色頁面用偏亮的青瓷） */
+  --jade: #2E5A44;
+  --celadon: #7FA893;
+  --celadon-dim: #4F7A66;
+  --lotus-pink: #E0C0BA;
   --bronze: #8B7355;
 
-  /* Colors — Neutral */
-  --parchment: #F5EDD8;
-  --parchment-light: #F8F4EC;
-  --parchment-warm: #EDE0C4;
-  --rice-paper: #F5EDD8;
+  /* Colors — Neutral（宣紙／米紙，不使用純白） */
+  --parchment: #F4EFE6;
+  --parchment-light: #FAF6EE;
+  --parchment-warm: #E8DFD1;
+  --rice-paper: #F4EFE6;
 
   /* Colors — New */
-  --lotus-white: #F0E8E0;
+  --lotus-white: #EDE6DA;
   --sandalwood: #2C1A0E;
 
   /* 深色頁面的底色。原本沿用偏紫的 --ink-black，配上冷色光暈氣質偏奇幻；
@@ -56,7 +57,7 @@
   --text-primary: var(--ink-black);
   --text-secondary: var(--ink-medium);
   --text-on-dark: var(--parchment);
-  --bg-primary: #F5EDD8;
+  --bg-primary: #F4EFE6;
 
   /* Spacing */
   --space-xs: .5rem;
@@ -65,10 +66,33 @@
   --space-lg: 4rem;
   --space-xl: 6rem;
 
-  /* Typography */
-  --font-calligraphy: 'MasaFont', 'LXGW WenKai TC', cursive;
-  --font-display: 'LXGW WenKai TC', serif;
-  --font-body: 'Noto Serif TC', 'LXGW WenKai TC', serif;
+  /* Typography
+     --------------------------------------------
+     字體一律走「明體／楷書」路線，並且在網路字型之外
+     補上系統內建的楷體與宋體，離線或字型載入失敗時
+     仍是傳統書體，不會掉回無襯線的通用字。
+
+     ※ 各字型串的結尾一律留一個網路字型（LXGW WenKai TC 或
+       Noto Serif TC）再接 serif。直書（writing-mode）需要字型帶有
+       縱書度量，系統的通用 serif 不見得有——實測某些 Linux 的
+       預設中文字型缺少縱書度量，直書時字會疊在一起。結尾放
+       確定載得到的網路字型，才不會踩到這種字型。 */
+
+  /* 系統楷書（各平台名稱不同，全部列上） */
+  --font-kai: 'Kaiti TC', 'Kaiti SC', 'KaiTi', '標楷體', 'DFKai-SB', 'BiauKai';
+
+  /* 系統宋體 */
+  --font-song: 'Songti TC', 'Songti SC';
+
+  --font-calligraphy: 'MasaFont', var(--font-kai), 'LXGW WenKai TC', serif;
+  --font-display: 'LXGW WenKai TC', var(--font-kai), var(--font-song), serif;
+  --font-body: 'Noto Serif TC', var(--font-kai), var(--font-song), serif;
+
+  /* 匾額／牌位用的厚重明體 */
+  --font-plaque: 'Noto Serif TC', var(--font-song), var(--font-kai), serif;
+
+  /* 題字：籤詩、對聯、碑文等直書文字專用（楷書優先） */
+  --font-inscription: var(--font-kai), 'LXGW WenKai TC', 'Noto Serif TC', serif;
 
   /* Easing */
   --ease-smooth: cubic-bezier(.25, .46, .45, .94);
@@ -110,10 +134,10 @@ img {
 /* ---------- Custom Cursor (pointer devices) ---------- */
 @media (pointer: fine) {
   body {
-    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='32' viewBox='0 0 24 32'%3E%3Cline x1='12' y1='8' x2='12' y2='30' stroke='%238B7355' stroke-width='2' stroke-linecap='round'/%3E%3Ccircle cx='12' cy='6' r='3' fill='%23E85D4A' opacity='.8'/%3E%3Ccircle cx='12' cy='4' r='2' fill='%23F0C75E' opacity='.6'/%3E%3C/svg%3E") 12 30, auto;
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='32' viewBox='0 0 24 32'%3E%3Cline x1='12' y1='8' x2='12' y2='30' stroke='%238B7355' stroke-width='2' stroke-linecap='round'/%3E%3Ccircle cx='12' cy='6' r='3' fill='%23A62B2B' opacity='.8'/%3E%3Ccircle cx='12' cy='4' r='2' fill='%23C5A059' opacity='.6'/%3E%3C/svg%3E") 12 30, auto;
   }
   a, button {
-    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Ccircle cx='14' cy='14' r='12' fill='none' stroke='%23C4362A' stroke-width='2'/%3E%3Ccircle cx='14' cy='14' r='4' fill='%23C4362A'/%3E%3C/svg%3E") 14 14, pointer;
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Ccircle cx='14' cy='14' r='12' fill='none' stroke='%23A62B2B' stroke-width='2'/%3E%3Ccircle cx='14' cy='14' r='4' fill='%23A62B2B'/%3E%3C/svg%3E") 14 14, pointer;
   }
 }
 
@@ -138,7 +162,7 @@ body > * {
   pointer-events: none;
   overflow: hidden;
   opacity: .04;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cpath d='M0 0h60v60H0zM5 5v50h50V5zm5 5h40v40H10zm5 5v30h30V15zm5 5h20v20H20z' fill='none' stroke='%23A07D2E' stroke-width='.5'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cpath d='M0 0h60v60H0zM5 5v50h50V5zm5 5h40v40H10zm5 5v30h30V15zm5 5h20v20H20z' fill='none' stroke='%238E7238' stroke-width='.5'/%3E%3C/svg%3E");
   background-size: 60px 60px;
 }
 
@@ -152,7 +176,7 @@ body > * {
   pointer-events: none;
   overflow: hidden;
   opacity: .03;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cpath d='M20 0v15h-15v5h15v15h5v-15h15v-5h-15v-15z' fill='none' stroke='%23D4A843' stroke-width='.4'/%3E%3Cpath d='M0 0h15v5h-10v10h-5zM25 0h15v15h-5v-10h-10zM0 25h5v10h10v5h-15zM25 35h10v-10h5v15h-15z' fill='none' stroke='%23D4A843' stroke-width='.4'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cpath d='M20 0v15h-15v5h15v15h5v-15h15v-5h-15v-15z' fill='none' stroke='%23C5A059' stroke-width='.4'/%3E%3Cpath d='M0 0h15v5h-10v10h-5zM25 0h15v15h-5v-10h-10zM0 25h5v10h10v5h-15zM25 35h10v-10h5v15h-15z' fill='none' stroke='%23C5A059' stroke-width='.4'/%3E%3C/svg%3E");
   background-size: 40px 40px;
 }
 
@@ -248,7 +272,7 @@ body > * {
 
 .btn-seal:active {
   transform: scale(.95) rotate(-1deg);
-  box-shadow: 2px 2px 0 var(--vermillion-deep), inset 0 0 20px rgba(139, 26, 26, .3);
+  box-shadow: 2px 2px 0 var(--vermillion-deep), inset 0 0 20px rgba(139, 38, 29, .3);
 }
 
 .btn-seal--compact {
@@ -278,7 +302,7 @@ body > * {
   font-size: 1rem;
   font-weight: 400;
   letter-spacing: .15em;
-  border: 1px solid rgba(212, 168, 67, .5);
+  border: 1px solid rgba(197, 160, 89, .5);
   color: var(--gold);
   background: transparent;
   transition: all .3s var(--ease-smooth);
@@ -286,7 +310,7 @@ body > * {
 }
 
 .btn-gold:hover {
-  background: rgba(212, 168, 67, .1);
+  background: rgba(197, 160, 89, .1);
   border-color: var(--gold-bright);
   transform: translateY(-2px);
 }
@@ -352,7 +376,7 @@ body > * {
   left: -5%;
   width: 110%;
   height: 8px;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 8'%3E%3Cpath d='M2 5Q20 2 40 4T80 3T118 5' stroke='%23D4A843' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 8'%3E%3Cpath d='M2 5Q20 2 40 4T80 3T118 5' stroke='%23C5A059' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center;
   background-size: 100% 100%;
   transform: scaleX(0);
   transform-origin: center;
@@ -414,16 +438,16 @@ body > * {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse at 50% 20%, rgba(196, 54, 42, .12) 0%, transparent 55%),
-    radial-gradient(ellipse at 30% 80%, rgba(127, 181, 176, .06) 0%, transparent 40%),
-    radial-gradient(ellipse at 70% 70%, rgba(212, 168, 67, .08) 0%, transparent 40%),
+    radial-gradient(ellipse at 50% 20%, rgba(166, 43, 43, .12) 0%, transparent 55%),
+    radial-gradient(ellipse at 30% 80%, rgba(127, 168, 147, .06) 0%, transparent 40%),
+    radial-gradient(ellipse at 70% 70%, rgba(197, 160, 89, .08) 0%, transparent 40%),
     linear-gradient(180deg, #1E1A2E, #2C1A0E 40%, #1E1A2E);
 }
 
 .hero-scroll-frame {
   position: absolute;
   inset: 30px;
-  border: 1px solid rgba(212, 168, 67, .15);
+  border: 1px solid rgba(197, 160, 89, .15);
   pointer-events: none;
 }
 
@@ -570,7 +594,7 @@ body > * {
 .hero-title-sub {
   font-family: var(--font-calligraphy);
   font-size: clamp(1.8rem, 4.5vw, 3rem);
-  color: #C9A84C;
+  color: #C5A059;
   letter-spacing: 0.4em;
   white-space: nowrap;
   opacity: 0.8;
@@ -590,7 +614,7 @@ body > * {
   font-family: var(--font-display);
   font-size: 1rem;
   font-weight: 700;
-  color: rgba(242, 235, 221, .6);
+  color: rgba(244, 239, 230, .6);
   max-width: 480px;
   margin: var(--space-md) auto 0;
   line-height: 2.2;
@@ -648,7 +672,7 @@ body > * {
   flex-direction: column;
   align-items: center;
   gap: .5rem;
-  color: rgba(212, 168, 67, .5);
+  color: rgba(197, 160, 89, .5);
   font-family: var(--font-display);
   font-size: .75rem;
   letter-spacing: .3em;
@@ -704,7 +728,7 @@ body > * {
 }
 
 .section-label--deity {
-  color: rgba(127, 181, 176, .6);
+  color: rgba(127, 168, 147, .6);
 }
 
 .section-title {
@@ -840,7 +864,7 @@ body > * {
   gap: var(--space-sm);
   margin-top: var(--space-md);
   padding-top: var(--space-md);
-  border-top: 1px solid rgba(212, 168, 67, .2);
+  border-top: 1px solid rgba(197, 160, 89, .2);
 }
 
 .stat-item {
@@ -873,8 +897,8 @@ body > * {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse at 20% 40%, rgba(127, 181, 176, .06) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 60%, rgba(196, 54, 42, .06) 0%, transparent 50%);
+    radial-gradient(ellipse at 20% 40%, rgba(127, 168, 147, .06) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 60%, rgba(166, 43, 43, .06) 0%, transparent 50%);
 }
 
 .deities-grid {
@@ -887,7 +911,7 @@ body > * {
 
 .deity-card {
   background: rgba(255, 255, 255, .02);
-  border: 1px solid rgba(212, 168, 67, .1);
+  border: 1px solid rgba(197, 160, 89, .1);
   padding: var(--space-md);
   text-align: center;
   transition: all .5s var(--ease-smooth);
@@ -908,7 +932,7 @@ body > * {
 
 .deity-card:hover {
   background: rgba(255, 255, 255, .04);
-  border-color: rgba(212, 168, 67, .25);
+  border-color: rgba(197, 160, 89, .25);
   transform: translateY(-6px);
 }
 
@@ -926,8 +950,8 @@ body > * {
   align-items: center;
   justify-content: center;
   font-size: 2.2rem;
-  box-shadow: 0 8px 30px rgba(196, 54, 42, .25), inset 0 -2px 6px rgba(0, 0, 0, .3);
-  border: 1px solid rgba(212, 168, 67, .15);
+  box-shadow: 0 8px 30px rgba(166, 43, 43, .25), inset 0 -2px 6px rgba(0, 0, 0, .3);
+  border: 1px solid rgba(197, 160, 89, .15);
 }
 
 .deity-name {
@@ -950,7 +974,7 @@ body > * {
 .deity-desc {
   font-family: var(--font-display);
   font-size: .9rem;
-  color: rgba(242, 235, 221, .5);
+  color: rgba(244, 239, 230, .5);
   line-height: 2;
   font-weight: 700;
 }
@@ -977,7 +1001,7 @@ body > * {
   text-decoration: none;
   color: inherit;
   transition: all .5s var(--ease-smooth);
-  border: 1px solid rgba(212, 168, 67, .1);
+  border: 1px solid rgba(197, 160, 89, .1);
   position: relative;
   overflow: hidden;
 }
@@ -989,7 +1013,7 @@ body > * {
   left: 50%;
   width: 0;
   height: 0;
-  background: radial-gradient(circle, rgba(196, 54, 42, .05) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(166, 43, 43, .05) 0%, transparent 70%);
   border-radius: 50%;
   transform: translate(-50%, -50%);
   transition: all .6s var(--ease-smooth);
@@ -1062,7 +1086,7 @@ body > * {
 
 .feature-card--soon:hover {
   transform: none;
-  border-color: rgba(212, 168, 67, .1);
+  border-color: rgba(197, 160, 89, .1);
   box-shadow: none;
 }
 
@@ -1136,8 +1160,8 @@ body > * {
   flex-shrink: 0;
   width: 42px;
   height: 42px;
-  background: rgba(196, 54, 42, .06);
-  border: 1px solid rgba(196, 54, 42, .1);
+  background: rgba(166, 43, 43, .06);
+  border: 1px solid rgba(166, 43, 43, .1);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1173,7 +1197,7 @@ body > * {
   justify-content: center;
   color: var(--text-secondary);
   font-family: var(--font-display);
-  border: 1px solid rgba(212, 168, 67, .15);
+  border: 1px solid rgba(197, 160, 89, .15);
 }
 
 .map-placeholder .map-icon {
@@ -1226,7 +1250,7 @@ body > * {
   font-family: var(--font-display);
   font-size: .9rem;
   font-weight: 700;
-  color: rgba(242, 235, 221, .4);
+  color: rgba(244, 239, 230, .4);
   line-height: 2;
   max-width: 300px;
 }
@@ -1252,7 +1276,7 @@ body > * {
   font-family: var(--font-display);
   font-size: .9rem;
   font-weight: 700;
-  color: rgba(242, 235, 221, .4);
+  color: rgba(244, 239, 230, .4);
   transition: color .3s;
 }
 
@@ -1263,11 +1287,11 @@ body > * {
 .footer-bottom {
   text-align: center;
   padding-top: var(--space-md);
-  border-top: 1px solid rgba(212, 168, 67, .08);
+  border-top: 1px solid rgba(197, 160, 89, .08);
   font-family: var(--font-display);
   font-size: .8rem;
   font-weight: 700;
-  color: rgba(242, 235, 221, .2);
+  color: rgba(244, 239, 230, .2);
 }
 
 /* ---------- Responsive ---------- */
@@ -1356,13 +1380,13 @@ body > * {
 
 /* ---- 區塊層次：淡淡的暖色漸層增加深度 ---- */
 .about {
-  background: linear-gradient(180deg, #F8F1DE 0%, var(--bg-primary) 55%);
+  background: linear-gradient(180deg, #F8F4EC 0%, var(--bg-primary) 55%);
 }
 .features {
-  background: radial-gradient(120% 80% at 50% 0%, #F6EFDE 0%, var(--lotus-white) 60%);
+  background: radial-gradient(120% 80% at 50% 0%, #F4EFE6 0%, var(--lotus-white) 60%);
 }
 .visit {
-  background: linear-gradient(180deg, var(--bg-primary) 0%, #F1E7CE 100%);
+  background: linear-gradient(180deg, var(--bg-primary) 0%, #E8DFD1 100%);
 }
 
 /* ---- 功能卡片：2×2 平衡排列（原本 4 張會落單）---- */
@@ -1376,9 +1400,9 @@ body > * {
 
 /* ---- 功能卡片：質感升級（漸層、金邊、陰影、符籙式頂線）---- */
 .feature-card {
-  background: linear-gradient(165deg, #FBF7EC 0%, var(--rice-paper) 100%);
-  border: 1px solid rgba(212, 168, 67, .22);
-  border-top: 3px solid rgba(160, 125, 46, .4);
+  background: linear-gradient(165deg, #FAF6EE 0%, var(--rice-paper) 100%);
+  border: 1px solid rgba(197, 160, 89, .22);
+  border-top: 3px solid rgba(142, 114, 56, .4);
   box-shadow: 0 6px 22px rgba(74, 26, 10, .06);
 }
 .feature-card:hover {
@@ -1397,7 +1421,7 @@ body > * {
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: radial-gradient(circle at 50% 45%, rgba(232, 192, 104, .22), rgba(232, 192, 104, 0) 70%);
+  background: radial-gradient(circle at 50% 45%, rgba(197, 160, 89, .22), rgba(197, 160, 89, 0) 70%);
 }
 
 /* ---- 神明卡片：加深陰影與立體感 ---- */
@@ -1413,20 +1437,20 @@ body > * {
 /* 廟宇主視覺 */
 .about-image-placeholder {
   background:
-    radial-gradient(circle at 50% 35%, rgba(232, 192, 104, .12), transparent 62%),
+    radial-gradient(circle at 50% 35%, rgba(197, 160, 89, .12), transparent 62%),
     linear-gradient(135deg, var(--vermillion-deep), #3D2019);
 }
 .about-image-placeholder::after {
   content: '';
   position: absolute;
   inset: 18px;
-  border: 1px dashed rgba(232, 192, 104, .32);
+  border: 1px dashed rgba(197, 160, 89, .32);
   pointer-events: none;
 }
 .about-image-placeholder .placeholder-icon { opacity: .62; }
 .about-image-placeholder .placeholder-text {
   opacity: .6;
-  border: 1px solid rgba(232, 192, 104, .35);
+  border: 1px solid rgba(197, 160, 89, .35);
   padding: .3rem 1rem;
   border-radius: 2px;
 }
@@ -1435,21 +1459,21 @@ body > * {
 .map-placeholder {
   position: relative;
   background:
-    radial-gradient(circle at 50% 38%, rgba(212, 168, 67, .10), transparent 62%),
+    radial-gradient(circle at 50% 38%, rgba(197, 160, 89, .10), transparent 62%),
     var(--parchment-warm);
 }
 .map-placeholder::after {
   content: '';
   position: absolute;
   inset: 14px;
-  border: 1px dashed rgba(160, 125, 46, .35);
+  border: 1px dashed rgba(142, 114, 56, .35);
   pointer-events: none;
 }
 .map-placeholder .map-icon { opacity: .55; }
 
 /* ---- 統計數字：底線裝飾更精緻 ---- */
 .stat-item .stat-number {
-  text-shadow: 0 2px 10px rgba(184, 65, 46, .15);
+  text-shadow: 0 2px 10px rgba(166, 43, 43, .15);
 }
 
 /* ============================================
@@ -1466,7 +1490,7 @@ body > * {
 .deity-name,
 .feature-name,
 .footer-brand .footer-logo {
-  font-family: 'Noto Serif TC', 'LXGW WenKai TC', serif;
+  font-family: var(--font-plaque);
 }
 
 .hero-title {
@@ -1481,7 +1505,7 @@ body > * {
 .section-title {
   font-weight: 900;
   letter-spacing: .16em;
-  color: #5A1512;                 /* 深硃紅，牌匾漆色 */
+  color: #8B261D;                 /* 深硃紅，牌匾漆色 */
 }
 .section-title.on-dark {
   color: var(--parchment);
@@ -1496,7 +1520,7 @@ body > * {
 
 .about-text h3 {
   font-weight: 900;
-  color: #5A1512;
+  color: #8B261D;
   letter-spacing: .08em;
 }
 
@@ -1505,30 +1529,30 @@ body > * {
 
 /* 區塊小標由青瓷改為古樸金褐，更沉穩 */
 .section-label { color: var(--gold-dim); }
-.section-label--deity { color: rgba(232, 192, 104, .5); }
+.section-label--deity { color: rgba(197, 160, 89, .5); }
 
 /* ---- 沉穩配色：光區改為較深的陳年宣紙色 ---- */
 .about {
-  background: linear-gradient(180deg, #EFE4C6 0%, #E7DABA 100%);
+  background: linear-gradient(180deg, #F4EFE6 0%, #E8DFD1 100%);
 }
 .features {
-  background: radial-gradient(120% 80% at 50% 0%, #ECE0C0 0%, #E4D6B2 65%);
+  background: radial-gradient(120% 80% at 50% 0%, #F0EADE 0%, #E4DACA 65%);
 }
 .visit {
-  background: linear-gradient(180deg, #E9DCBC 0%, #E0D0A8 100%);
+  background: linear-gradient(180deg, #EDE6D9 0%, #E2D8C6 100%);
 }
 
 /* 卡片底色隨之沉穩，維持對比與立體 */
 .feature-card {
-  background: linear-gradient(165deg, #F7F0DC 0%, #EFE6CB 100%);
+  background: linear-gradient(165deg, #FAF6EE 0%, #F0EADE 100%);
   border-top-color: var(--gold-dim);
 }
 
 /* ---- 功能卡圖示：改為正式細金環，取代柔光暈 ---- */
 .feature-emoji {
-  background: radial-gradient(circle at 50% 45%, rgba(160, 125, 46, .12), transparent 68%);
-  border: 1px solid rgba(160, 125, 46, .38);
-  box-shadow: inset 0 0 12px rgba(160, 125, 46, .12);
+  background: radial-gradient(circle at 50% 45%, rgba(142, 114, 56, .12), transparent 68%);
+  border: 1px solid rgba(142, 114, 56, .38);
+  box-shadow: inset 0 0 12px rgba(142, 114, 56, .12);
 }
 
 /* 分隔線更古樸 */
@@ -1537,7 +1561,7 @@ body > * {
 /* 子頁標題（祈福牆 / 擲筊結果）同步採用厚重明體 */
 .pw-hero-title,
 .result-title {
-  font-family: 'Noto Serif TC', 'LXGW WenKai TC', serif;
+  font-family: var(--font-plaque);
   font-weight: 900;
   letter-spacing: .2em;
 }
@@ -1573,7 +1597,7 @@ select:focus-visible,
    最新消息（內容由 content.json 的 news 注入）
    ============================================ */
 .news {
-  background: linear-gradient(180deg, #E4D6B2 0%, #E9DCBC 100%);
+  background: linear-gradient(180deg, #E4DACA 0%, #EDE6D9 100%);
   position: relative;
   padding: var(--space-xl) 0;
   overflow: hidden;
@@ -1593,8 +1617,8 @@ select:focus-visible,
 
 .news-item {
   padding: var(--space-md) var(--space-sm);
-  background: linear-gradient(165deg, #F7F0DC 0%, #EFE6CB 100%);
-  border: 1px solid rgba(212, 168, 67, .22);
+  background: linear-gradient(165deg, #FAF6EE 0%, #F0EADE 100%);
+  border: 1px solid rgba(197, 160, 89, .22);
   /* 左側硃紅書籤，與祈福牆卡片的色條語彙呼應 */
   border-left: 3px solid var(--vermillion);
   box-shadow: 0 6px 22px rgba(74, 26, 10, .06);
@@ -1629,15 +1653,15 @@ select:focus-visible,
   color: var(--vermillion);
   letter-spacing: .08em;
   padding: .1rem .6rem;
-  border: 1px solid rgba(184, 65, 46, .45);
+  border: 1px solid rgba(166, 43, 43, .45);
   white-space: nowrap;
 }
 
 .news-title {
-  font-family: 'Noto Serif TC', 'LXGW WenKai TC', serif;
+  font-family: var(--font-plaque);
   font-size: 1.1rem;
   font-weight: 900;
-  color: #5A1512;
+  color: #8B261D;
   letter-spacing: .06em;
   line-height: 1.7;
   margin-bottom: .5rem;
@@ -1664,7 +1688,7 @@ select:focus-visible,
   width: 100%;
   height: 100%;
   min-height: 350px;
-  border: 1px solid rgba(212, 168, 67, .15);
+  border: 1px solid rgba(197, 160, 89, .15);
 }
 
 /* ============================================
@@ -1766,13 +1790,13 @@ html {
 }
 
 .hero-scroll-frame {
-  border-color: rgba(201, 160, 74, .18);
+  border-color: rgba(197, 160, 89, .18);
 }
 
 /* ---- 封面：眉標 ---- */
 .hero-subtitle-top {
   font-size: .88rem;
-  color: rgba(222, 184, 106, .92);
+  color: rgba(205, 175, 118, .92);
   letter-spacing: .58em;
   text-indent: .58em;
   margin-bottom: var(--space-md);
@@ -1786,7 +1810,7 @@ html {
   display: inline-block;
   padding: 1.5rem 3.6rem 1.7rem;
   background: linear-gradient(176deg, rgba(62, 32, 15, .55) 0%, rgba(28, 15, 9, .72) 100%);
-  border: 1px solid rgba(201, 160, 74, .5);
+  border: 1px solid rgba(197, 160, 89, .5);
   box-shadow:
     inset 0 0 34px rgba(0, 0, 0, .55),
     0 20px 60px rgba(0, 0, 0, .5);
@@ -1799,7 +1823,7 @@ html {
   content: '';
   position: absolute;
   inset: 7px;
-  border: 1px solid rgba(201, 160, 74, .24);
+  border: 1px solid rgba(197, 160, 89, .24);
   pointer-events: none;
 }
 
@@ -1808,7 +1832,7 @@ html {
   line-height: 1.16;
   /* 金箔漸層，模擬牌匾貼金 */
   background-image: linear-gradient(180deg,
-    #FCF0C8 0%, #F1D584 36%, #DCAF54 62%, #A97C2E 100%);
+    #F2E6C6 0%, #E3CB92 36%, #C5A059 62%, #8E7238 100%);
   animation: none;
   opacity: 1;
 }
@@ -1854,18 +1878,18 @@ html {
   width: clamp(26px, 7vw, 74px);
   height: 1px;
   flex-shrink: 0;
-  background: linear-gradient(90deg, transparent, rgba(201, 160, 74, .7));
+  background: linear-gradient(90deg, transparent, rgba(197, 160, 89, .7));
 }
 
 .hero-rule:last-child {
-  background: linear-gradient(90deg, rgba(201, 160, 74, .7), transparent);
+  background: linear-gradient(90deg, rgba(197, 160, 89, .7), transparent);
 }
 
 .hero-title-sub-text {
-  font-family: 'Noto Serif TC', 'LXGW WenKai TC', serif;
+  font-family: var(--font-plaque);
   font-size: clamp(1.3rem, 3.4vw, 2.05rem);
   font-weight: 700;
-  color: #CFA652;
+  color: #C5A059;
   letter-spacing: .36em;
   text-indent: .36em;
   white-space: nowrap;
@@ -1875,7 +1899,7 @@ html {
 .hero-motto {
   margin-top: var(--space-md);
   font-size: clamp(.95rem, 2.2vw, 1.15rem);
-  color: rgba(216, 176, 96, .8);
+  color: rgba(197, 160, 89, .8);
   letter-spacing: .3em;
   text-indent: .3em;
 }
@@ -1893,10 +1917,10 @@ html {
 }
 
 .hero-cta-group .btn-seal.hero-cta-primary {
-  color: #FCF2D8;
-  border-color: rgba(232, 192, 104, .8);
-  background: linear-gradient(180deg, #B8412E 0%, #8B1A1A 100%);
-  box-shadow: 0 10px 28px rgba(139, 26, 26, .42);
+  color: #F4EFE6;
+  border-color: rgba(197, 160, 89, .8);
+  background: linear-gradient(180deg, #A62B2B 0%, #8B261D 100%);
+  box-shadow: 0 10px 28px rgba(139, 38, 29, .42);
 }
 
 .hero-cta-group .btn-seal.hero-cta-primary::before {
@@ -1909,16 +1933,16 @@ html {
 }
 
 .hero-cta-group .btn-seal.hero-cta-primary:hover {
-  color: #FFF8E4;
+  color: #F4EFE6;
   border-color: var(--gold-bright);
 }
 
 .scroll-hint-inner {
-  color: rgba(210, 172, 88, .6);
+  color: rgba(197, 160, 89, .6);
 }
 
 .hero .scroll-arrow {
-  border-color: rgba(210, 172, 88, .6);
+  border-color: rgba(197, 160, 89, .6);
 }
 
 /* 其他深色頁面（擲筊 / 求籤 / 祈福牆）的底色改在各自的 CSS 檔，
@@ -1953,7 +1977,7 @@ html {
 }
 
 .feature-emoji {
-  color: #B08A38;
+  color: #8E7238;
   /* SVG 版不需要 emoji 的字級 */
   font-size: 0;
   transition: color .4s var(--ease-smooth), transform .4s var(--ease-smooth);
@@ -1966,7 +1990,7 @@ html {
 }
 
 .deity-icon--mark {
-  color: rgba(232, 192, 104, .72);
+  color: rgba(197, 160, 89, .72);
   font-size: 0;
 }
 
@@ -2025,7 +2049,7 @@ html {
       rgba(0, 0, 0, .16) 13px 15px),
     /* 中央略受光、四邊沉下去 */
     radial-gradient(126% 150% at 50% 38%, #4B2A14 0%, #341C0C 56%, #22120A 100%);
-  border: 2px solid #C9A34E;
+  border: 2px solid #C5A059;
   box-shadow:
     /* 上緣受光、下緣陰影＝板材厚度 */
     inset 0 1px 0 rgba(255, 228, 176, .26),
@@ -2039,13 +2063,13 @@ html {
 
 .hero-plaque::before {
   inset: 8px;
-  border-color: rgba(201, 160, 74, .34);
+  border-color: rgba(197, 160, 89, .34);
 }
 
 /* 木頭上的貼金要更亮才壓得住底色 */
 .hero-title {
   background-image: linear-gradient(180deg,
-    #FFF6D8 0%, #F6DC94 34%, #E4BA62 62%, #B98C39 100%);
+    #F2E6C6 0%, #E3CB92 34%, #C5A059 62%, #8E7238 100%);
   text-shadow: 0 3px 14px rgba(0, 0, 0, .55);
 }
 
@@ -2064,7 +2088,7 @@ html {
 }
 
 .dd-lamp-icon {
-  color: #B0742F;
+  color: #8E7238;
   font-size: 0;
 }
 
@@ -2075,12 +2099,12 @@ html {
 }
 
 .pw-radio-icon {
-  color: #8A6524;
+  color: #8E7238;
   font-size: 0;
 }
 
 .pw-radio-card input[type="radio"]:checked + .pw-radio-card-inner .pw-radio-icon {
-  color: #A8301B;
+  color: #A62B2B;
 }
 
 .info-icon--mark svg {
@@ -2164,8 +2188,8 @@ html {
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(ellipse at 22% 30%, rgba(232, 192, 104, .05) 0%, transparent 52%),
-    radial-gradient(ellipse at 78% 70%, rgba(184, 65, 46, .07) 0%, transparent 52%);
+    radial-gradient(ellipse at 22% 30%, rgba(197, 160, 89, .05) 0%, transparent 52%),
+    radial-gradient(ellipse at 78% 70%, rgba(166, 43, 43, .07) 0%, transparent 52%);
 }
 
 .news .lattice-pattern {
@@ -2173,34 +2197,34 @@ html {
 }
 
 .news .section-label {
-  color: rgba(232, 192, 104, .5);
+  color: rgba(197, 160, 89, .5);
 }
 
 .news .section-subtitle {
-  color: rgba(242, 235, 221, .45);
+  color: rgba(244, 239, 230, .45);
 }
 
 /* 卡片改深色版，與神明卡的質感一致 */
 .news-item {
   background: linear-gradient(160deg, rgba(255, 255, 255, .052), rgba(255, 255, 255, .016));
-  border: 1px solid rgba(212, 168, 67, .13);
+  border: 1px solid rgba(197, 160, 89, .13);
   border-left: 3px solid var(--vermillion-light);
   box-shadow: 0 6px 26px rgba(0, 0, 0, .2);
 }
 
 .news-item:hover {
-  border-color: rgba(212, 168, 67, .3);
+  border-color: rgba(197, 160, 89, .3);
   border-left-color: var(--vermillion-light);
   box-shadow: 0 18px 46px rgba(0, 0, 0, .32);
 }
 
 .news-date {
-  color: rgba(216, 176, 96, .7);
+  color: rgba(197, 160, 89, .7);
 }
 
 .news-tag {
-  color: rgba(232, 120, 96, .9);
-  border-color: rgba(232, 120, 96, .45);
+  color: rgba(200, 110, 92, .9);
+  border-color: rgba(200, 110, 92, .45);
 }
 
 .news-title {
@@ -2208,7 +2232,7 @@ html {
 }
 
 .news-body {
-  color: rgba(242, 235, 221, .48);
+  color: rgba(244, 239, 230, .48);
 }
 
 /* 區塊隱藏時，上下的波浪分隔也要一起收起 */
@@ -2282,7 +2306,7 @@ html {
 .visit .section-title-ornament::after {
   width: auto;
   flex: 1;
-  background: linear-gradient(90deg, var(--gold), rgba(160, 125, 46, .12));
+  background: linear-gradient(90deg, var(--gold), rgba(142, 114, 56, .12));
 }
 
 @media (max-width: 768px) {
@@ -2293,4 +2317,97 @@ html {
     flex: none;
     background: linear-gradient(90deg, transparent, var(--gold), transparent);
   }
+}
+
+/* ============================================================
+   古法框線與直書題字（2026-08）
+   ------------------------------------------------------------
+   1. 卡片一律改為傳統雙線框（回字框），不用現代卡片的圓角＋浮影
+   2. 提供 .vertical-text / .vertical-lines：籤詩、對聯、匾額題字的直書排版
+   ============================================================ */
+
+/* ---- 1. 雙線框 ------------------------------------------------
+   border-style: double 會以「線—空—線」畫出三等分的邊框，正是廟宇
+   匾額、籤紙、神龕慣用的雙線。寬度需 ≥3px 才畫得出三等分。
+   ---------------------------------------------------------------- */
+/* 功能卡：原本是 1px 細框＋一條頂線，改為整圈金雙線 */
+.feature-card {
+  border: 3px double var(--gold-dim);
+  border-top: 3px double var(--gold-dim);
+  border-radius: 0;
+  /* 浮影收到幾乎看不見，改由框線界定卡片 */
+  box-shadow: 0 2px 10px rgba(74, 26, 10, .05);
+}
+
+.feature-card:hover {
+  border-color: var(--gold);
+  border-top-color: var(--gold);
+  box-shadow: 0 8px 24px rgba(74, 26, 10, .1);
+}
+
+/* 神明卡：深色底上的金雙線 */
+.deity-card {
+  border: 3px double rgba(197, 160, 89, .3);
+  border-radius: 0;
+}
+
+.deity-card:hover {
+  border-color: rgba(197, 160, 89, .5);
+}
+
+/* 最新消息：右三邊雙線，左邊維持硃紅書籤 */
+.news-item {
+  border: 3px double rgba(197, 160, 89, .28);
+  border-left: 4px solid var(--vermillion);
+}
+
+.news-item:hover {
+  border-color: rgba(197, 160, 89, .48);
+  border-left-color: var(--vermillion);
+}
+
+/* 參拜資訊的圖示框 */
+.info-icon {
+  border: 3px double rgba(166, 43, 43, .28);
+  border-radius: 0;
+}
+
+/* ---- 2. 直書題字 ----------------------------------------------
+   .vertical-text 本身只負責「轉成直書」，字級、行距、間距交給
+   使用它的元素決定。
+   ※ 直書時 letter-spacing 是往下推，橫向置中不會偏移，所以套用
+     此類別的元素必須把 text-indent 歸零（見 css/styles.css 的
+     字距補償說明）。
+   ---------------------------------------------------------------- */
+.vertical-text {
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  text-indent: 0;
+  /* 直書的標點要用直書字形 */
+  font-feature-settings: 'vert' 1;
+}
+
+/* 多行直書由右往左讀 */
+.vertical-lines {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* 首頁的對句是楹聯性質的題字，改用楷書 */
+.hero-motto {
+  font-family: var(--font-inscription);
+}
+
+/* ---- 淺色區塊的區塊小標：金褐調到足夠的對比 ----
+   小標是 12.8px 的小字，用 --gold-dim（#8E7238）在宣紙底上只有
+   3.97:1，達不到 WCAG AA 對小字要求的 4.5:1。深色區塊的小標另有
+   覆寫，這裡把深色區塊的小標排除在外。 */
+.section-label:not(.section-label--deity) {
+  color: #7E6430;
+}
+
+.news .section-label {
+  color: rgba(197, 160, 89, .5);
 }

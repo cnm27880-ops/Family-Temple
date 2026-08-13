@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
   /* ---------- 共用工具（js/temple-common.js） ---------- */
   var Guard = window.TempleGuard;
   var Modal = window.TempleModal;
+  var Fate = window.TempleFate;
 
   // 與祈福牆共用同一組寫入次數限制（兩者寫進同一張表）
   var writeLimit = Guard
@@ -223,11 +224,26 @@ document.addEventListener('DOMContentLoaded', function () {
     updateStreakDisplay();
   }
 
+  /**
+   * 取筊象。
+   * 三種筊象各三分之一為底，再依參拜的誠意（停留時間、擲之前
+   * 靜候多久）微調——聖筊最多升到約 0.39，另兩種等量遞減。
+   * 詳見 js/temple-common.js 的 TempleFate。
+   */
   function drawResult() {
-    var rand = Math.random();
-    if (rand < 1 / 3) { return 'sheng'; }
-    if (rand < 2 / 3) { return 'xiao'; }
-    return 'yin';
+    if (!Fate) {
+      var rand = Math.random();
+      if (rand < 1 / 3) { return 'sheng'; }
+      if (rand < 2 / 3) { return 'xiao'; }
+      return 'yin';
+    }
+
+    var lean = Fate.sincerity() * 0.06;
+    return Fate.weighted({
+      sheng: 1 / 3 + lean,
+      xiao: 1 / 3 - lean / 2,
+      yin: 1 / 3 - lean / 2
+    });
   }
 
   function throwJiaobei() {
@@ -246,7 +262,8 @@ document.addEventListener('DOMContentLoaded', function () {
       altarScene.classList.add('shake-screen');
     }
 
-    // 3. After 1.5s, compute random result and switch to Stage 4
+    // 3. 筊在桌上轉停要一點時間；太快出結果會像在按扭蛋機，
+    //    停約 2.6 秒才取筊象，儀式感才立得住。
     setTimeout(function () {
       var thrown = drawResult();
 
@@ -264,7 +281,7 @@ document.addEventListener('DOMContentLoaded', function () {
       } else {
         showResult(thrown);
       }
-    }, 1500);
+    }, 2600);
   }
 
   if (throwBtn) {
