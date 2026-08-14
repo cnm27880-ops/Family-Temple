@@ -93,8 +93,16 @@ document.addEventListener('DOMContentLoaded', function () {
    Site Content Loader
    讀取 content.json 並注入到頁面。
    要修改網站文字，請編輯 content.json，不需動這裡。
+
+   例外：神明介紹另外會去 Supabase 讀一次（gods_info），
+   有資料就以後台維護的版本為準——廟方在 admin.html 改完，
+   前台重新整理即可看到，不必動檔案。
    ============================================ */
 function loadContent(observeInk) {
+  // 神明卡片有兩個來源，兩邊都是非同步，回應順序不保證。
+  // 記住目前畫面上是哪一份，後端版本一旦上場就不讓 content.json 蓋回去。
+  var deitiesSource = 'content';
+
   fetch('content.json', { cache: 'no-cache' })
     .then(function (res) {
       if (!res.ok) { throw new Error('HTTP ' + res.status); }
@@ -102,7 +110,7 @@ function loadContent(observeInk) {
     })
     .then(function (data) {
       renderAbout(data.about);
-      renderDeities(data.deities, observeInk);
+      renderDeities(data.deities, observeInk, 'content');
       renderNews(data.news, observeInk);
       renderVisit(data.visit);
     })
@@ -112,6 +120,27 @@ function loadContent(observeInk) {
         console.warn('內容載入失敗（content.json）：', err);
       }
     });
+
+  loadDeitiesFromBackend(observeInk);
+
+  /**
+   * 從 Supabase 讀取已發布的神明介紹。
+   * 後端沒設定、資料表還沒建立、或一筆資料都沒有時，
+   * 就靜靜地維持 content.json 的內容，不讓首頁開天窗。
+   */
+  function loadDeitiesFromBackend(observeInk) {
+    var api = window.TempleAPI;
+    if (!api || !api.ready || typeof api.fetchDeities !== 'function') { return; }
+
+    api.fetchDeities().then(function (rows) {
+      if (!rows || rows.length === 0) { return; }
+      renderDeities(rows, observeInk, 'backend');
+    }).catch(function (err) {
+      if (window.console && console.warn) {
+        console.warn('神明資料載入失敗（Supabase），改用 content.json：', err);
+      }
+    });
+  }
 
   /* ---- helpers ---- */
   // 判斷欄位是否已由廟方填寫。還留著【】佔位字樣的就算沒填。
@@ -214,9 +243,20 @@ function loadContent(observeInk) {
       '<path d="M7.5 25h17" opacity=".45"/>' +
     '</svg>';
 
-  function renderDeities(deities, observeInk) {
+  /**
+   * 畫出神明卡片。
+   * @param {Array}  deities   神明清單（content.json 或 Supabase 皆為同一格式）
+   * @param {Function} observeInk
+   * @param {string} source    'content'（content.json）或 'backend'（Supabase）
+   */
+  function renderDeities(deities, observeInk, source) {
     var grid = document.getElementById('deitiesGrid');
     if (!grid || !Array.isArray(deities)) { return; }
+
+    // 後台版本已經上場，就不讓稍晚才回來的 content.json 蓋掉
+    if (source !== 'backend' && deitiesSource === 'backend') { return; }
+    if (source === 'backend') { deitiesSource = 'backend'; }
+
     grid.textContent = '';
     deities.forEach(function (d, i) {
       var card = document.createElement('div');
@@ -224,7 +264,15 @@ function loadContent(observeInk) {
 
       var icon = document.createElement('div');
       icon.className = 'deity-icon';
-      if (d.icon) {
+      if (d.image) {
+        // 後台上傳的神像照片：裁成圓形填滿既有的圓形圖示位
+        icon.classList.add('deity-icon--photo');
+        var photo = document.createElement('img');
+        photo.src = d.image;
+        photo.alt = (d.name || '神明') + '聖像';
+        photo.loading = 'lazy';
+        icon.appendChild(photo);
+      } else if (d.icon) {
         icon.textContent = d.icon;
       } else {
         icon.classList.add('deity-icon--mark');

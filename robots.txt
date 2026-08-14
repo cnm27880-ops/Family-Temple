@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
 
+# 廟務管理後台不需要被搜尋引擎收錄（admin.html 本身也帶 noindex）
+Disallow: /admin.html
+
 Sitemap: https://cnm27880-ops.github.io/Family-Temple/sitemap.xml

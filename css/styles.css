@@ -1994,6 +1994,22 @@ html {
   font-size: 0;
 }
 
+/* 後台（admin.html）上傳神像照片後，圓形圖示位改放照片。
+   沿用 .deity-icon 的尺寸、圓形與描金外框，只是把中央的
+   線稿換成裁切後的相片，深色區塊裡的節奏維持不變。 */
+.deity-icon--photo {
+  overflow: hidden;
+  font-size: 0;
+  background: #2A1410;
+}
+
+.deity-icon--photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 /* ============================================================
    封面修正與匾額實體化（2026-07・第二輪）
    ============================================================ */
