@@ -1,0 +1,624 @@
+/* ============================================
+   天虛宮 — 管理員後台
+   --------------------------------------------
+   沿用 css/styles.css 的設計語彙（米黃宣紙底、雙線框、
+   硃砂紅與沉金），避免後台變成一般管理介面的白底卡片。
+   本檔只新增 .ad- 前綴的樣式，不覆寫全站既有規則。
+   ============================================ */
+
+/* ---------- 版面骨架 ---------- */
+.ad-page {
+  background: var(--parchment);
+  min-height: 100vh;
+  padding: calc(var(--space-xl) + 1rem) 0 var(--space-xl);
+  position: relative;
+  overflow: hidden;
+}
+
+.ad-page .swastika-pattern {
+  opacity: .35;
+}
+
+.ad-shell {
+  width: min(1080px, calc(100% - 2.5rem));
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* 區塊標題：與全站 section-header 同一套節奏，但尺度收斂一些 */
+.ad-heading {
+  text-align: center;
+  margin-bottom: var(--space-md);
+}
+
+.ad-heading .ad-label {
+  display: block;
+  font-family: var(--font-body);
+  font-size: .72rem;
+  letter-spacing: .38em;
+  color: var(--gold-dim);
+  margin-bottom: .6rem;
+}
+
+.ad-heading .ad-title {
+  font-family: var(--font-plaque);
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  font-weight: 900;
+  letter-spacing: .16em;
+  color: var(--ink-dark);
+}
+
+.ad-heading .ad-sub {
+  font-family: var(--font-display);
+  font-size: .9rem;
+  color: var(--text-secondary);
+  margin-top: .5rem;
+  letter-spacing: .04em;
+}
+
+/* ---------- 雙線框（宮廷匾額感的基本容器） ----------
+   外框硃砂細線，內縮 5px 再一道沉金細線，
+   與 .btn-seal 的 ::before 內框是同一個作法。 */
+.ad-frame {
+  position: relative;
+  background: var(--parchment-light);
+  border: 2px solid rgba(166, 43, 43, .55);
+  padding: var(--space-md);
+  box-shadow: 0 10px 34px rgba(44, 26, 14, .1);
+}
+
+.ad-frame::before {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  border: 1px solid rgba(197, 160, 89, .6);
+  pointer-events: none;
+}
+
+/* 四角描金：呼應首頁 .image-frame 的角飾 */
+.ad-frame::after {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  pointer-events: none;
+  background:
+    linear-gradient(var(--gold), var(--gold)) left    top    / 18px 2px no-repeat,
+    linear-gradient(var(--gold), var(--gold)) left    top    / 2px 18px no-repeat,
+    linear-gradient(var(--gold), var(--gold)) right   top    / 18px 2px no-repeat,
+    linear-gradient(var(--gold), var(--gold)) right   top    / 2px 18px no-repeat,
+    linear-gradient(var(--gold), var(--gold)) left    bottom / 18px 2px no-repeat,
+    linear-gradient(var(--gold), var(--gold)) left    bottom / 2px 18px no-repeat,
+    linear-gradient(var(--gold), var(--gold)) right   bottom / 18px 2px no-repeat,
+    linear-gradient(var(--gold), var(--gold)) right   bottom / 2px 18px no-repeat;
+}
+
+
+/* ---------- 登入區 ---------- */
+.ad-login {
+  width: min(440px, 100%);
+  margin: 0 auto;
+}
+
+.ad-login-plaque {
+  text-align: center;
+  margin-bottom: var(--space-md);
+}
+
+.ad-login-plaque .ad-plaque-name {
+  font-family: var(--font-plaque);
+  font-size: 1.8rem;
+  font-weight: 900;
+  letter-spacing: .3em;
+  text-indent: .3em;
+  color: var(--vermillion);
+}
+
+.ad-login-plaque .ad-plaque-rule {
+  display: block;
+  width: 64px;
+  height: 1px;
+  margin: .9rem auto 0;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.ad-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.ad-field {
+  display: flex;
+  flex-direction: column;
+  gap: .45rem;
+}
+
+.ad-field--inline {
+  flex-direction: row;
+  align-items: center;
+  gap: .6rem;
+}
+
+.ad-label {
+  font-family: var(--font-display);
+  font-size: .88rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  color: var(--text-secondary);
+}
+
+.ad-hint {
+  font-family: var(--font-display);
+  font-size: .78rem;
+  color: var(--text-secondary);
+  opacity: .8;
+  line-height: 1.8;
+}
+
+.ad-input,
+.ad-textarea,
+.ad-select {
+  width: 100%;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  color: var(--text-primary);
+  background: var(--parchment);
+  border: 1px solid rgba(166, 43, 43, .22);
+  padding: .75rem .95rem;
+  outline: none;
+  border-radius: 0;
+  transition: border-color .3s, box-shadow .3s;
+}
+
+.ad-textarea {
+  min-height: 150px;
+  line-height: 2;
+  resize: vertical;
+}
+
+.ad-input:focus,
+.ad-textarea:focus,
+.ad-select:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(197, 160, 89, .14);
+}
+
+.ad-input.error,
+.ad-textarea.error {
+  border-color: var(--vermillion);
+  box-shadow: 0 0 0 3px rgba(166, 43, 43, .1);
+}
+
+.ad-input[type="number"] {
+  max-width: 140px;
+}
+
+/* 訊息條：錯誤（硃砂）與成功（翡翠）各一，語意用色不用預設紅綠 */
+.ad-message {
+  font-family: var(--font-display);
+  font-size: .88rem;
+  line-height: 1.9;
+  padding: .65rem .9rem;
+  border-left: 3px solid var(--vermillion);
+  background: rgba(166, 43, 43, .07);
+  color: var(--vermillion-deep);
+}
+
+.ad-message--ok {
+  border-left-color: var(--jade);
+  background: rgba(46, 90, 68, .08);
+  color: var(--jade);
+}
+
+
+/* ---------- 後台頂欄 ---------- */
+.ad-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+  padding: .9rem 1.2rem;
+  background: var(--sandalwood);
+  border: 1px solid rgba(197, 160, 89, .35);
+  color: var(--parchment);
+}
+
+.ad-bar-who {
+  font-family: var(--font-display);
+  font-size: .9rem;
+  letter-spacing: .05em;
+}
+
+.ad-bar-who strong {
+  color: var(--gold-bright);
+  font-weight: 700;
+}
+
+.ad-bar-actions {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+}
+
+/* 深色頂欄上的沉金按鈕（.btn-gold 在淺底上偏淡，這裡加一點對比） */
+.ad-bar .btn-gold {
+  padding: .5rem 1.3rem;
+  font-size: .85rem;
+  color: var(--gold-bright);
+  border-color: rgba(197, 160, 89, .55);
+}
+
+
+/* ---------- 分頁籤 ---------- */
+.ad-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem;
+  justify-content: center;
+  margin-bottom: var(--space-md);
+}
+
+.ad-tab {
+  font-family: var(--font-display);
+  font-size: .95rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  padding: .6rem 1.5rem;
+  color: var(--vermillion);
+  background: transparent;
+  border: 1px solid rgba(166, 43, 43, .35);
+  cursor: pointer;
+  transition: background .3s var(--ease-smooth), color .3s var(--ease-smooth);
+}
+
+.ad-tab:hover {
+  background: rgba(166, 43, 43, .07);
+}
+
+.ad-tab[aria-selected="true"] {
+  background: var(--vermillion);
+  border-color: var(--vermillion-deep);
+  color: var(--parchment-light);
+}
+
+
+/* ---------- 兩欄工作區（表單 ｜ 清單） ---------- */
+.ad-columns {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: var(--space-md);
+  align-items: start;
+}
+
+.ad-panel-title {
+  font-family: var(--font-plaque);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  color: var(--ink-dark);
+  margin-bottom: .3rem;
+  padding-bottom: .6rem;
+  border-bottom: 1px solid rgba(197, 160, 89, .45);
+}
+
+.ad-actions-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem;
+  align-items: center;
+}
+
+
+/* ---------- 圖片上傳 ---------- */
+.ad-upload {
+  display: flex;
+  gap: var(--space-sm);
+  align-items: flex-start;
+}
+
+.ad-thumb {
+  flex: 0 0 96px;
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--vermillion-deep), #4A1A1A);
+  border: 1px solid rgba(197, 160, 89, .45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(197, 160, 89, .7);
+}
+
+.ad-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.ad-thumb svg {
+  width: 42px;
+  height: 42px;
+}
+
+.ad-upload-side {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+/* 原生檔案選擇鈕外觀各瀏覽器不一，改用 label 當按鈕、輸入框藏起來 */
+.ad-file-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ad-file-name {
+  font-family: var(--font-display);
+  font-size: .8rem;
+  color: var(--text-secondary);
+  word-break: break-all;
+}
+
+
+/* ---------- 清單（神明／心願共用） ---------- */
+.ad-list {
+  display: flex;
+  flex-direction: column;
+  gap: .9rem;
+  max-height: 640px;
+  overflow-y: auto;
+  padding-right: .35rem;
+}
+
+.ad-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.ad-list::-webkit-scrollbar-thumb {
+  background: var(--gold-dim);
+}
+
+.ad-item {
+  position: relative;
+  background: var(--parchment);
+  border: 1px solid rgba(197, 160, 89, .45);
+  border-left: 3px solid var(--gold-dim);
+  padding: .9rem 1rem;
+  transition: border-color .3s, background .3s;
+}
+
+.ad-item:hover {
+  border-color: rgba(166, 43, 43, .4);
+  background: var(--parchment-light);
+}
+
+.ad-item.is-editing {
+  border-left-color: var(--vermillion);
+  background: rgba(197, 160, 89, .1);
+}
+
+/* 已隱藏／待審的心願、未發布的神明：整列壓低，一眼看得出不在前台 */
+.ad-item.is-muted {
+  opacity: .62;
+  border-left-color: var(--ink-medium);
+}
+
+.ad-item-head {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: .5rem;
+  margin-bottom: .35rem;
+}
+
+.ad-item-name {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  color: var(--ink-dark);
+}
+
+.ad-item-meta {
+  font-family: var(--font-display);
+  font-size: .76rem;
+  color: var(--text-secondary);
+  letter-spacing: .05em;
+}
+
+.ad-item-text {
+  font-family: var(--font-display);
+  font-size: .88rem;
+  line-height: 1.95;
+  color: var(--text-secondary);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.ad-item-foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .45rem;
+  margin-top: .7rem;
+}
+
+.ad-item-thumb {
+  float: right;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 0 .4rem .8rem;
+  border: 1px solid rgba(197, 160, 89, .5);
+}
+
+/* 狀態小印：待審／已通過／已隱藏／私密 */
+.ad-chip {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: .72rem;
+  letter-spacing: .12em;
+  padding: .12rem .55rem;
+  border: 1px solid currentColor;
+  color: var(--gold-dim);
+  white-space: nowrap;
+}
+
+.ad-chip--approved { color: var(--jade); }
+.ad-chip--pending  { color: var(--bronze); }
+.ad-chip--hidden   { color: var(--ink-medium); }
+.ad-chip--private  { color: var(--vermillion); }
+
+/* 列內的小操作鈕。危險操作（刪除）用硃砂實心，其餘走描邊。 */
+.ad-btn {
+  font-family: var(--font-display);
+  font-size: .8rem;
+  letter-spacing: .08em;
+  padding: .32rem .9rem;
+  border: 1px solid rgba(166, 43, 43, .4);
+  color: var(--vermillion);
+  background: transparent;
+  cursor: pointer;
+  transition: background .25s var(--ease-smooth), color .25s var(--ease-smooth),
+              border-color .25s var(--ease-smooth), opacity .25s;
+}
+
+.ad-btn:hover:not(:disabled) {
+  background: rgba(166, 43, 43, .1);
+}
+
+.ad-btn:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+}
+
+.ad-btn--jade {
+  color: var(--jade);
+  border-color: rgba(46, 90, 68, .45);
+}
+
+.ad-btn--jade:hover:not(:disabled) {
+  background: rgba(46, 90, 68, .1);
+}
+
+.ad-btn--muted {
+  color: var(--ink-medium);
+  border-color: rgba(92, 85, 74, .4);
+}
+
+.ad-btn--muted:hover:not(:disabled) {
+  background: rgba(92, 85, 74, .09);
+}
+
+.ad-btn--danger {
+  color: var(--parchment-light);
+  background: var(--vermillion);
+  border-color: var(--vermillion-deep);
+}
+
+.ad-btn--danger:hover:not(:disabled) {
+  background: var(--vermillion-deep);
+}
+
+/* 空狀態／載入中 */
+.ad-empty {
+  text-align: center;
+  padding: var(--space-md) var(--space-sm);
+  font-family: var(--font-display);
+  font-size: .9rem;
+  color: var(--text-secondary);
+  border: 1px dashed rgba(197, 160, 89, .5);
+}
+
+.ad-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .45rem;
+  margin-bottom: .9rem;
+}
+
+/* 目前選取的篩選：與分頁籤同一套「選中即蓋硃砂」的表現 */
+.ad-filters .ad-btn[aria-pressed="true"] {
+  background: var(--vermillion);
+  border-color: var(--vermillion-deep);
+  color: var(--parchment-light);
+}
+
+.ad-more {
+  margin-top: .9rem;
+  text-align: center;
+}
+
+/* 勾選（發布／下架） */
+.ad-check {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-size: .9rem;
+  color: var(--text-secondary);
+}
+
+.ad-check input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--vermillion);
+  cursor: pointer;
+}
+
+
+/* ---------- 響應式 ---------- */
+@media (max-width: 900px) {
+  .ad-columns {
+    grid-template-columns: 1fr;
+  }
+
+  .ad-list {
+    max-height: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .ad-page {
+    padding-top: calc(var(--space-lg) + 1.5rem);
+  }
+
+  .ad-frame {
+    padding: var(--space-sm);
+  }
+
+  .ad-bar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .ad-upload {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .ad-upload-side {
+    width: 100%;
+  }
+}
+
+/* 尊重「減少動態效果」設定 */
+@media (prefers-reduced-motion: reduce) {
+  .ad-tab,
+  .ad-btn,
+  .ad-item {
+    transition: none;
+  }
+}

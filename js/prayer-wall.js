@@ -324,7 +324,9 @@ document.addEventListener('DOMContentLoaded', function () {
       }).then(function (prayer) {
         writeLimit.record();
 
-        if (!isPrivate) {
+        // 私密心願不會回傳內容（RLS 讀不到）；廟方若改採「先審後貼」，
+        // 公開心願也會拿到 null。這兩種情況牆上都不該立刻多一張卡片。
+        if (prayer) {
           // 只有在目前分類看得到這則心願時才插到最前面
           if (activeFilter === '全部' || activeFilter === prayer.type) {
             var tempDiv = document.createElement('div');
@@ -334,10 +336,11 @@ document.addEventListener('DOMContentLoaded', function () {
             cardsContainer.insertBefore(newCard, cardsContainer.firstChild);
             offset += 1;
           }
-          showSuccess('心願已送出，神明已知曉 ✓');
-        } else {
-          showSuccess('心願已悄悄送達廟方，神明已知曉 ✓');
         }
+
+        showSuccess(isPrivate
+          ? '心願已悄悄送達廟方，神明已知曉 ✓'
+          : '心願已送出，神明已知曉 ✓');
 
         // Clear form
         nickInput.value = '';

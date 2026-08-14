@@ -10,8 +10,8 @@
                  script-src 'self';
                  style-src 'self' https://fonts.googleapis.com 'unsafe-inline';
                  font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net;
-                 img-src 'self' data:;
-                 connect-src 'self';
+                 img-src 'self' data: https://kljxjzfbbiinbpzjuaqz.supabase.co;
+                 connect-src 'self' https://kljxjzfbbiinbpzjuaqz.supabase.co;
                  frame-src https://www.google.com;
                  object-src 'none';
                  base-uri 'self';
@@ -382,6 +382,10 @@
 
 <!-- JavaScript (defer: loads after HTML parsing) -->
 <script src="js/layout.js" defer></script>
+<!-- 神明介紹改為動態讀取 Supabase 的 gods_info（後台 admin.html 維護），
+     沒有資料或後端未設定時，js/main.js 會自動退回 content.json。 -->
+<script src="js/supabase-config.js" defer></script>
+<script src="js/supabase-api.js" defer></script>
 <script src="js/main.js" defer></script>
 </body>
 </html>
